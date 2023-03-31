@@ -1,0 +1,49 @@
+html,
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background: #e2e2e2;
+}
+.login-wrapper {
+  height: 85%;
+  .login-form {
+    min-width: 100%;
+    max-width: 500px;
+    width: 100%;
+  }
+  .login-full-width,
+  .btn-block {
+    width: 100%;
+  }
+  mat-card-header {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: 700;
+    mat-card-title {
+      font-size: 30px;
+      margin: 0;
+    }
+  }
+  .mat-card {
+    padding: 40px 70px 50px;
+  }
+  .mat-stroked-button {
+    border: 1px solid currentColor;
+    line-height: 54px;
+    background: #fff7fa;
+  }
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 0.8375em 0;
+  }
+}
+
+section {
+  display: table;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 10px;
+  width: 480px;
+}
