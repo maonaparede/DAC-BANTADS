@@ -1,0 +1,22 @@
+.container-cliente-home {
+  margin: 50px 0 0 50px;
+  font-size: 24px;
+}
+
+.informacao {
+  margin: 10px 0;
+}
+
+.cliente-nome {
+  margin-bottom: 50px;
+  font-size: 36px;
+}
+
+.informacao-saldo-negativo, .informacao-saldo, .informacao-gerente, .informacao-limite {
+  font-size: 18px;
+  margin-left: 20px;
+}
+
+.informacao-saldo-negativo {
+  color: red;
+}
