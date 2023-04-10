@@ -9,7 +9,6 @@ import 'bootstrap';
 })
 
 export class LoginComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
@@ -26,13 +25,13 @@ export class LoginComponent implements OnInit {
   });
 
 
-    var input = $('.validate-input .input100');
+    const input = $('.validate-input .input100');
 
     $('.validate-form').on('submit', function () {
-      var check = true;
+      let check = true;
 
-      for (var i = 0; i < input.length; i++) {
-        if (validate(input[i]) == false) {
+      for (let i = 0; i < input.length; i++) {
+        if (!validate(input[i])) {
           showValidate(input[i]);
           check = false;
         }
@@ -55,29 +54,25 @@ export class LoginComponent implements OnInit {
         return false;
       }
 
-      if (input.name === 'password' && typeof value === 'string' && (value.trim().length < 6 || value.trim().length > 18)) {
-        return false;
-      }
-
-      return true;
+      return !(input.name === 'password' && typeof value === 'string' && (value.trim().length < 6 || value.trim().length > 18));
     }
 
 
 
     function showValidate(input: any) {
-      var thisAlert = $(input).parent();
+      const thisAlert = $(input).parent();
 
       $(thisAlert).addClass('alert-validate');
     }
 
     function hideValidate(input: any) {
-      var thisAlert = $(input).parent();
+      const thisAlert = $(input).parent();
 
       $(thisAlert).removeClass('alert-validate');
     }
 
 
-    var showPass = 0;
+    let showPass = 0;
     $('.btn-show-pass').on('click', function () {
       if (showPass == 0) {
         $(this).next('input').attr('type', 'text');
