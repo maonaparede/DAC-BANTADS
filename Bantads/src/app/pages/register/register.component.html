@@ -31,8 +31,10 @@
             <input
               matInput
               name="cpf"
+              mask="000.000.000-00"
               type="text"
               formControlName="cpf"
+              CpfValidator
             />
           </mat-form-field>
 
@@ -53,6 +55,10 @@
             <mat-label>Salário (R$)</mat-label>
             <input
               matInput
+              mask="separator.2"
+              [thousandSeparator]="'.'"
+              [decimalMarker]="','"
+              prefix="R$ "
               name="salary"
               formControlName="salary"
             />
@@ -63,8 +69,10 @@
             <input
               matInput
               name="cep"
-              mask="00.000-000"
+              mask="00000-000"
               formControlName="cep"
+              #cep
+              (change)="getAddress(cep.value)"
             />
           </mat-form-field>
         </div>
@@ -74,7 +82,9 @@
             <input
               matInput
               name="state"
-              formControlName="street"
+              formControlName="state"
+              [value]="this.state"
+              disabled
             />
           </mat-form-field>
 
@@ -83,7 +93,9 @@
             <input
               matInput
               name="city"
-              formControlName="street"
+              formControlName="city"
+              [value]="this.city"
+              disabled
             />
           </mat-form-field>
         </div>
@@ -94,6 +106,8 @@
               matInput
               name="street"
               formControlName="street"
+              [value]="this.street"
+              disabled
             />
           </mat-form-field>
 
@@ -115,10 +129,36 @@
             formControlName="complement"
           />
         </mat-form-field>
+        <div fxLayout="row">
+          <mat-form-field class="register-full-width space">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              name="password"
+              formControlName="password"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="register-full-width space">
+            <mat-label>Password Confirm</mat-label>
+            <input
+              matInput
+              type="password"
+              name="password-confirm"
+              formControlName="password-confirm"
+            />
+          </mat-form-field>
+        </div>
       </mat-card-content>
       <section>
         <div class="example-button-row">
-          <button mat-raised-button color="primary">Register</button>
+          <button
+            mat-raised-button color="primary"
+            type="submit"
+          >
+            Register
+          </button>
         </div>
       </section>
     </form>
