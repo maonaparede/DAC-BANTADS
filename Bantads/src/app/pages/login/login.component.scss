@@ -11,7 +11,7 @@ body, html {
 /*---------------------------------------------*/
 a {
 	font-size: 14px;
-    font-weight: 400;
+  font-weight: 400;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0;
@@ -27,7 +27,7 @@ a:focus {
 
 a:hover {
   text-decoration: none;
-  color: linear-gradient(to left, #21d4fd, #b721ff);
+  color: #ffde59;
 }
 
 /*---------------------------------------------*/
@@ -37,7 +37,7 @@ h1,h2,h3,h4,h5,h6 {
 
 p {
 	font-size: 14px;
-    font-weight: 400;
+  font-weight: 500;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0;
@@ -103,13 +103,13 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [Utility ]*/
 .txt1{
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13px;
   color: #666666;
   line-height: 1.5;  }
 
 .txt2{
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13px;
   color: #333333;
   line-height: 1.5;
@@ -193,7 +193,7 @@ iframe {
 }
 
 .input100{
-  font-weight: 400;
+  font-weight: 600;
   font-size: 15px;
   color: #b5b5b5;
   line-height: 1.2;
@@ -348,7 +348,7 @@ iframe {
 }
 
 .login100-form-btn {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   color: #1d1a2d;
   line-height: 1.2;
@@ -403,7 +403,7 @@ iframe {
   transform: translateY(-50%);
   right: 0px;
   pointer-events: none;
-  font-weight: 400;
+  font-weight: 500;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
