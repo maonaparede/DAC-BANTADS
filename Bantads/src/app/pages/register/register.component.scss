@@ -1,72 +1,312 @@
-html,
 body {
+  margin: 0;
+  padding: 0;
+  background-color: #1D1A2D;
+}
+
+/* Containers */
+
+main {
+  height: 90vh;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#form-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
   height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  min-height: 100vh;
-  background: #e2e2e2;
-}
-.register-wrapper {
-  height: 85%;
-  .register-form {
-    min-width: 100%;
-    max-width: 550px;
-    width: 100%;
-  }
-  .register-full-width,
-  .btn-block {
-    width: 90%;
-  }
+  margin-top: 35px;
+  margin-bottom: 35px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 
-  .space {
-    margin: 0 5px;
-  }
-
-  mat-card-header {
-    text-align: center;
-    width: 100%;
-    display: block;
-    font-weight: 700;
-    mat-card-title {
-      font-size: 30px;
-      margin: 0;
-    }
-  }
-  .mat-card {
-    padding: 40px 70px 50px;
-  }
-  .mat-stroked-button {
-    border: 1px solid currentColor;
-    line-height: 54px;
-    background: #fff7fa;
-  }
-  .mat-form-field {
-    padding-right: 8px;
-  }
-  .mat-form-field-appearance-legacy .mat-form-field-infix {
-    padding: 0.8375em 0;
-  }
+  background: #242038;
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  margin-right: 50px;
+  margin-top: 35px;
+  margin-bottom: 35px;
+
+  background: #1D1A2D;
+}
+
+.title {
+  margin: 35px 0 0 100px;
+  width: 90%;
+  height: 40%;
+  background-color: #242038;
+}
+
+.local-title {
+  margin: 0 0 0 100px;
+  width: 90%;
+  height: 20%;
+  background-color: #242038;
+}
+
+.basic-form {
+  display: flex;
+  flex-direction: row;
+  margin: -110px 0 0 100px;
+  width: 90%;
+  height: 50%;
+
+  background-color: #242038;
+}
+
+.line{
+  border: 3px solid #FFDE59;
+  width: 40%;
+  margin-top: -2px;
+  margin-bottom: 5px;
+}
+
+.space-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.basic-form-left-container {
+  display: flex;
+  height: 220px;
+  width: 55%;
+  margin-right: 5px;
+  margin-top: -20px;
+
+  background-color: #242038;
+}
+
+.basic-form-right {
+  display: flex;
+  height: 220px;
+  width: 45%;
+  margin-right: 40px;
+  background-color: #242038;
+}
+
+.local-form {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 50px 100px;
+  width: 90%;
+  height: 30%;
+
+  background-color: #242038;
+}
+
+/* Containers Content */
+
+#logo-container img {
+  align-self: center;
+  height: 200px;
+  width: 200px;
+  margin-top: 15px;
+}
+
+.text {
+  align-items: flex-start;
+  margin-left: 35px;
+  margin-bottom: 20px;
+
+  color: #ffff;
+}
+
+.text p {
+  font-family: 'Poppins';
+  font-weight: 200;
+}
+
+.text h1 {
+  font-family: 'Poppins';
+  font-style: bold;
+  font-weight: 800;
+}
+
+
+#form-container h1 {
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffff;
+}
+
+#form-container hr {
+  width: 40%;
+  color: #FFDE59;
+  height: 2px;
+}
+
+.form-group-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0;
+}
+
+.form-group-row {
+  display: flex;
+  flex-direction: row;
+}
+
+
+button {
+  background-color: #242038; /* Green */
+  border: solid #FFDE59 1px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  align-self: flex-end;
+  margin-right: 120px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  transition:         0.08s ease-in;
+  -o-transition:      0.08s ease-in;
+  -ms-transition:     0.08s ease-in;
+  -moz-transition:    0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.fill:hover {
+  color: #242038;
+}
+
+.fill:before {
+  content: "";
+  position: absolute;
+  border-radius: 25px;
+  background: #FFDE59;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.09s ease-in;
+}
+
+.fill:hover:before {
+  right: 0;
+}
+
+.basic-form-left-container {
+  width: 60%;
+  margin-top: 10px;
+}
+
+.basic-form-left-container input {
+  margin: 20px 0;
+}
+
+.basic-form-left-container .form-group-row input#confirma-senha {
+  margin-left: 65px;
+}
+
+.basic-form-right-container {
+  width: 35%;
+  margin-top: 10px;
+}
+
+.basic-form-right-container form {
+  justify-content: center;
+  width: 100%;
+}
+
+.basic-form-right-container form input {
+  margin: 20px 0;
+  width: 80%;
+}
+
+.local-form-right-container {
+  width: 55%;
+  margin-top: 10px;
+}
+
+.local-form-right-container input {
+  margin: 20px 0;
+}
+
+.local-form-left-container {
+  width: 35%;
+  margin-top: 10px;
+}
+
+.local-form-left-container form {
+  justify-content: center;
+  width: 100%;
+}
+
+.local-form-left-container form input {
+  margin: 20px 0;
+  width: 80%;
+}
+
+.local-form-right-container form input#endereco {
+  color: #545454;
+  border-bottom: 2px solid #545454;
+
+  width: 75%;
+}
+
+.local-form-right-container form input#numero {
+  width: 14%;
+  margin-right: 20px;
+}
+
+.local-form-right-container form input#cidade {
+  color: #545454;
+  border-bottom: 2px solid #545454;
+
+  margin-right: 20px;
+}
+
+.local-form-right-container form input#estado {
+  color: #545454;
+  border-bottom: 2px solid #545454;
+}
+
+input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
+
+}
+input[type=number] {
+ -moz-appearance: textfield;
+ appearance: textfield;
+
 }
 
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+
+form input {
+  border: none;
+  border-bottom: 2px solid grey;
+  background-color: #242038;
+  color: #ffff;
+  outline: none;
 }
 
-section {
-  display: table;
+a {
+  position: absolute;
+  color: #fff;
+  top: 2rem;
+  left: 4rem;
+  text-decoration: none;
+  padding: 0.5rem 0.7rem;
+
+  border: 2px solid #FFDE59;
+  border-radius: 25px;
 }
 
-.example-button-row .mat-mdc-button-base {
-  margin: 10px;
-  width: 480px;
-}

@@ -12,6 +12,8 @@
 /* ------------------------------------ */
 .text-white {color: white;}
 .text-black {color: black;}
+.text-grey {color: #ADADAD;}
+.bold {font-weight: 800;}
 
 .text-hov-white:hover {color: white;}
 
@@ -23,6 +25,10 @@
 .text-left {text-align: left;}
 .text-right {text-align: right;}
 .text-middle {vertical-align: middle;}
+
+.full-width {width: 100%;}
+.red-border {border: 1px solid red;}
+.underline {border-bottom: 3px solid #C0C0C0;   width: fit-content; }
 
 
 

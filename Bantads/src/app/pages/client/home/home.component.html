@@ -1,30 +1,37 @@
-<div
-  fxLayout="column"
-  fxLayoutAlign="center start"
-  class="container-cliente-home"
->
-  <div class="informacao cliente-nome">
-    Bem vindo sdlkkmf
-  </div>
-  <div class="informacao" fxLayout="row">
-    Saldo Atual:
-    <div class="informacao-saldo">
-      50 reais
+<app-navbar></app-navbar>
+
+<body>
+  <main>
+    <div class="balance-container column-direction">
+        <h1>Saldo</h1>
+        <div class="line-yellow"></div>
+
+      <div class="content column-direction">
+        <p class="balance">1,000.00</p>
+        <div class="line-grey"></div>
+        <p>R$</p>
+      </div>
     </div>
-    <div
-      class="informacao-saldo-negativo"
-    >
-      -60
+    <div class="divider">
+      <div class="yellow-divider"></div>
     </div>
-  </div>
-  <div class="informacao" fxLayout="row">
-    Limite:
-    <div class="informacao-limite">
-40reais de limite
+    <div class="actions-container row-direction">
+      <div class="deposit column-direction">
+        <img src="../../../../assets/icons/deposit.png" alt="">
+        <button class="fill-bottom" type="button">Depósito</button>
+      </div>
+      <div class="withdraw column-direction">
+        <img src="../../../../assets/icons/withdraw.png" alt="">
+        <button class="fill-top" type="button">Saque</button>
+      </div>
+      <div class="transfer column-direction">
+        <img src="../../../../assets/icons/transferir.png" alt="">
+        <button class="fill-left" type="button">Transferência</button>
+      </div>
+      <div class="bank-statement column-direction">
+        <img src="../../../../assets/icons/extrato-bancario.png" alt="">
+        <button class="fill-right" type="button">Extrato</button>
+      </div>
     </div>
-  </div>
-  <div class="informacao" fxLayout="row">
-    Gerente:
-    <div class="informacao-gerente">Arthur</div>
-  </div>
-</div>
+  </main>
+</body>
