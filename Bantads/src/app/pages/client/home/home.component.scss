@@ -1,22 +1,224 @@
-.container-cliente-home {
-  margin: 50px 0 0 50px;
-  font-size: 24px;
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 92.9vh;
+  background-color: #1D1A2D;
+  display: flex;
+
+  font-family: 'Poppins';
+
 }
 
-.informacao {
-  margin: 10px 0;
+main {
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
+  margin-top: 60px;
+  background-color: #242038;
+  max-height: 85%;
+  width: 1320px;
+  border-radius: 25px;
 }
 
-.cliente-nome {
-  margin-bottom: 50px;
-  font-size: 36px;
+.row-direction{
+  flex-direction: row;
 }
 
-.informacao-saldo-negativo, .informacao-saldo, .informacao-gerente, .informacao-limite {
-  font-size: 18px;
-  margin-left: 20px;
+.column-direction{
+  flex-direction: column;
 }
 
-.informacao-saldo-negativo {
-  color: red;
+.balance-container {
+  display: flex;
+  align-items: center;
+  margin: 35px 0 35px 50px;
+  width: 33%;
 }
+
+.line-yellow{
+  border: 3px solid #FFDE59;
+  width: 40%;
+  margin-top: -2px;
+  margin-bottom: 5px;
+}
+
+.line-grey{
+  border: 3px solid #C0C0C0;
+  width: 70%;
+  margin-top: -15px;
+  margin-bottom: 5px;
+}
+
+h1 {
+  font-family: 'Poppins';
+  font-weight: 600;
+  text-align: center;
+
+  color: #ffff;
+}
+
+p {
+  font-family: 'Poppins';
+  font-weight: 800;
+  font-size: 50px;
+  color: #ADADAD;
+}
+
+.divider {
+  margin: 35px 0 35px 50px;
+  max-width: 2%;
+  width: 5px;
+  background-color: #FFDE59;
+}
+
+.actions-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 35px 50px 35px 50px;
+  width: 65%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.yellow-divider{
+  border: 3px solid #FFDE59;
+  height: 100%;
+  width: 100%;
+  margin-top: -2px;
+  margin-bottom: 5px;
+}
+
+.deposit {
+  display: flex;
+  width: 50%;
+}
+
+.withdraw {
+  display: flex;
+  width: 50%;
+}
+
+.transfer {
+  display: flex;
+  width: 50%;
+}
+
+.bank-statement {
+  display: flex;
+  width: 50%;
+}
+
+img {
+  margin: 0 auto;
+  height: 150px;
+  width: 150px;
+}
+
+button {
+  position: relative;
+  height: 30px;
+  width: 150px;
+  margin: 25px auto;
+  font-weight: 400;
+  font-size: 12px;
+  color: #ffff;
+  border: 2px #FFDE59 solid;
+  border-radius: 25px;
+  outline: 0;
+  overflow:hidden;
+  background: none;
+  z-index: 1;
+  cursor: pointer;
+  transition:         0.08s ease-in;
+  -o-transition:      0.08s ease-in;
+  -ms-transition:     0.08s ease-in;
+  -moz-transition:    0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+}
+
+.fill-bottom:hover {
+  color: #242038;
+}
+
+.fill-bottom:before {
+  content: "";
+  position: absolute;
+  background: #FFDE59;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in;
+}
+
+.fill-bottom:hover:before {
+  top: 0;
+}
+
+.fill-top:hover {
+  color: #242038;
+}
+
+.fill-top:before {
+  content: "";
+  position: absolute;
+  background: #FFDE59;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: bottom 0.09s ease-in;
+}
+
+.fill-top:hover:before {
+  bottom: 0;
+}
+
+.fill-left:hover {
+  color: #242038;
+}
+
+.fill-left:before {
+  content: "";
+  position: absolute;
+  background: #FFDE59;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.09s ease-in;
+}
+
+.fill-left:hover:before {
+  right: 0;
+}
+
+.fill-right:hover {
+  color: #242038;
+}
+
+.fill-right:before {
+  content: "";
+  position: absolute;
+  background: #FFDE59;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: left 0.09s ease-in;
+}
+
+.fill-right:hover:before {
+  left: 0;
+}
+
+

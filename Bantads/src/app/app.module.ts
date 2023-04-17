@@ -17,6 +17,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {RegisterComponent} from "./pages/register/register.component";
 import { ClientHomeComponent } from './pages/client/home/home.component';
+import { ManagerHomeComponent } from './pages/manager/home/home.component';
+import { AdminHomeComponent } from './pages/admin/home/home.component';
+import { ListComponent } from './pages/admin/list/list.component';
+
 import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
@@ -26,6 +30,9 @@ import { NgxMaskModule } from 'ngx-mask'
     LoginComponent,
     RegisterComponent,
     ClientHomeComponent,
+    ManagerHomeComponent,
+    AdminHomeComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,

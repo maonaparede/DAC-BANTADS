@@ -1,166 +1,75 @@
-<div class="register-wrapper" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Register</mat-card-title>
-    </mat-card-header>
-    <form class="register-form">
-      <mat-card-content>
-        <div fxLayout="row">
-          <mat-form-field class="register-full-width space">
-            <mat-label>Nome</mat-label>
-            <input
-              matInput
-              name="name"
-              formControlName="name"
-            />
-          </mat-form-field>
+<body>
+  <main>
+    <div id="form-container">
+      <div class="title">
+        <h1>Informações Básicas</h1>
+        <div class="line"></div>
+      </div>
 
-          <mat-form-field class="register-full-width space">
-            <mat-label>E-mail</mat-label>
-            <input
-              matInput
-              type="email"
-              name="email"
-              formControlName="email"
-            />
-          </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field class="register-full-width space">
-            <mat-label>CPF</mat-label>
-            <input
-              matInput
-              name="cpf"
-              mask="000.000.000-00"
-              type="text"
-              formControlName="cpf"
-              CpfValidator
-            />
-          </mat-form-field>
+      <div class="basic-form">
 
+        <div class="basic-form-left-container">
+          <form class="basic-form-left">
+            <div class="form-group-column ">
+              <input requires type="text" placeholder="* Nome" id="nome" name="nome">
+              <input required type="email" placeholder="* E-mail" id="email" name="emails">
+            </div>
+            <div class="form-group-row form-group">
+              <input required type="password" placeholder="* Insira a senha" id="senha" name="senha">
+              <input required type="password" placeholder="* Confirme a senha" id="confirma-senha"
+                name="confirma-senha">
+            </div>
+          </form>
+        </div>
 
-          <mat-form-field class="register-full-width space">
-            <mat-label>Telefone</mat-label>
-            <input
-              matInput
-              mask="(00) 00000-0000"
-              type="text"
-              name="phone"
-              formControlName="phone"
-            />
-          </mat-form-field>
+        <div class="basic-form-right-container">
+          <form class="basic-form-right">
+            <div class="form-group-column">
+              <input required type="text" placeholder="* CPF" id="cpf" name="cpf">
+              <input type="text" placeholder="* Telefone" id="telefone" name="telefone">
+              <input type="text" placeholder="* Salário (R$)" id="salario" name="salario">
+            </div>
+          </form>
         </div>
-        <div fxLayout="row">
-          <mat-form-field class="register-full-width space">
-            <mat-label>Salário (R$)</mat-label>
-            <input
-              matInput
-              mask="separator.2"
-              [thousandSeparator]="'.'"
-              [decimalMarker]="','"
-              prefix="R$ "
-              name="salary"
-              formControlName="salary"
-            />
-          </mat-form-field>
+      </div>
+      <div class="local-title">
+        <h1>Informações de Localização</h1>
+        <div class="line"></div>
+      </div>
+      <div class="local-form">
+        <div class="local-form-left-container">
+          <form class="local-form-left">
+            <div class="form-group-column">
+              <input type="text" placeholder="* CEP" id="cep" name="cep">
+              <input type="text" placeholder="Complemento" id="complemento" name="complemento">
+            </div>
+          </form>
+        </div>
 
-          <mat-form-field class="register-full-width space">
-            <mat-label>CEP</mat-label>
-            <input
-              matInput
-              name="cep"
-              mask="00000-000"
-              formControlName="cep"
-              #cep
-              (change)="getAddress(cep.value)"
-            />
-          </mat-form-field>
+        <div class="local-form-right-container">
+          <form class="local-form-right">
+            <div class="form-group-column">
+              <div class="form-group-row space-between">
+                <input type="text" placeholder="Endereço" id="endereco" name="endereco" disabled>
+                <input type="number" placeholder="* Número" id="numero" name="numero">
+              </div>
+              <div class="form-group-row space-between">
+                <input type="text" placeholder="Estado" id="estado" name="estado" disabled>
+                <input type="text" placeholder="Cidade" id="cidade" name="cidade" disabled>
+              </div>
+            </div>
+          </form>
         </div>
-        <div fxLayout="row">
-          <mat-form-field appearance="fill" class="register-full-width space">
-            <mat-label>Estado</mat-label>
-            <input
-              matInput
-              name="state"
-              formControlName="state"
-              [value]="this.state"
-              disabled
-            />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="register-full-width space">
-            <mat-label>Cidade</mat-label>
-            <input
-              matInput
-              name="city"
-              formControlName="city"
-              [value]="this.city"
-              disabled
-            />
-          </mat-form-field>
-        </div>
-        <div fxLayout="row">
-          <mat-form-field class="register-full-width space">
-            <mat-label>Rua</mat-label>
-            <input
-              matInput
-              name="street"
-              formControlName="street"
-              [value]="this.street"
-              disabled
-            />
-          </mat-form-field>
-
-          <mat-form-field class="register-full-width space">
-            <mat-label>Número</mat-label>
-            <input
-              matInput
-              type="text"
-              name="number"
-              formControlName="number"
-            />
-          </mat-form-field>
-        </div>
-        <mat-form-field class="register-full-width">
-          <mat-label>Complemento</mat-label>
-          <input
-            matInput
-            name="complement"
-            formControlName="complement"
-          />
-        </mat-form-field>
-        <div fxLayout="row">
-          <mat-form-field class="register-full-width space">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              type="password"
-              name="password"
-              formControlName="password"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="register-full-width space">
-            <mat-label>Password Confirm</mat-label>
-            <input
-              matInput
-              type="password"
-              name="password-confirm"
-              formControlName="password-confirm"
-            />
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-      <section>
-        <div class="example-button-row">
-          <button
-            mat-raised-button color="primary"
-            type="submit"
-          >
-            Register
-          </button>
-        </div>
-      </section>
-    </form>
-  </mat-card>
-</div>
+      </div>
+      <button class="fill" type="submit">REGISTRAR-SE</button>
+    </div>
+    <div id="logo-container">
+      <a href="login" class="back-btn"> <- </a>
+      <div class="text">
+        <h1>Bem-vindo ao<br> Bantads!</h1>
+        <p>Preencha o formulário ao lado para fazer parte do nosso time!</p>
+      </div>
+      <img src="../../../assets/icons/logo.png" alt="Bantads Logo">
+    </div>
+  </main>
+</body>
