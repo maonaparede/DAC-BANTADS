@@ -1,75 +1,113 @@
 <body>
-  <main>
-    <div id="form-container">
-      <div class="title">
-        <h1>Informações Básicas</h1>
-        <div class="line"></div>
-      </div>
+<main>
+  <div id="form-container">
+    <div class="title">
+      <h1>Informações Básicas</h1>
+      <div class="line"></div>
+    </div>
 
+    <form [formGroup]="form">
       <div class="basic-form">
-
-        <div class="basic-form-left-container">
-          <form class="basic-form-left">
+        <div class="basic-form-left-container" style="margin-top: -30px">
+          <section class="basic-form-left">
             <div class="form-group-column ">
-              <input requires type="text" placeholder="* Nome" id="nome" name="nome">
-              <input required type="email" placeholder="* E-mail" id="email" name="emails">
+              <input formControlName="name" id="nome" name="name" placeholder="* Nome" required type="text">
+              <input formControlName="email" id="email" name="email" placeholder="* E-mail" required
+                     type="email">
             </div>
             <div class="form-group-row form-group">
-              <input required type="password" placeholder="* Insira a senha" id="senha" name="senha">
-              <input required type="password" placeholder="* Confirme a senha" id="confirma-senha"
-                name="confirma-senha">
+              <input
+                id="senha"
+                name="password"
+                placeholder="* Insira a senha"
+                required
+                type="password"
+              >
+              <input id="confirma-senha" name="confirmPassword"
+                     placeholder="* Confirme a senha"
+                     required type="password">
             </div>
-          </form>
+          </section>
         </div>
 
         <div class="basic-form-right-container">
-          <form class="basic-form-right">
+          <section class="basic-form-right" style="margin-top: -30px">
             <div class="form-group-column">
-              <input required type="text" placeholder="* CPF" id="cpf" name="cpf">
-              <input type="text" placeholder="* Telefone" id="telefone" name="telefone">
-              <input type="text" placeholder="* Salário (R$)" id="salario" name="salario">
+              <input CpfValidator
+                     formControlName="cpf"
+                     id="cpf"
+                     mask="000.000.000-00"
+                     name="cpf"
+                     placeholder="* CPF"
+                     required
+                     type="text">
+              <input formControlName="telephone" id="telefone" mask="(00) 00000-0000" name="telephone"
+                     placeholder="* Telefone"
+                     type="text">
+              <input [decimalMarker]="','" [thousandSeparator]="'.'" formControlName="salary"
+                     id="salario"
+                     mask="separator.2"
+                     name="salary"
+                     placeholder="* Salário (R$)"
+                     prefix="R$ "
+                     type="text">
             </div>
-          </form>
+          </section>
         </div>
       </div>
       <div class="local-title">
         <h1>Informações de Localização</h1>
         <div class="line"></div>
       </div>
-      <div class="local-form">
+      <div class="local-form" style="margin-top: -50px">
         <div class="local-form-left-container">
-          <form class="local-form-left">
+          <section class="local-form-left">
             <div class="form-group-column">
-              <input type="text" placeholder="* CEP" id="cep" name="cep">
-              <input type="text" placeholder="Complemento" id="complemento" name="complemento">
+              <input #cep (change)="getAddress(cep.value)"
+                     formControlName="cep"
+                     id="cep"
+                     mask="00000-000"
+                     name="cep"
+                     placeholder="* CEP"
+                     type="text"
+              >
+              <input formControlName="complement" id="complemento" name="complement" placeholder="Complemento"
+                     type="text">
             </div>
-          </form>
+          </section>
         </div>
 
         <div class="local-form-right-container">
-          <form class="local-form-right">
+          <section class="local-form-right">
             <div class="form-group-column">
               <div class="form-group-row space-between">
-                <input type="text" placeholder="Endereço" id="endereco" name="endereco" disabled>
-                <input type="number" placeholder="* Número" id="numero" name="numero">
+                <input [value]="this.address" disabled formControlName="address"
+                       id="endereco"
+                       name="address"
+                       placeholder="Endereço" type="text">
+                <input formControlName="number" id="numero" name="number" placeholder="* N°"
+                       type="number">
               </div>
               <div class="form-group-row space-between">
-                <input type="text" placeholder="Estado" id="estado" name="estado" disabled>
-                <input type="text" placeholder="Cidade" id="cidade" name="cidade" disabled>
+                <input [value]="this.state" formControlName="state" id="estado" name="state" placeholder="Estado"
+                       type="text">
+                <input [value]="this.city" formControlName="city" id="cidade" name="city" placeholder="Cidade"
+                       type="text">
               </div>
             </div>
-          </form>
+          </section>
         </div>
       </div>
-      <button class="fill" type="submit">REGISTRAR-SE</button>
+    </form>
+    <button class="fill" type="submit">REGISTRAR-SE</button>
+  </div>
+  <div id="logo-container">
+    <a class="back-btn" href="login"> <- </a>
+    <div class="text">
+      <h1>Bem-vindo ao<br> Bantads!</h1>
+      <p>Preencha o formulário ao lado para fazer parte do nosso time!</p>
     </div>
-    <div id="logo-container">
-      <a href="login" class="back-btn"> <- </a>
-      <div class="text">
-        <h1>Bem-vindo ao<br> Bantads!</h1>
-        <p>Preencha o formulário ao lado para fazer parte do nosso time!</p>
-      </div>
-      <img src="../../../assets/icons/logo.png" alt="Bantads Logo">
-    </div>
-  </main>
+    <img alt="Bantads Logo" src="../../../assets/icons/logo.png">
+  </div>
+</main>
 </body>
