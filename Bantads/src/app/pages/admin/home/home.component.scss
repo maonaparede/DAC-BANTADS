@@ -50,14 +50,30 @@ main {
 }
 
 .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 15px 37px;
   width: 25%;
   height: 20rem;
   border-radius: 25px;
+  background-color: #1D1A2D;
 }
 
-p {
+.p-title {
   font-weight: 800;
   color: #fff;
   margin-top: 5px;
+}
+
+.card-img {
+  justify-self: flex-start;
+  width: 8rem;
+  height: 8rem;
+}
+
+.card p{
+  margin: 0;
+  color: #fff;
+  font-size: 12px;
 }
