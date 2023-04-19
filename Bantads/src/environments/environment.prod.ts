@@ -1,6 +1,6 @@
 export const environment = {
-  production: false,
+  production: true,
   url: 'http://localhost:5000/',
-  name: 'development environment',
+  name: 'production environment',
   code: 1001,
 };

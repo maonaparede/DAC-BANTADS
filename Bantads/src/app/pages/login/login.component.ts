@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import 'bootstrap';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -11,34 +11,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss', '../../../_utils.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm = {
-    email: '',
-    password: '',
-  };
   isSubmitted: boolean = false;
   isValidUser: boolean = false;
-  form: FormGroup = new FormGroup({});
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl(null, Validators.required),
+    password: new FormControl(null, Validators.required),
+  });
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
-  //
-  // onSubmit() {
-  //   this.authService.login(this.form.value.email, this.form.value.password).subscribe(data => {
-  //     if (data) {
-  //       this.router.navigate(['/client/home']); // If valid and route to card
-  //     }
-  //     this.isSubmitted = true;
-  //     this.isValidUser = data; // false show error message
-  //   });
-  // }
-
   ngOnInit() {
-    // this.form = this.fb.group({
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required]),
-    // });
-
     $('.input100').each(function (_index: number, element: HTMLElement) {
       const input = element as HTMLInputElement;
       input.addEventListener('blur', function () {
@@ -122,12 +104,16 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    try {
-      await this.authService.login(this.loginForm);
+    if (this.loginForm.invalid) {
+      return false;
+    } else {
+      try {
+        await this.authService.login(this.loginForm);
 
-      this.router.navigate(['']);
-    } catch (err) {
-      console.error(err);
+        return this.router.navigate(['']);
+      } catch (err) {
+        return console.error(err);
+      }
     }
   }
 }

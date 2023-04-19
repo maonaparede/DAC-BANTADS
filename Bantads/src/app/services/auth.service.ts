@@ -1,50 +1,50 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser, IUserLogin } from '../DTOs/user';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Login } from '../models/login.model';
+import { User } from '../models/user.model';
 import { FormGroup } from '@angular/forms';
+
+const LS_USER: string = 'user';
+const LS_ACCOUNT: string = 'conta';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isAuthenticate: boolean = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+  private apUrlAuth = environment.url;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  getUsers() {
-    return this.http.get('users');
+  public get userLogged(): User {
+    return localStorage[LS_USER] ? JSON.parse(localStorage[LS_USER]) : null;
   }
 
-  async login(userForm: IUserLogin) {
-    const result = await this.http.post<any>(`${environment.api}/users`, userForm).subscribe(res => {
-      const user = res.find((u: IUser) => {
-        return u.email === userForm.email && u.email === userForm.password;
-      });
-      if (user) {
-        alert('login Success');
-        this.router.navigate(['client/home']);
-      }
-    });
-    return false;
+  public set userLogged(user: User) {
+    localStorage[LS_USER] = JSON.stringify(user);
   }
 
-  createAccount(account: FormGroup) {
-    this.http.post<any>(`${environment.api}/users`, account).subscribe(
-      res => {
-        alert('Signup Successfull');
-        this.router.navigate(['login']);
-      },
-      err => {
-        alert('Something went wrong!');
-      },
-    );
-
-    return new Promise(resolve => {
-      resolve(true);
-    });
+  public get clientAccount(): User {
+    return localStorage[LS_ACCOUNT] ? JSON.parse(localStorage[LS_ACCOUNT]) : null;
   }
 
-  deleteSession() {}
+  public set clientAccount(user: User) {
+    localStorage[LS_ACCOUNT] = JSON.stringify(user);
+  }
+
+  login(login: FormGroup): Observable<User> {
+    return this.http.post<Login>(this.apUrlAuth + '/login', this.httpOptions);
+  }
+
+  logout(): Observable<Object> {
+    delete localStorage[LS_USER];
+    delete localStorage[LS_ACCOUNT];
+    return this.http.post<Login>(this.apUrlAuth + '/logout', this.httpOptions);
+  }
 }
