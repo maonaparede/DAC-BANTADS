@@ -83,6 +83,7 @@ p {
   justify-content: center;
   align-items: center;
   height: 80%;
+  margin-top: 2.5rem;
 }
 
 .yellow-divider{
@@ -219,6 +220,15 @@ button {
 
 .fill-right:hover:before {
   left: 0;
+}
+
+.numbers-border {
+  display: flex;
+  align-items: center;
+  width: 25rem;
+  margin: 10px 0 0 0;
+  background-color: #1D1A2D;
+  border-radius: 10px;
 }
 
 

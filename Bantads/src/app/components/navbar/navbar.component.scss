@@ -48,12 +48,19 @@ p {
   margin-bottom: 5px;
 }
 
+.nav-header {
+  width: 15%;
+}
+
+.nav-center {
+  width: 75%;
+}
+
 .nav-end {
   align-items: center;
   display: flex;
-  flex: 0 0 15%;
   justify-content: space-around;
-  width: 200px;
+  width: 15%;
   height: 32px;
 }
 
@@ -78,4 +85,5 @@ p {
 
 .nav-end img {
   width: 25px;
+  margin-left: 6rem;
 }
