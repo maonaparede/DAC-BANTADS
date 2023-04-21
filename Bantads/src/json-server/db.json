@@ -1,0 +1,46 @@
+{
+  "userType": {
+    "user": 1,
+    "manager": 2,
+    "admin": 3
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "user1",
+      "address": "street1",
+      "city": "city1",
+      "state": "state1",
+      "password": "password1",
+      "email": "email@email.com",
+      "complement": "complement1",
+      "cpf": "09299034982",
+      "cep": 83085260,
+      "number": 1,
+      "salary": 10,
+      "phone": 41995716043,
+      "userType": 1
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "idUser": 1,
+      "date": "2022-12-13T19:07:09.071Z",
+      "active": true,
+      "balance": 750,
+      "idManager": 12,
+      "salary": 15
+    }
+  ],
+  "transaction": [
+    {
+      "id": 1,
+      "idClient": 1,
+      "transactionType": 1,
+      "valueTransaction": 3000,
+      "balance": 3000,
+      "date": 1669345200000
+    }
+  ]
+}
