@@ -1,15 +1,40 @@
 <app-navbar></app-navbar>
 
 <body>
+  <app-modal *ngIf="showModal">
+    <Button (click)="closeModal()">X</Button>
+    <div *ngIf="deposito">
+      <p>teste deposito</p>
+    </div>
+    <div *ngIf="saque">
+      <p>teste saque</p>
+    </div>
+    <div *ngIf="transferencia">
+      <p>teste transferencia</p>
+    </div>
+    <div *ngIf="extrato">
+      <p>teste extrato</p>
+    </div>
+  </app-modal>
+
   <main>
     <div class="balance-container column-direction">
+      <div class="content column-direction">
         <h1>Saldo</h1>
         <div class="line-yellow"></div>
+        <div class="numbers-border column-direction">
+          <p class="balance">1,000.00</p>
+          <div class="line-grey"></div>
+          <p>R$</p>
+        </div>
 
-      <div class="content column-direction">
-        <p class="balance">1,000.00</p>
-        <div class="line-grey"></div>
-        <p>R$</p>
+        <h1>Crédito</h1>
+        <div class="line-yellow"></div>
+        <div class="numbers-border column-direction">
+          <p class="credit">1,000.00</p>
+          <div class="line-grey"></div>
+          <p>R$</p>
+        </div>
       </div>
     </div>
     <div class="divider">
@@ -18,19 +43,20 @@
     <div class="actions-container row-direction">
       <div class="deposit column-direction">
         <img src="../../../../assets/icons/deposit.png" alt="">
-        <button class="fill-bottom" type="button">Depósito</button>
+        <button class="fill-bottom" type="button" (click)="openModal(1)">Depósito</button>
+
       </div>
       <div class="withdraw column-direction">
         <img src="../../../../assets/icons/withdraw.png" alt="">
-        <button class="fill-top" type="button">Saque</button>
+        <button class="fill-top" type="button" (click)="openModal(2)">Saque</button>
       </div>
       <div class="transfer column-direction">
         <img src="../../../../assets/icons/transferir.png" alt="">
-        <button class="fill-left" type="button">Transferência</button>
+        <button class="fill-left" type="button" (click)="openModal(3)">Transferência</button>
       </div>
       <div class="bank-statement column-direction">
         <img src="../../../../assets/icons/extrato-bancario.png" alt="">
-        <button class="fill-right" type="button">Extrato</button>
+        <button class="fill-right" type="button" (click)="openModal(4)">Extrato</button>
       </div>
     </div>
   </main>

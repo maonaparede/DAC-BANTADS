@@ -11,7 +11,7 @@ import { ClientService } from '../../services/client.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss', './../../../_utils.scss'],
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;

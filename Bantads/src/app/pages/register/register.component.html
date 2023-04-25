@@ -8,9 +8,9 @@
 
     <form (ngSubmit)='register()' [formGroup]='registerForm'>
       <div class='basic-form'>
-        <div class='basic-form-left-container' style='margin-top: -30px'>
+        <div class='basic-form-left-container'>
           <section class='basic-form-left'>
-            <div class='form-group-column '>
+            <div class='form-group-column'>
               <input formControlName='name' id='nome' name='name' placeholder='* Nome' required type='text'>
               <input formControlName='email' id='email' name='email' placeholder='* E-mail' required
                      type='email'>
@@ -31,8 +31,7 @@
         </div>
 
         <div class='basic-form-right-container'>
-          <section class='basic-form-right' style='margin-top: -30px'>
-            <div class='form-group-column'>
+          <section class='basic-form-right form-group-column'>
               <input CpfValidator
                      formControlName='cpf'
                      id='cpf'
@@ -48,10 +47,9 @@
                      id='salario'
                      mask='separator.2'
                      name='salary'
-                     placeholder='* Salário (R$)'
+                     placeholder='* Salário'
                      prefix='R$ '
                      type='text'>
-            </div>
           </section>
         </div>
       </div>
@@ -59,10 +57,9 @@
         <h1>Informações de Localização</h1>
         <div class='line'></div>
       </div>
-      <div class='local-form' style='margin-top: -50px'>
+      <div class='local-form'>
         <div class='local-form-left-container'>
-          <section class='local-form-left'>
-            <div class='form-group-column'>
+          <section class='local-form-left form-group-column'>
               <input #cep
                      (change)='getAddress(cep.value)'
                      formControlName='cep'
@@ -74,13 +71,11 @@
               >
               <input formControlName='complement' id='complemento' name='complement' placeholder='Complemento'
                      type='text'>
-            </div>
           </section>
         </div>
-
         <div class='local-form-right-container'>
-          <section class='local-form-right'>
-            <div class='form-group-column'>
+          <section class='local-form-right form-group-column'>
+
               <div class='form-group-row space-between'>
                 <input [value]='this.address' formControlName='address'
                        id='endereco'
@@ -97,16 +92,18 @@
                 <input [value]='this.city' formControlName='city' id='cidade' name='city' placeholder='Cidade' readonly
                        type='text'>
               </div>
-            </div>
           </section>
         </div>
       </div>
+      <div class="btn-position">
       <button class='fill' type='submit'>REGISTRAR-SE</button>
+    </div>
+
     </form>
 
   </div>
   <div id='logo-container'>
-    <a class='back-btn' href='login'> <- </a>
+    <a class='back-btn' href='login'> <i class="fa-solid fa-arrow-left"></i></a>
     <div class='text'>
       <h1>Bem-vindo ao<br> Bantads!</h1>
       <p>Preencha o formulário ao lado para fazer parte do nosso time!</p>

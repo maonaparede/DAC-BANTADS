@@ -43,15 +43,32 @@ main {
 }
 
 .header-filter {
-  width: 25%;
+  width: 40%;
   height: 100%;
   justify-content: center;
 }
 
+.waiting {
+  margin-left: 2rem;
+  width: 15rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border-radius: 25px;
+  color: #fff;
+  border: #FFDE59 solid 1px;
+  transition: 1s;
+}
+
+.waiting:hover{
+  background-color: #FFDE59;
+  color: #1D1A2D;
+}
+
 .header-title {
   display: flex;
-  width: 50%;
+  width: 35%;
   height: 100%;
+  margin-right: 11rem;
   justify-content: center;
 }
 
@@ -77,6 +94,10 @@ p {
   font-size: 16px;
   margin-left: 10px;
   text-align: center;
+}
+
+.p-filter {
+  margin-top: 10px;
 }
 
 .link {
