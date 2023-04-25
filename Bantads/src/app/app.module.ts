@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationComponent } from './pages/auth/authentication.component';
 import { AuthGuard } from './pages/auth/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalModule } from './components/modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgxMaskModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
