@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import 'bootstrap';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -11,16 +11,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss', '../../../_utils.scss'],
 })
 export class LoginComponent implements OnInit {
-  isSubmitted: boolean = false;
-  isValidUser: boolean = false;
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required),
-  });
+  loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+    });
+
     $('.input100').each(function (_index: number, element: HTMLElement) {
       const input = element as HTMLInputElement;
       input.addEventListener('blur', function () {
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         value
           .trim()
           .match(
-            /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/,
+            /^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/,
           ) == null
       ) {
         return false;
@@ -103,17 +103,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async login() {
-    if (this.loginForm.invalid) {
-      return false;
-    } else {
-      try {
-        await this.authService.login(this.loginForm);
-
-        return this.router.navigate(['']);
-      } catch (err) {
-        return console.error(err);
-      }
-    }
+  login() {
+    this.authService.login(this.loginForm).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }

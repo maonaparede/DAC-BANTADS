@@ -1,7 +1,7 @@
 import { ID } from './ID';
 
 interface IUser {
-  id: ID;
+  id?: ID;
   name: string;
   address: string;
   city: string;

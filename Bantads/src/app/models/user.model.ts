@@ -1,18 +1,20 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
 export class User {
   constructor(
-    public id?: number,
     public name?: string,
-    public email?: string,
+    public address?: string,
+    public city?: string,
+    public state?: string,
     public password?: string,
-    public role?: string,
-    public cpf?: string,
-    public phone?: string,
-    public state?: number,
-    public city?: number,
-    public cep?: string,
-    public street?: string,
-    public number?: number,
+    public email?: string,
     public complement?: string,
-    public active?: boolean,
+    public cpf?: number,
+    public cep?: number,
+    public number?: number,
+    public salary?: number,
+    public phone?: number,
+    public userType?: number,
   ) {}
 }

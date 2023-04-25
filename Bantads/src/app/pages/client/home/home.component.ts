@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { AuthService } from '../../../services/auth.service';
+import { IUser } from '../../../DTOs/IUser';
 
 @Component({
   selector: 'client-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-
 export class ClientHomeComponent {
+  currentUser: IUser | undefined;
 
+  constructor(private authService: AuthService) {
+    this.currentUser = this.authService.getCurrentUser();
+  }
   showModal = false;
   deposito = false;
   saque = false;

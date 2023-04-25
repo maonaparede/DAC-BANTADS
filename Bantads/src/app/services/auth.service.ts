@@ -1,50 +1,74 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login } from '../models/login.model';
-import { User } from '../models/user.model';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 import { FormGroup } from '@angular/forms';
-
-const LS_USER: string = 'user';
-const LS_ACCOUNT: string = 'conta';
+import { IUser, IUserLogin } from '../DTOs/IUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-  private apUrlAuth = environment.url;
+  currentUser: IUser;
+  private apiUrl = `${environment.url}`;
 
   constructor(private http: HttpClient) {}
 
-  public get userLogged(): User {
-    return localStorage[LS_USER] ? JSON.parse(localStorage[LS_USER]) : null;
+  login(user: FormGroup): Observable<any> {
+    const { email, password } = user.value;
+    const userData: IUserLogin = { email, password };
+
+    return this.http
+      .post<any>(`${this.apiUrl}/login`, userData, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        observe: 'response',
+      })
+      .pipe(
+        tap(response => {
+          const token = response.body.token;
+          this.currentUser = response.body.user;
+          localStorage.setItem('token', token ? token : '');
+        }),
+      );
   }
 
-  public set userLogged(user: User) {
-    localStorage[LS_USER] = JSON.stringify(user);
+  createAccount(user: FormGroup): Observable<any> {
+    const { name, address, number, city, state, password, email, complement, cpf, salary, phone } = user.value;
+    const userData: IUser = {
+      cep: 0,
+      userType: 1,
+      name,
+      address,
+      number,
+      city,
+      state,
+      password,
+      email,
+      complement,
+      cpf,
+      salary,
+      phone,
+    };
+    console.log('ANTES DO RETURN');
+    return this.http.post<any>(`${this.apiUrl}/register`, userData, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 
-  public get clientAccount(): User {
-    return localStorage[LS_ACCOUNT] ? JSON.parse(localStorage[LS_ACCOUNT]) : null;
+  logout() {
+    localStorage.removeItem('token');
   }
 
-  public set clientAccount(user: User) {
-    localStorage[LS_ACCOUNT] = JSON.stringify(user);
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
-  login(login: FormGroup): Observable<User> {
-    return this.http.post<Login>(this.apUrlAuth + '/login', this.httpOptions);
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
-  logout(): Observable<Object> {
-    delete localStorage[LS_USER];
-    delete localStorage[LS_ACCOUNT];
-    return this.http.post<Login>(this.apUrlAuth + '/logout', this.httpOptions);
+  getCurrentUser() {
+    return this.currentUser;
   }
 }

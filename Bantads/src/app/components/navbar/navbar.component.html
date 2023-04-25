@@ -1,17 +1,19 @@
 <nav class="navbar nav">
   <div class="container">
     <div class="nav-header">
-      <img src="../../../assets/icons/logo.png" class="logo">
+      <img class="logo" src="../../../assets/icons/logo.png">
     </div>
 
     <div class="nav-center">
-      <p>Olá, <strong>#</strong>!</p>
+      <p>Olá, <strong>{{this.currentUser?.name}}!</strong>!</p>
     </div>
 
     <div class="nav-end">
       <ul>
-        <li><a href=""><img src="../../../assets/icons/profile-user.png" class="right-icon"></a></li>
-        <li><a href=""><img src="../../../assets/icons/log-out.png" class="right-icon"></a></li>
+        <li><a href=""><img class="right-icon" src="../../../assets/icons/profile-user.png"></a></li>
+        <li>
+          <button (click)="logOut()"><img class="right-icon" src="../../../assets/icons/log-out.png"></button>
+        </li>
       </ul>
     </div>
 
