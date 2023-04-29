@@ -2,9 +2,10 @@
 <div class='limiter'>
   <div class='container-login100'>
     <div class='wrap-login100'>
-      <form (ngSubmit)='login()' class='login100-form validate-form'>
+      <form (ngSubmit)='login()' [formGroup]="loginForm" class='login100-form validate-form'>
 					<span class='login100-form-title p-b-26'>
 					</span>
+
         <span class='login100-form-title p-b-48'>
 						<i><img alt='' src='../../../assets/icons/logo.png'></i>
 					</span>

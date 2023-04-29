@@ -62,12 +62,12 @@ main {
   background-color: #242038;
 }
 
-.line{
+.line {
   border: 3px solid #FFDE59;
   width: 40%;
 }
 
-.space-between{
+.space-between {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -168,10 +168,10 @@ button {
   margin: 35px 0;
   position: relative;
   z-index: 1;
-  transition:         0.08s ease-in;
-  -o-transition:      0.08s ease-in;
-  -ms-transition:     0.08s ease-in;
-  -moz-transition:    0.08s ease-in;
+  transition: 0.08s ease-in;
+  -o-transition: 0.08s ease-in;
+  -ms-transition: 0.08s ease-in;
+  -moz-transition: 0.08s ease-in;
   -webkit-transition: 0.08s ease-in;
 
   font-family: 'Poppins';
@@ -284,9 +284,10 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 
 }
+
 input[type=number] {
- -moz-appearance: textfield;
- appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 
 }
 
