@@ -6,7 +6,7 @@ import { IUser } from '../../../DTOs/IUser';
 @Component({
   selector: 'client-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss', './../../../../_utils.scss'],
 })
 export class ClientHomeComponent {
   currentUser: IUser | undefined;
@@ -18,7 +18,7 @@ export class ClientHomeComponent {
   deposito = false;
   saque = false;
   transferencia = false;
-  extrato = false;
+  extrato = true;
 
   openModal(show: number) {
     switch(show){

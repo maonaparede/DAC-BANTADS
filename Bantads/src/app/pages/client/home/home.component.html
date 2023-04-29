@@ -2,18 +2,187 @@
 
 <body>
   <app-modal *ngIf="showModal">
-    <Button (click)="closeModal()">X</Button>
     <div *ngIf="deposito">
-      <p>teste deposito</p>
+      <div class="header-container">
+        <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+        <p class="deposit-title">Depósito</p>
+      </div>
+
+      <div class="content-container">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser depositado</p>
+          <input type="text">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
+          <span class="actual-balance">
+            <h1>Saldo atual</h1>
+            <p>1.000</p>
+          </span>
+          <span class="post-balance">
+            <h1>Saldo pós-operação</h1>
+            <p>1.000</p>
+          </span>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button class="confirm-btn">Depositar</button>
+        </div>
+      </div>
     </div>
     <div *ngIf="saque">
-      <p>teste saque</p>
+      <div class="header-container">
+        <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+        <p class="withdraw-title">Saque</p>
+      </div>
+
+      <div class="content-container">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser sacado</p>
+          <input type="text">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
+          <span class="actual-balance">
+            <h1>Saldo atual</h1>
+            <p>1.000</p>
+          </span>
+          <span class="post-balance">
+            <h1>Saldo pós-operação</h1>
+            <p>1.000</p>
+          </span>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button class="confirm-btn">Sacar</button>
+        </div>
+      </div>
+
     </div>
     <div *ngIf="transferencia">
-      <p>teste transferencia</p>
+      <div class="header-container">
+        <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+        <p class="transfer-title">Transferência</p>
+      </div>
+      <div class="content-container">
+      <div class="transfer-container ">
+        <span class="transfer-info ">
+          <p>Insira a conta que receberá a transferência</p>
+          <input type="text">
+        </span>
+        <span class="op-divider"></span>
+        <span class="transfer-op ">
+          <p>Insira o valor da transferência</p>
+          <input type="text" name="" id="">
+          <h1>R$</h1>
+        </span>
+      </div>
+
+      <div class="balance-status-container">
+        <span class="actual-balance">
+          <h1>Saldo atual:</h1>
+          <p>1.000</p>
+        </span>
+        <span class="post-balance">
+          <h1>Saldo pós-operação:</h1>
+          <p>1.000</p>
+        </span>
+      </div>
+
+      <div class="btn-container">
+        <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button class="confirm-btn">Transferir</button>
+      </div>
     </div>
+  </div>
     <div *ngIf="extrato">
-      <p>teste extrato</p>
+      <div class="header-container">
+        <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+        <p class="bstatement-title">Extrato</p>
+      </div>
+      <div class="bstatement-container">
+        <div class="bstatement-header">
+          <th class="th-date">Data<br>Hora</th>
+          <th class="th-op">Operação</th>
+          <th class="th-client">Cliente origem<br>Cliente destino</th>
+          <th class="th-value">Valor</th>
+        </div>
+        <div class="bstatement-list">
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+        <tr class="bstatement-tr">
+          <td class="th-date">23/04/2023<br>13:43</td>
+          <td class="th-op">Transferência</td>
+          <td class="th-client">Arthur<br>Alexandre</td>
+          <td class="th-value">1.256</td>
+        </tr>
+
+      </div>
+        <div class="bstatement-status">
+          <p>Saldo consolidado no dia (*)</p>
+          <h1>1.000</h1>
+        </div>
+    </div>
     </div>
   </app-modal>
 

@@ -2,20 +2,19 @@
   background: black;
   border-radius: 8px;
   box-shadow: 0 2px 8px #333;
-  width: calc(100vh / 1.5);
-  height: 80%;
+  width: calc(100vh / 1.3);
+  height: 85%;
   position: absolute;
   right: 0;
   border-radius: 10px 0 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
 .overlay {
   background: rgba(0, 0, 0, 0.8);
-  height: 93vh;
+  height: 92.8vh;
   right: 0;
   left: 0;
   position: absolute;
@@ -23,5 +22,6 @@
   justify-content: center;
   align-items: center;
   z-index: 5;
-  overflow: hidden;
 }
+
+
