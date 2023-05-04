@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { consultarCep } from 'correios-brasil';
 import { ClientService } from '../../services/client.service';
 import { AuthService } from '../../services/auth.service';
+import { IUser } from '../../DTOs/IUser';
 
 @Component({
   selector: 'app-register',
@@ -16,37 +17,39 @@ export class RegisterComponent {
   city = '';
   state = '';
 
-  registerForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/)],
-    ],
-    passwordConfirmation: [
-      '',
-      [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/)],
-    ],
-    role: ['user', Validators.required],
-    cpf: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
-    salary: ['', Validators.required],
-    cep: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(/^(\d{2}\.)\d{3}-\d{3}$/),
-        Validators.minLength(10),
-        Validators.maxLength(10),
+  registerForm = this.formBuilder.group(
+    {
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/)],
       ],
-    ],
-    number: ['', Validators.required],
-    complement: [null],
-    state: [this.state],
-    city: [this.city],
-    neighborhood: [this.neighborhood],
-    address: [this.address],
-  });
+      passwordConfirmation: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/)],
+      ],
+      role: ['user'],
+      cpf: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      salary: ['', Validators.required],
+      cep: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(\d{2}\.)\d{3}-\d{3}$/),
+          Validators.minLength(10),
+          Validators.maxLength(10),
+        ],
+      ],
+      number: ['', Validators.required],
+      city: [{ value: '', disabled: true }],
+      address: [{ value: '', disabled: true }],
+      neighborhood: [{ value: '', disabled: true }],
+      state: [{ value: '', disabled: true }],
+    },
+    { validators: [this.checkPasswords] },
+  );
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +57,13 @@ export class RegisterComponent {
     private clientService: ClientService,
     private router: Router,
   ) {}
+
+  checkPasswords(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('passwordConfirmation')?.value;
+    console.log(password === confirmPassword ? 'okok' : 'burro');
+    return password === confirmPassword ? null : { notSame: true };
+  }
 
   getAddress(cep: string) {
     cep = cep.replace(/\D/g, '');
@@ -66,10 +76,31 @@ export class RegisterComponent {
   }
 
   async register() {
-    try {
-      await this.accountService.createAccount(this.registerForm);
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(this.registerForm.valid);
+
+    if (this.registerForm.valid)
+      try {
+        const user: IUser = {
+          name: this.registerForm.value.name || '',
+          email: this.registerForm.value.email || '',
+          password: this.registerForm.value.password || '',
+          role: this.registerForm.value.role || 'user',
+          cpf: this.registerForm.value.cpf || '',
+          phone: this.registerForm.value.phone || '',
+          salary: this.registerForm.value.salary || '',
+          cep: this.registerForm.value.cep || '',
+          number: this.registerForm.value.number || '',
+          state: this.state || '',
+          city: this.city || '',
+          neighborhood: this.neighborhood || '',
+          address: this.address || '',
+        };
+        await this.accountService.createAccount(user).subscribe({
+          next: response => this.router.navigate(['/login']),
+          error: error => console.log(error),
+        });
+      } catch (err) {
+        console.log(err);
+      }
   }
 }
