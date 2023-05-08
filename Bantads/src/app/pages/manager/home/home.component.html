@@ -1,3 +1,99 @@
+<app-center-modal *ngIf="showModal">
+  <div class="list-container" *ngIf="list">
+  <div class="header-container">
+    <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+    <p class="list-title underline">Lista de espera</p>
+  </div>
+
+  <div class="user-container">
+
+
+    <div class="table-title">
+      <h1 class="t-nome">Nome</h1>
+      <h1 class="t-cpf">CPF</h1>
+      <h1 class="t-salario">Salário</h1>
+      <h1 class="t-escolha">!</h1>
+    </div>
+
+    <div class="table-info">
+      <tr>
+        <td class="t-nome">Arthur Gian</td>
+        <td class="t-cpf">112.547.319-38</td>
+        <td class="t-salario">1200</td>
+        <td class="td-escolha">
+          <button class="approve-btn"><i class="fa fa-check"></i></button>
+          <button class="deny-btn" (click)="openModal(2)"><i class="fa fa-times"></i></button>
+        </td>
+      </tr>
+    </div>
+
+  </div>
+
+  <div class="btn-container">
+    <button class="save-btn">Salvar</button>
+  </div>
+</div>
+
+<div *ngIf="deny" class="deny-container">
+  <div class="d-header-container">
+    <button class="back-btn" (click)="returnModal()"><i class="fa-solid fa-arrow-left"></i></button>
+    <h1 class="d-header-title">Rejeitar</h1>
+  </div>
+  <div class="d-user-container">
+    <h1>Dê um motivo <br>
+      para a reprovação</h1>
+    <p>Seja o mais claro possível, <br>
+      para que o julgamento seja justo!</p>
+
+      <textarea cols="50" rows="10"></textarea>
+
+  </div>
+
+  <div class="d-btn-container">
+    <button type="submit" class="save-btn">Enviar</button>
+  </div>
+
+</div>
+<div *ngIf="profile" class="profile-container">
+  <div class="p-header-container">
+    <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+    <h1 class="p-header-title">Informações</h1>
+  </div>
+
+  <div class="p-user-container">
+    <div class="basic-info">
+      <img src="../../../assets/icons/profile-user.png" alt="">
+      <input disabled type="text">
+      <div class="gray-line"></div>
+      <p>Cliente</p>
+    </div>
+
+    <div class="other-info">
+      <input disabled type="text" placeholder="Número da conta">
+      <input disabled type="text" placeholder="E-mail">
+        <section class="row-direction">
+      <input disabled type="text" placeholder="CPF">
+      <input disabled type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Salário">
+      <input disabled type="text" placeholder="CEP">
+        </section>
+      <input disabled type="text" placeholder="Endereço">
+      <section class="row-direction small-input">
+      <input disabled type="text" placeholder="Nº">
+      <input disabled type="text" placeholder="Complemento">
+        </section>
+      <section class="row-direction">
+      <input disabled type="text" placeholder="Estado">
+      <input disabled type="text" placeholder="Cidade">
+        </section>
+    </div>
+
+  </div>
+</div>
+</app-center-modal>
+
 <app-navbar></app-navbar>
 
 <body>
@@ -6,6 +102,7 @@
     <div class='header-filter row-direction'>
       <p>Todos</p>
       <p>Top 5</p>
+      <button (click)="openModal(1)" class="waiting">Aguardando aprovação</button>
     </div>
     <div class='header-title'>
       <p class='underline bold'>Clientes</p>
@@ -27,18 +124,8 @@
 
   <div class='table-container'>
     <table class='text-grey full-width'>
-      <thead hidden>
-      <tr>
-        <th class='link'></th>
-        <th class='nome'>T-nome</th>
-        <th class='cpf'>T-CPF</th>
-        <th class='cidade'>Cidade</th>
-        <th class='estado'>UF</th>
-        <th class='saldo'>Saldo</th>
-      </tr>
-      </thead>
       <tbody>
-      <tr>
+      <tr (click)="openModal(3)">
         <td class='link'>1</td>
         <td class='nome'>Fulano da Silva</td>
         <td class='cpf'>123.456.789-00</td>

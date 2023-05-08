@@ -26,6 +26,7 @@ import { AuthenticationComponent } from './pages/auth/authentication.component';
 import { AuthGuard } from './pages/auth/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from './components/modal/modal.module';
+import { CenterModalComponent } from './components/center-modal/center-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ModalModule } from './components/modal/modal.module';
     AdminHomeComponent,
     ListComponent,
     AuthenticationComponent,
+    CenterModalComponent,
   ],
   imports: [
     BrowserModule,
