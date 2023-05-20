@@ -1,0 +1,214 @@
+version: "3"
+
+services:
+  ##########
+  ### Front
+  front:
+    container_name: front
+    image: front:latest
+    build:
+      context: ./bantads
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./bantads:/app:rw
+
+  ##########
+  ### Bancos
+  gerente-db:
+    networks:
+      - bantads
+    container_name: gerente-db
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./bantads-gerente/init.sql:/docker-entrypoint-initdb.d/init.sql
+  cliente-db:
+    networks:
+      - bantads
+    container_name: cliente-db
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./bantads-cliente/init.sql:/docker-entrypoint-initdb.d/init.sql
+  auth-db:
+    networks:
+      - bantads
+    container_name: auth-db
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=auth-db
+      # - MONGO_INITDB_ROOT_USERNAME=bantads
+      # - MONGO_INITDB_ROOT_PASSWORD=bantads
+    volumes:
+      - ./bantads-autenticacao/init.js:/docker-entrypoint-initdb.d/init.js
+  conta-db:
+    networks:
+      - bantads
+    container_name: conta-db
+    ports:
+      - "5432:5432"
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./bantads-conta/init.sql:/docker-entrypoint-initdb.d/init.sql
+  pgadmin:
+    networks:
+      - bantads
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=bantads@bantads.br
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 5050:80
+    restart: unless-stopped
+  mongo-express:
+    networks:
+      - bantads
+    container_name: mongo-express
+    image: mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=auth-db
+      # - ME_CONFIG_MONGODB_ADMINUSERNAME=bantads
+      # - ME_CONFIG_MONGODB_ADMINPASSWORD=bantads
+    ports:
+      - 8081:8081
+    restart: always
+
+  ##########
+  ### RabbitMQ
+  rabbitmq:
+    container_name: rabbitmq
+    networks:
+      - bantads
+    image: rabbitmq:3.11.8-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  ##########
+  ### Aplicações
+  auth:
+    container_name: auth
+    networks:
+      - bantads
+    image: "auth:latest"
+    build:
+      context: ./Backend/ModuloAuth
+    volumes:
+      - ./Backend/ModuloAuth/:/app
+    depends_on:
+      - auth-db
+      - orquestrador
+    ports:
+      - "5001:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://auth-db/auth-db
+  ###
+  orquestrador:
+    networks:
+      - bantads
+    image: "orquestrador:latest"
+    build:
+      context: ./Backend/ModuloSaga
+    container_name: saga
+    ports:
+      - "5005:8080"
+    volumes:
+      - ./Backend/ModuloSaga/:/app
+  ###
+  gerente:
+    container_name: gerente
+    networks:
+      - bantads
+    image: "gerente:latest"
+    build:
+      context: ./Backend/ModuloGerente
+    volumes:
+      - ./Backend/ModuloGerente/:/app
+    depends_on:
+      - gerente-db
+    ports:
+      - "5004:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://gerente-db:5432/gerente
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  ###
+  cliente:
+    container_name: cliente
+    networks:
+      - bantads
+    image: "cliente:latest"
+    build:
+      context: ./Backend/ModuloCliente
+    volumes:
+      - ./Backend/ModuloCliente/:/app
+    depends_on:
+      - cliente-db
+    ports:
+      - "5002:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://cliente-db:5432/cliente
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  ###
+  conta:
+    container_name: conta
+    networks:
+      - bantads
+    image: "conta:latest"
+    build:
+      context: Backend/ModuloConta
+    volumes:
+      - ./Backend/ModuloConta/:/app
+    depends_on:
+      - conta-db
+    ports:
+      - "5003:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/contacud",
+        "spring.datasource.username" : "postgres",
+        "spring.datasource.password" : "postgres",
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.read-datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/contar",
+        "spring.read-datasource.username" : "postgres",
+        "spring.read-datasource.password" : "postgres"}'
+  gateway:
+    container_name: gateway
+    networks:
+      - bantads
+    image: "gateway:latest"
+    build:
+      context: Backend/ModuloGateway
+      # dockerfile: Dockerfile
+    volumes:
+      - ./Backend/ModuloGateway/:/app
+      - /app/node_modules
+    ports:
+      - "5000:5000"
+#####
+## Networks
+networks:
+  bantads:
+    driver: bridge
