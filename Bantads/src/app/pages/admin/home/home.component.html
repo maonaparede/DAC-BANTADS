@@ -1,3 +1,111 @@
+<app-center-modal *ngIf="showModal">
+  <div *ngIf="add" class="add-container">
+    <div class="header-container">
+      <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+      <p class="list-title underline">Adicionar Gerente</p>
+    </div>
+
+    <div class="user-container">
+
+    <div class="basic-info">
+      <img src="../../../assets/icons/profile-user.png" alt="">
+      <input disabled type="text">
+      <div class="gray-line"></div>
+      <p>Gerente</p>
+    </div>
+
+    <div class="other-info">
+      <input disabled type="text" placeholder="E-mail">
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Senha">
+      <input disabled type="text" placeholder="Confirme a senha">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="CPF">
+      <input disabled type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Salário">
+      <input disabled type="text" placeholder="CEP">
+        </section>
+      <input disabled type="text" placeholder="Endereço">
+      <section class="row-direction small-input">
+      <input disabled type="text" placeholder="Nº">
+      <input disabled type="text" placeholder="Complemento">
+        </section>
+      <section class="row-direction">
+      <input disabled type="text" placeholder="Estado">
+      <input disabled type="text" placeholder="Cidade">
+        </section>
+    </div>
+
+    </div>
+
+    <div class="btn-container">
+      <button class="save-btn">Adicionar</button>
+    </div>
+  </div>
+
+  <div *ngIf="profile" class="profile-container">
+    <div class="header-container">
+      <span class="header-lside">
+      <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+      </span>
+      <span class="header-center">
+      <p class="profile-title underline">Informações</p>
+      </span>
+      <span class="header-rside">
+        <button><i class="fa fa-trash"></i></button>
+      </span>
+    </div>
+
+    <div class="user-container">
+
+    <div class="basic-info">
+      <img src="../../../assets/icons/profile-user.png" alt="">
+      <input disabled type="text">
+      <div class="gray-line"></div>
+      <p>Gerente</p>
+      <span class="manager-desc">
+        <p>Clientes:</p>
+        <p style="color:red">Saldo negativo:</p>
+        <p style="color:green">Saldo positivo:</p>
+      </span>
+    </div>
+
+    <div class="other-info">
+      <input disabled type="text" placeholder="E-mail">
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Senha">
+      <input disabled type="text" placeholder="Confirme a senha">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="CPF">
+      <input disabled type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Salário">
+      <input disabled type="text" placeholder="CEP">
+        </section>
+      <input disabled type="text" placeholder="Endereço">
+      <section class="row-direction small-input">
+      <input disabled type="text" placeholder="Nº">
+      <input disabled type="text" placeholder="Complemento">
+        </section>
+      <section class="row-direction">
+      <input disabled type="text" placeholder="Estado">
+      <input disabled type="text" placeholder="Cidade">
+        </section>
+    </div>
+
+    </div>
+
+    <div class="btn-container">
+      <button class="save-btn">Salvar</button>
+    </div>
+  </div>
+</app-center-modal>
+
 <app-navbar></app-navbar>
 
 <body>
@@ -5,9 +113,10 @@
     <div id="lside-container" >
       <div class="title">
         <p class="p-title underline">Gerentes</p>
+        <button (click)="openModal(1)">Adicionar Gerente</button>
       </div>
       <div class="cards-container">
-        <div class="card">
+        <div class="card" (click)="openModal(2)">
           <img class="card-img" src="../../../../assets/icons/manager.png" alt="Gerente">
           <h1 class="underline"><strong>Gerente</strong></h1>
           <div class="p-container">
@@ -38,7 +147,7 @@
     <div class="divider"></div>
     <div id="rside-container">
       <img src="../../../../assets/icons/users.png" alt="Clientes">
-      <a href="#">Relatório de clientes</a>
+      <a href="list">Relatório de clientes</a>
     </div>
 
   </main>

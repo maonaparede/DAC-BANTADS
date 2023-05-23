@@ -39,7 +39,7 @@ main {
 }
 
 .title {
-  margin: 30px 0 -10px 100px;
+  margin: 50px 0 -10px 100px;
   width: 90%;
   height: 8%;
   background-color: #242038;
@@ -307,9 +307,15 @@ a {
   left: 4rem;
   text-decoration: none;
   padding: 0.5rem 0.7rem;
+  width: 42px;
+  transition: 0.8s;
 
   border: 2px solid #FFDE59;
-  border-radius: 25px;
+  border-radius: 100%;
 }
 
-form { display: flex; justify-content: center; align-items: center; flex-direction: column;}
+a:hover {
+  background-color: #FFDE59;
+}
+
+form { display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 10px;}
