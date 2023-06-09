@@ -33,27 +33,9 @@ export class AuthService {
       );
   }
 
-  createAccount(user: FormGroup): Observable<any> {
-    const { name, address, number, city, state, password, email, complement, cpf, salary, phone } = user.value;
-    const userData: IUser = {
-      cep: 0,
-      userType: 1,
-      name,
-      address,
-      number,
-      city,
-      state,
-      password,
-      email,
-      complement,
-      cpf,
-      salary,
-      phone,
-    };
-    console.log('ANTES DO RETURN');
-    return this.http.post<any>(`${this.apiUrl}/register`, userData, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    });
+  createAccount(user: Partial<IUser>): Observable<any> {
+    console.log('ANTES DO RETURN ', user);
+    return this.http.post(`${this.apiUrl}/register`, user);
   }
 
   logout() {

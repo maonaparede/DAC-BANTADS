@@ -6,15 +6,15 @@ interface IUser {
   address: string;
   city: string;
   state: string;
+  neighborhood: string;
   password: string;
   email: string;
-  complement: string;
-  cpf: number;
-  cep: number;
-  number: number;
-  salary: number;
-  phone: number;
-  userType: number;
+  cpf: string;
+  cep: string;
+  number: string;
+  salary: string;
+  phone: string;
+  role: string;
 }
 
 type IUserLogin = Pick<IUser, 'email' | 'password'>;
