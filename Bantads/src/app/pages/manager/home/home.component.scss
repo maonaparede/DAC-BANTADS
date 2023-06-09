@@ -48,6 +48,10 @@ main {
   justify-content: center;
 }
 
+.header-filter p {
+  margin-top: 10px;
+}
+
 .waiting {
   margin-left: 2rem;
   width: 15rem;
@@ -168,11 +172,297 @@ tr {
   justify-content: center;
   text-align: center;
   margin: 0 auto;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 td {
   margin-left: 11.5px;
+  color: #C0C0C0;
 }
+
+tr:hover {
+  background-color: #1D1A2D;
+}
+
+.list-container {
+  width: 100%;
+  height: 100%;
+}
+
+.header-container {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  text-align: center;
+}
+
+.user-container {
+  width: 100%;
+  height: 82%;
+  overflow: auto;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 10%;
+}
+
+.save-btn {
+  width: 20%;
+  height: 55%;
+  margin-right: 2.8rem;
+  border: 2px solid #FFDE59;
+  border-radius: 25px;
+  transition: 1s;
+  background-color: transparent;
+}
+
+.save-btn:hover {
+  background-color: #FFDE59;
+}
+
+.back-btn {
+  width: 10%;
+  height: 75%;
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+  transition: 1.5s;
+  border: #FFDE59 2px solid;
+  border-radius: 25px;
+  background-color: transparent;
+}
+
+.back-btn:hover {
+  background-color: #FFDE59;
+}
+
+.table-title {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  align-items: center;
+
+}
+
+.table-info {
+  width: 100%;
+  height: 92%;
+  overflow: auto;
+}
+
+.table-title h1{
+  font-size: 17px;
+  font-weight: 600;
+}
+
+tr{
+  width: 100%;
+  display: flex;
+  margin: 10px 0;
+}
+
+.t-nome, .t-nome td {
+  width: 30%;
+  text-align: left;
+  margin-left: 0;
+  word-wrap: break-word;
+}
+
+.t-cpf, .t-cpf td {
+  width:30%;
+  text-align: center;
+}
+
+.t-salario, .t-salario td {
+  width: 22%;
+  text-align: center;
+}
+
+.t-escolha{
+  width: 18%;
+  text-align: center;
+}
+
+.td-escolha {
+  width: 18%;
+  text-align: center;
+  display: flex;
+}
+
+.deny-btn, .approve-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  background-color: transparent;
+  border: #FFDE59 3px solid;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deny-btn i, .approve-btn i {
+  width: 15px;
+  height: 15px;
+}
+
+.list-title {
+  font-size: 18px;
+  color: white;
+  margin: 8px 0 10px 8rem;
+  font-weight: 800;
+
+}
+
+//--------------------------------//
+
+.deny-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-header-container {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  text-align: center;
+}
+
+.d-user-container {
+  width: 90%;
+  height: 92%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.d-user-container h1 {
+  text-align: left;
+  font-size: 30px;
+  color: white;
+}
+
+.d-user-container p {
+  text-align: left;
+  font-size: 15px;
+  color: #C0C0C0;
+  margin: 0;
+}
+
+.d-user-container textarea {
+  margin-top: 50px;
+}
+
+
+.d-btn-container {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 10%;
+}
+
+.d-btn-container button {
+  margin: 12px 30px 10px 0;
+}
+
+.d-header-title {
+  font-size: 20px;
+  margin: 10px 0 10px 9.5rem;
+}
+
+.profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-header-container {
+  width: 100%;
+  height: 8%;
+  display: flex;
+}
+
+.p-header-title {
+  font-size: 20px;
+  margin: 10px 0 10px 8rem;
+}
+
+.p-user-container {
+  width: 90%;
+  height: 92%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+}
+
+.basic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.basic-info img {
+  margin-top: 350px;
+  width: 150px;
+  height: 150px;
+}
+
+.basic-info h1 {
+  margin-top: 20px;
+  font-size: 30px;
+  color: white;
+}
+
+.basic-info p {
+  margin-top: 5px;
+  font-size: 15px;
+  color: #C0C0C0;
+}
+
+.basic-info input {
+  width: 25rem;
+  background-color: transparent;
+  margin-top: 25px;
+  border: none;
+  outline: none;
+  font-size: 25px;
+  text-align: center;
+}
+
+.other-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.other-info input {
+  width: 80%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #C0C0C0;
+  margin: 31px 0;
+}
+
+.row-direction input{
+  margin: 30px 10px;
+}
+
+
 
 
 

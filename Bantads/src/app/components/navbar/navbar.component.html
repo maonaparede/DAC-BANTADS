@@ -1,3 +1,49 @@
+<app-center-modal *ngIf="showModal">
+  <div class="header-container">
+    <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+    <button class="edit-btn">Editar perfil</button>
+  </div>
+  <div class="user-container">
+
+
+    <div class="basic-info">
+      <img src="../../../assets/icons/profile-user.png" alt="">
+      <input disabled type="text">
+      <div class="gray-line"></div>
+      <p>Cliente</p>
+    </div>
+
+    <div class="other-info">
+      <input disabled type="text" placeholder="E-mail">
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Senha">
+      <input disabled type="text" placeholder="Confirme a senha">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="CPF">
+      <input disabled type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+      <input disabled type="text" placeholder="Salário">
+      <input disabled type="text" placeholder="CEP">
+        </section>
+      <input disabled type="text" placeholder="Endereço">
+      <section class="row-direction small-input">
+      <input disabled type="text" placeholder="Nº">
+      <input disabled type="text" placeholder="Complemento">
+        </section>
+      <section class="row-direction">
+      <input disabled type="text" placeholder="Estado">
+      <input disabled type="text" placeholder="Cidade">
+        </section>
+    </div>
+
+    <div class="btn-container">
+      <button class="save-btn">Salvar</button>
+    </div>
+  </div>
+</app-center-modal>
+
 <nav class="navbar nav">
   <div class="container">
     <div class="nav-header">
@@ -10,7 +56,9 @@
 
     <div class="nav-end">
       <ul>
-        <li><a href=""><img class="right-icon" src="../../../assets/icons/profile-user.png"></a></li>
+        <li>
+          <button (click)="openModal()"><img class="right-icon" src="../../../assets/icons/profile-user.png"></button>
+        </li>
         <li>
           <button (click)="logOut()"><img class="right-icon" src="../../../assets/icons/log-out.png"></button>
         </li>

@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.scss',' ./../../../../_utils.scss'],
 })
 export class NavbarComponent {
   currentUser: IUser | undefined;
@@ -17,5 +17,20 @@ export class NavbarComponent {
   logOut() {
     this.authService.logout();
     window.location.reload();
+  }
+
+  showModal = false;
+
+  openModal() {
+
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  modalStatus(){
+    return this.showModal;
   }
 }

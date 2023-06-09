@@ -1,0 +1,26 @@
+.modal-content {
+  background: black;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  width: 35rem;
+  height: 85%;
+  position: absolute;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.8);
+  height: 100vh;
+  right: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+
