@@ -117,10 +117,17 @@ services:
       - "5001:8080"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://auth-db/auth-db
-      - SPRING.RABBITMQ.HOST=rabbitmq
-        SPRING.RABBITMQ.PORT=5672
-        SPRING.RABBITMQ.USERNAME=guest
-        SPRING.RABBITMQ.PASSWORD=guest
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_MAIL_HOST=smtp.gmail.com
+      - SPRING_MAIL_PORT=587
+      - SPRING_MAIL_USERNAME=bancodotadsbantads@gmail.com
+      - SPRING_MAIL_PASSWORD=dyfgeuptezxbjxhu
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+
   ##
   saga:
     networks:
@@ -140,6 +147,16 @@ services:
       - SPRING_DATASOURCE_USERNAME=saga
       - SPRING_DATASOURCE_PASSWORD=saga
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_MAIL_HOST=smtp.gmail.com
+      - SPRING_MAIL_PORT=587
+      - SPRING_MAIL_USERNAME=bancodotadsbantads@gmail.com
+      - SPRING_MAIL_PASSWORD=dyfgeuptezxbjxhu
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
   ##
   gerente:
     container_name: gerente
@@ -160,6 +177,11 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+
   ##
   cliente:
     container_name: cliente
@@ -180,6 +202,10 @@ services:
       - SPRING_DATASOURCE_USERNAME=cliente
       - SPRING_DATASOURCE_PASSWORD=cliente
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
   ##
   conta:
     container_name: conta
@@ -203,7 +229,12 @@ services:
         "spring.jpa.hibernate.ddl-auto" : "update",
         "spring.read-datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/contar",
         "spring.read-datasource.username" : "postgres",
-        "spring.read-datasource.password" : "postgres"}'
+        "spring.read-datasource.password" : "postgres",
+        "spring.rabbitmq.host" : "rabbitmq",
+        "spring.rabbitmq.port" : "5672",
+        "spring.rabbitmq.username" : "guest",
+	      "spring.rabbitmq.password" : "guest"
+      }'
   ##
   gateway:
     container_name: gateway
