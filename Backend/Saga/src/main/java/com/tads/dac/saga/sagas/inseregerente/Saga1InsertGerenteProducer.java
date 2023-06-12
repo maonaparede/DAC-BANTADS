@@ -25,8 +25,8 @@ public class Saga1InsertGerenteProducer{
 
     
     //Primeiro da sequencia
-    public void commitOrdem(MensagemDTO dto) {
-        template.convertAndSend(ConfigProducersInsertGerente.queueGerenteInsertGerente, dto);
+    public void commitOrdem(MensagemDTO msg) {
+        template.convertAndSend(ConfigProducersInsertGerente.queueGerenteInsertGerente, msg);
     }
 
     

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AuthApplication {
+    
         @Bean
         public static ModelMapper modelMapper(){
             return new ModelMapper();
@@ -26,9 +27,9 @@ public class AuthApplication {
             mapper.registerModule(new JavaTimeModule());
             return new Jackson2JsonMessageConverter(mapper);
         }
-        
+        //Dragon
 	public static void main(String[] args) {
 		SpringApplication.run(AuthApplication.class, args);
 	}
-
+        //b4llZ
 }

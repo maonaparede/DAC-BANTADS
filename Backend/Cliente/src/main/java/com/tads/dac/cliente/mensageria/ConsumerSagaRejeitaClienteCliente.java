@@ -30,12 +30,11 @@ public class ConsumerSagaRejeitaClienteCliente {
 
     @RabbitListener(queues = "rejeita-cliente-con-saga")
     public void consultaCliente(@Payload MensagemDTO msg) {
-        Long idCliente = mapper.map(msg.getSendObj(), Long.class);
-        Optional<Cliente> cl  = rep.findById(idCliente);
+        RejeitaClienteDTO dto = mapper.map(msg.getSendObj(), RejeitaClienteDTO.class);
+        Optional<Cliente> cl  = rep.findById(dto.getIdCliente());
         if(cl.isPresent()){
-            RejeitaClienteDTO dto = new RejeitaClienteDTO();
             dto.setEmail(cl.get().getEmail());
-            dto.setIdCLiente(cl.get().getId());
+            dto.setIdCliente(cl.get().getId());
             
             msg.setReturnObj(dto);
         }else{
@@ -48,16 +47,20 @@ public class ConsumerSagaRejeitaClienteCliente {
     public void rejeitaCliente(@Payload MensagemDTO msg) {
         RejeitaClienteDTO dto = mapper.map(msg.getReturnObj(), RejeitaClienteDTO.class);
         
-        Optional<Cliente> cli = rep.findById(dto.getIdCLiente());
+        Optional<Cliente> cli = rep.findById(dto.getIdCliente());
         if(cli.isPresent()){
+            rep.deleteById(dto.getIdCliente());
+            
             Cliente cliente = cli.get();
+            
+            
             ClienteEndDTO retDto = mapper.map(cliente, ClienteEndDTO.class);
             msg.setSendObj(retDto);
             
-            rep.deleteById(dto.getIdCLiente());
-            
+            dto.setEmail(cliente.getEmail());
+            msg.setReturnObj(dto);
         }else{
-            msg.setMensagem("Essa Cliente Não Existe!");
+            msg.setMensagem("Esse Cliente Não Existe!");
         }
         
         template.convertAndSend("rejeita-cliente-saga-receive", msg);

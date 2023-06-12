@@ -1,8 +1,6 @@
 
 package com.tads.dac.saga.sagas.removegerente;
 
-import com.tads.dac.saga.DTO.GerenteDTO;
-import com.tads.dac.saga.DTO.GerenteIdNomeDTO;
 import com.tads.dac.saga.DTO.GerenteNewOldDTO;
 import com.tads.dac.saga.DTO.MensagemDTO;
 import org.modelmapper.ModelMapper;

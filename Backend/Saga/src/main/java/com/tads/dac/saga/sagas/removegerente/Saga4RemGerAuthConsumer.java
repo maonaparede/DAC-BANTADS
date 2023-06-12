@@ -1,19 +1,14 @@
 
 package com.tads.dac.saga.sagas.removegerente;
 
-import com.tads.dac.saga.DTO.AuthDTO;
-import com.tads.dac.saga.DTO.AuthTotalDTO;
-import com.tads.dac.saga.DTO.GerenteDTO;
 import com.tads.dac.saga.DTO.MensagemDTO;
 import com.tads.dac.saga.model.RemoveGerenteAuth;
-import com.tads.dac.saga.model.RemoveGerenteGerente;
 import com.tads.dac.saga.repository.RemoveGerenteAuthRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import com.tads.dac.saga.repository.RemoveGerenteGerenteRepository;
 
 @Component
 public class Saga4RemGerAuthConsumer {

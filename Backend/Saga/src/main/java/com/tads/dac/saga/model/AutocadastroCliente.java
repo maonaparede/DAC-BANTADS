@@ -1,6 +1,7 @@
 
 package com.tads.dac.saga.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AutocadastroCliente {
+public class AutocadastroCliente implements Serializable{
    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

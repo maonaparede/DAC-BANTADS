@@ -1,14 +1,7 @@
 
 package com.tads.dac.saga.util;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class TemplateEmailAutocadastroErro {
+public class TemplateEmailAutocadastroErro implements TemplateEmailInterface{
     
     private String to;
     private String subject = "Erro no Autocadastro";
@@ -20,6 +13,20 @@ public class TemplateEmailAutocadastroErro {
                 ". Caso o Erro seja muito estranho contate o desenvolvedor";
     }
     
-    
+
+    @Override
+    public String getSubject() {
+        return this.subject;
+    }
+
+    @Override
+    public String getTo() {
+        return this.to;
+    }
+
+    @Override
+    public String getContent() {
+        return this.body;
+    }    
     
 }

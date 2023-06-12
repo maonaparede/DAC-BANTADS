@@ -12,11 +12,11 @@ public class EnviarEmail {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmail(TemplateEmailAutocadastroErro temp) {
+    public void sendEmail(TemplateEmailInterface temp) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(temp.getTo());
         message.setSubject(temp.getSubject());
-        message.setText(temp.getBody());
+        message.setText(temp.getContent());
 
         mailSender.send(message);
     }

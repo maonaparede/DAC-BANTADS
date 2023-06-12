@@ -1,12 +1,9 @@
 
 package com.tads.dac.saga.sagas.alteraperfil;
 
-import com.tads.dac.saga.DTO.AuthDTO;
-import com.tads.dac.saga.DTO.ClienteEndDTO;
 import com.tads.dac.saga.DTO.MensagemDTO;
 import com.tads.dac.saga.model.PerfilClienteUpdateSaga;
 import org.modelmapper.ModelMapper;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;

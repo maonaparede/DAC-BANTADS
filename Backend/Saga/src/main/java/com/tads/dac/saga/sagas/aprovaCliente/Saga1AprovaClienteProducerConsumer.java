@@ -1,12 +1,7 @@
 
 package com.tads.dac.saga.sagas.aprovaCliente;
 
-import com.tads.dac.saga.sagas.removegerente.*;
-import com.tads.dac.saga.DTO.GerenteDTO;
-import com.tads.dac.saga.DTO.GerenteIdNomeDTO;
-import com.tads.dac.saga.DTO.GerenteNewOldDTO;
 import com.tads.dac.saga.DTO.MensagemDTO;
-import org.modelmapper.ModelMapper;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -56,9 +56,4 @@ public class Encrypt {
         return senha;
     }
     
-    
-    public static void main(String[] args) {
-        System.out.println(gerarSalt(4));
-    }
-    
 }

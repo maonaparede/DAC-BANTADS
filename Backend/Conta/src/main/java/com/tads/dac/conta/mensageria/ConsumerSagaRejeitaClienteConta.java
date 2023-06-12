@@ -33,6 +33,7 @@ public class ConsumerSagaRejeitaClienteConta {
         try {
             RejeitaClienteDTO dto = mapper.map(msg.getReturnObj(), RejeitaClienteDTO.class);
             ContaDTO dtoRet = serv.rejeitaCliente(dto);
+            System.out.println("dada: " + dtoRet.getIdConta());
             msg.setSendObj(dtoRet);
             
             dto.setIdConta(dtoRet.getIdConta());

@@ -1,17 +1,11 @@
 
 package com.tads.dac.auth.mensageria;
 
-import com.tads.dac.auth.DTOs.AuthDTO;
 import com.tads.dac.auth.DTOs.PerfilUpdateDTO;
-import com.tads.dac.auth.DTOs.AuthTotalDTO;
 import com.tads.dac.auth.DTOs.MensagemDTO;
 import com.tads.dac.auth.exception.ContaAlredyExists;
 import com.tads.dac.auth.exception.ContaNotExistException;
-import com.tads.dac.auth.exception.EncryptionException;
-import com.tads.dac.auth.exception.InvalidUserTypeException;
 import com.tads.dac.auth.service.AuthService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -43,10 +37,15 @@ public class ConsumerSagaAlteraPerfilAuth {
         template.convertAndSend("perfil-auth-saga-receive", msg);
     }
 
+    //Refaz
     @RabbitListener(queues = "perfil-auth-saga-rollback")
     public void rollbackOrdem(@Payload MensagemDTO msg) {
-        AuthDTO dto = mapper.map(msg.getSendObj(), AuthDTO.class);
-        serv.deleteLogin(dto.getEmail());
+        try {
+            PerfilUpdateDTO dto = mapper.map(msg.getReturnObj(), PerfilUpdateDTO.class);
+            serv.updateAuth(dto.getNewEmail(), dto.getOldEmail());
+        } catch (ContaAlredyExists | ContaNotExistException ex) {
+            System.out.println("Deu erro no Módulo Auth altera Perfil: " + ex.getMessage());
+        }
     }
     
 }

@@ -41,10 +41,10 @@ public class Saga2InsertGerenteContaProducer{
                 rep.deleteById(msg.getSagaId());
                 prev.rollbackOrdem(msg);
             } else {
-                System.err.println("Id Não Existe - Rollback de Saga1InsertGerenteProducer");
+                System.err.println("Id Não Existe - Rollback de Saga2InsertGerenteContaProducer");
             }
         } else {
-            System.err.println("Id não pode ser Null - Rollback de Saga1InsertGerenteProducer");
+            System.err.println("Id não pode ser Null - Rollback de Saga2InsertGerenteContaProducer");
         }
     }
 

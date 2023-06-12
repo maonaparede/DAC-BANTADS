@@ -6,6 +6,7 @@ import com.tads.dac.conta.DTOs.ContaDTO;
 import com.tads.dac.conta.DTOs.GerenciadoGerenteDTO;
 import com.tads.dac.conta.DTOs.GerenciadoGerenteSagaInsertDTO;
 import com.tads.dac.conta.DTOs.GerenteNewOldDTO;
+import com.tads.dac.conta.DTOs.GerentePrimeiraContaDTO;
 import com.tads.dac.conta.DTOs.MensagemDTO;
 import com.tads.dac.conta.DTOs.PerfilUpdateDTO;
 import com.tads.dac.conta.DTOs.RejeitaClienteDTO;
@@ -117,23 +118,26 @@ public class SagaServiceCUD {
         contaSync.rollbackAutocadastro(id);
     }
 
-    public GerenciadoGerenteSagaInsertDTO changeGerente(GerenciadoGerenteSagaInsertDTO dto) throws changeGerenteException {
+    public GerenciadoGerenteSagaInsertDTO changeGerente(GerentePrimeiraContaDTO dto) throws changeGerenteException {
+        GerenciadoGerenteSagaInsertDTO ret = new GerenciadoGerenteSagaInsertDTO();
         try{
-            Optional<ContaCUD> contaOp = rep.findById(dto.getIdConta());
+            Optional<ContaCUD> contaOp = rep.findById(dto.getPrimeiraConta());
             if(contaOp.isPresent()){
                 ContaCUD conta = contaOp.get();
 
-                dto.setGerenteIdOld(conta.getIdGerente());
-                dto.setGerenteNomeOld(conta.getNomeGerente());
+                ret.setGerenteIdOld(conta.getIdGerente());
+                ret.setGerenteNomeOld(conta.getNomeGerente());
+                ret.setGerenteIdNew(dto.getId());
+                ret.setGerenteNomeNew(dto.getNome());
 
-                conta.setIdGerente(dto.getGerenteIdNew());
-                conta.setNomeGerente(dto.getGerenteNomeNew());
+                conta.setIdGerente(dto.getId());
+                conta.setNomeGerente(dto.getNome());
 
                 conta = rep.save(conta);
                 ContaDTO dto2 = mapper.map(conta, ContaDTO.class);
                 contaSync.syncConta(dto2);
             }
-            return dto;
+            return ret;
         }catch(Exception e){
             System.out.println("Erro na mudança do Gerente:" + e.getMessage());
             throw new changeGerenteException("Não Foi Possível Realizar a Operação");

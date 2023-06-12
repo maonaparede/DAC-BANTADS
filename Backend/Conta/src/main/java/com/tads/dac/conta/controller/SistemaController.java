@@ -4,8 +4,10 @@ package com.tads.dac.conta.controller;
 import com.tads.dac.conta.DTOs.AprovaR9DTO;
 import com.tads.dac.conta.DTOs.ClienteContaInfoDTO;
 import com.tads.dac.conta.DTOs.ContaDTO;
+import com.tads.dac.conta.DTOs.ContaSaveDTO;
 import com.tads.dac.conta.DTOs.RelatorioClienteDTO;
 import com.tads.dac.conta.exception.ClienteNotFoundException;
+import com.tads.dac.conta.exception.ContaConstraintViolation;
 import com.tads.dac.conta.service.ContaService;
 import com.tads.dac.conta.service.SysAdmService;
 import java.util.List;
@@ -15,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -73,14 +77,14 @@ public class SistemaController {
     }
     
     
-       /*
+       
     @GetMapping("/sys/adm/allCli")
     public ResponseEntity<?> getAllClientes(){     
         List<ClienteContaInfoDTO> dto = servSys.getAllClientes();
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
-    */
-       /*
+    
+    
     @PostMapping("/sys") 
     public ResponseEntity<?> save(@RequestBody ContaSaveDTO dtoR){
        
@@ -92,7 +96,7 @@ public class SistemaController {
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
         }
     }
-    
+    /*
     @PutMapping("/sys")
     public ResponseEntity<?> updateSituacao(@RequestBody ContaSituacaoDTO dtoR){
        

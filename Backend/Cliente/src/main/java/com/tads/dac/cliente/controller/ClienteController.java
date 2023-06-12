@@ -38,7 +38,7 @@ public class ClienteController {
         }
     }
     
-    /*
+    
     @PostMapping("/cli")
     public ResponseEntity<?> save(@RequestBody ClienteEndDTO dto){
         try{
@@ -48,7 +48,7 @@ public class ClienteController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    
+    /*
     @PutMapping("/cli/{id}")
     public ResponseEntity<?> updateCliente(@RequestBody ClienteUpdateDTO dto){
         try{

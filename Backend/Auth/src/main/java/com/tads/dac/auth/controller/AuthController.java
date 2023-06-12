@@ -2,25 +2,16 @@
 package com.tads.dac.auth.controller;
 
 import com.tads.dac.auth.DTOs.AuthDTO;
-import com.tads.dac.auth.DTOs.AuthLoginDTO;
-import com.tads.dac.auth.exception.ContaAlredyExists;
 import com.tads.dac.auth.exception.ContaNotAprovedException;
 import com.tads.dac.auth.exception.ContaNotExistException;
 import com.tads.dac.auth.exception.ContaWrongPassword;
 import com.tads.dac.auth.exception.EncryptionException;
-import com.tads.dac.auth.exception.InvalidUserTypeException;
 import com.tads.dac.auth.service.AuthService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,6 +38,15 @@ public class AuthController {
         }
     }
     
+    @GetMapping("/auth/{email}")
+    public ResponseEntity<?> verificaSeExiste(@PathVariable(value = "email") String email){
+            Boolean ver = serv.verifyIfExist(email);
+            if(ver){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
     /*
     @PutMapping("/auth/{oldEmail}/{newEmail}")
     public ResponseEntity<?> fazUpdate(

@@ -1,18 +1,14 @@
 
 package com.tads.dac.saga.sagas.aprovaCliente;
 
-import com.tads.dac.saga.sagas.removegerente.*;
 import com.tads.dac.saga.DTO.MensagemDTO;
-import com.tads.dac.saga.DTO.RemoveGerenteDTO;
 import com.tads.dac.saga.model.AprovaCliente;
-import com.tads.dac.saga.model.RemoveGerenteContas;
 import com.tads.dac.saga.repository.AprovaClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import com.tads.dac.saga.repository.RemoveGerenteContasRepository;
 
 @Component
 public class Saga3AprovaClienteAuthConsumer {

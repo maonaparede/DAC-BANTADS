@@ -2,7 +2,6 @@
 package com.tads.dac.saga.sagas.autocadastro;
 
 import com.tads.dac.saga.DTO.AutocadastroDTO;
-import com.tads.dac.saga.sagas.removegerente.*;
 import com.tads.dac.saga.DTO.MensagemDTO;
 import com.tads.dac.saga.model.AutocadastroConta;
 import com.tads.dac.saga.repository.AutocadastroContaRepository;

@@ -13,11 +13,11 @@ public class Saga2AprovaClienteContaProducer{
     private AmqpTemplate template;
 
     
-    public void commitOrdem(MensagemDTO dto) {
+    public void commitOrdem(MensagemDTO dto){
         template.convertAndSend(ConfigProducersAprovaCliente.queueAprovaClienteConta, dto);
     }
 
-    public void rollbackOrdem(MensagemDTO msg) {
+    public void rollbackOrdem(MensagemDTO msg){
         template.convertAndSend(ConfigProducersAprovaCliente.queueAprovaClienteContaRollback, msg);
     }
     

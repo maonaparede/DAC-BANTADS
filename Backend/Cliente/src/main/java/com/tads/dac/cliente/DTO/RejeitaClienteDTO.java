@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RejeitaClienteDTO {
-    private Long idCLiente;
+    private Long idCliente;
     private Long idConta;
     private String email;
 }

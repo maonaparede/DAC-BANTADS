@@ -38,4 +38,5 @@ public class ConsumerSagaAprovaClienteCliente {
         template.convertAndSend("aprova-cliente-saga-receive", msg);
     }
     
+    
 }

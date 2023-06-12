@@ -33,7 +33,6 @@ public class Saga5AutocadastroContaUpdateConsumer {
             model.setSagaId(msg.getSagaId());
             
             rep.save(model);
-            System.out.println("Teste: Saga5AutocadastroContaUpdateConsumer");
             //Faz Algo
             return;
         }

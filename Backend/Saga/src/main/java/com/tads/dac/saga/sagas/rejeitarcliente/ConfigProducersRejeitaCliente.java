@@ -60,6 +60,7 @@ public class ConfigProducersRejeitaCliente {
         return new Queue(queueRejeitaClienteAuth);
     }
     
+    @Bean
     public Queue queueRejeitaClienteAuthReceive() {
         return new Queue(queueRejeitaClienteAuthReceive);
     }
@@ -75,6 +76,7 @@ public class ConfigProducersRejeitaCliente {
         return new Queue(queueRejeitaClienteConta);
     }
     
+    @Bean
     public Queue queueRejeitaClienteContaReceive() {
         return new Queue(queueRejeitaClienteContaReceive);
     }
@@ -90,6 +92,7 @@ public class ConfigProducersRejeitaCliente {
         return new Queue(queueRejeitaClienteGerente);
     }
     
+    @Bean
     public Queue queueRejeitaClienteGerenteReceive() {
         return new Queue(queueRejeitaClienteGerenteReceive);
     }
@@ -105,6 +108,7 @@ public class ConfigProducersRejeitaCliente {
         return new Queue(queueRejeitaClienteCliente);
     }
     
+    @Bean
     public Queue queueRejeitaClienteClienteReceive() {
         return new Queue(queueRejeitaClienteClienteReceive);
     }

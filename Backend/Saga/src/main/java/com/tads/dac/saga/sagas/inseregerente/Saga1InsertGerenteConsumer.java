@@ -1,7 +1,6 @@
 
 package com.tads.dac.saga.sagas.inseregerente;
 
-import com.tads.dac.saga.DTO.AuthDTO;
 import com.tads.dac.saga.DTO.MensagemDTO;
 import com.tads.dac.saga.model.InsertGerenteGerente;
 import com.tads.dac.saga.repository.InsertGerenteGerenteRepository;
@@ -31,14 +30,6 @@ public class Saga1InsertGerenteConsumer {
             model = rep.save(model);
 
             msg.setSagaId(model.getSagaId()); //Salva o id do saga
-            
-            //Só vai ser usado no 3° Passo do Saga            
-            AuthDTO dto = new AuthDTO();
-            dto.setEmail(model.getEmail());
-            dto.setSenha("1234");
-            dto.setTipoUser("G");
-            msg.setReturnObj(dto);
-            
             
             next.commitOrdem(msg);
             return;

@@ -30,7 +30,7 @@ public class ConsumerSagaAutocadastroAuth{
     public void commitOrdem(@Payload MensagemDTO msg) {
         AuthDTO dto = mapper.map(msg.getSendObj(), AuthDTO.class);
         try {
-            dto = serv.insertAuth(dto);
+            dto = serv.insertAuthCliente(dto);
             msg.setSendObj(dto);
         } catch (ContaAlredyExists | InvalidUserTypeException | EncryptionException ex) {
             msg.setMensagem(ex.getMessage());

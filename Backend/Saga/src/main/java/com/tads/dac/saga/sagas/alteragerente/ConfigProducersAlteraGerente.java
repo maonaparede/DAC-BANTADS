@@ -2,8 +2,6 @@
 package com.tads.dac.saga.sagas.alteragerente;
 
 
-import com.tads.dac.saga.sagas.rejeitarcliente.*;
-import com.tads.dac.saga.sagas.inseregerente.*;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigProducersAlteraGerente {
  
-    //4° Passo
+    //1° Passo
     public static String queueAlteraGerenteGerente = "alt-ger-gerente-saga";
     
     public static String queueAlteraGerenteGerenteReceive = "alt-ger-gerente-saga-receive";
@@ -49,6 +47,7 @@ public class ConfigProducersAlteraGerente {
         return new Queue(queueAlteraGerenteAuth);
     }
     
+    @Bean
     public Queue queueAlteraGerenteAuthReceive() {
         return new Queue(queueAlteraGerenteAuthReceive);
     }

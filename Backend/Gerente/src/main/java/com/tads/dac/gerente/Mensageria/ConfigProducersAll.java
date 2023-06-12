@@ -9,22 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigProducersAll {
     
-    //1° Passo
-    public static String queueGerenteRemConsulta = "ger-rem-consulta";
     
-    //3° Passo
-    public static String queueGerenteRemGerenteCommit = "ger-rem-gerente-saga";
+    public static String queueGerenteSyncConta= "altera-ger-sync-conta";
     
-    
-    //1° Passo
     @Bean
-    public Queue queueGerenteRemConsulta() {
-        return new Queue(queueGerenteRemConsulta);
-    }
-    
-    //3° Passo
-    @Bean
-    public Queue queueGerenteRemGerenteCommit(){
-        return new Queue(queueGerenteRemGerenteCommit);
+    public Queue queueGerenteSyncConta(){
+        return new Queue(queueGerenteSyncConta);
     }
 }

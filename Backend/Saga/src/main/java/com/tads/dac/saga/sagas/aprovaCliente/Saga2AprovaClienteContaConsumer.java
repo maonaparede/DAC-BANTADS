@@ -14,6 +14,7 @@ public class Saga2AprovaClienteContaConsumer {
     @Autowired
     private Saga3AprovaClienteAuthProducer next;
     
+    
     @RabbitListener(queues = "aprova-conta-saga-receive")
     public void receiveCommit(@Payload MensagemDTO msg) {
         if(msg.getMensagem() == null){

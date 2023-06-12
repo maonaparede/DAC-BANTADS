@@ -2,6 +2,7 @@
 package com.tads.dac.conta.mensageria;
 
 import com.tads.dac.conta.DTOs.GerenciadoGerenteSagaInsertDTO;
+import com.tads.dac.conta.DTOs.GerentePrimeiraContaDTO;
 import com.tads.dac.conta.DTOs.MensagemDTO;
 import com.tads.dac.conta.exception.changeGerenteException;
 import com.tads.dac.conta.service.SagaServiceCUD;
@@ -26,12 +27,12 @@ public class ConsumerSagaInsertGerenteConta {
 
     @RabbitListener(queues = "ger-save-conta-saga")
     public void commitOrdem(@Payload MensagemDTO msg) {
-        GerenciadoGerenteSagaInsertDTO dto = 
-                mapper.map(msg.getSendObj(), GerenciadoGerenteSagaInsertDTO.class);
+        GerentePrimeiraContaDTO dto = 
+                mapper.map(msg.getSendObj(), GerentePrimeiraContaDTO.class);
         
         try {
-            dto = serv.changeGerente(dto);
-            msg.setSendObj(dto);
+            GerenciadoGerenteSagaInsertDTO ret = serv.changeGerente(dto);
+            msg.setSendObj(ret);
         } catch (changeGerenteException ex) {
             msg.setMensagem(ex.getMessage());
         }
@@ -44,12 +45,13 @@ public class ConsumerSagaInsertGerenteConta {
         //Inverte o gerente novo pelo velho pra desfazer a operação
         GerenciadoGerenteSagaInsertDTO dto = mapper.map(msg.getSendObj(), GerenciadoGerenteSagaInsertDTO.class);
         
-        GerenciadoGerenteSagaInsertDTO dtoReverso = new GerenciadoGerenteSagaInsertDTO();
-        dtoReverso.setGerenteIdNew(dto.getGerenteIdOld());
-        dtoReverso.setGerenteNomeNew(dto.getGerenteNomeOld());
+        GerentePrimeiraContaDTO dtoR = new GerentePrimeiraContaDTO();
+        dtoR.setId(dto.getGerenteIdOld());
+        dtoR.setNome(dto.getGerenteNomeOld());
+        dtoR.setPrimeiraConta(dto.getIdConta());
         
         try {
-            serv.changeGerente(dtoReverso);
+            serv.changeGerente(dtoR);
         } catch (changeGerenteException ex) {
             System.err.println("Ocorreu um erro no rollback de inserção do gerente - Contate o Desenvolvedor");
         }

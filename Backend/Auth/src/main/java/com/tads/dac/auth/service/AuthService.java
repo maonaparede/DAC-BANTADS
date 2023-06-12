@@ -32,6 +32,10 @@ public class AuthService {
     @Autowired
     private EnviarEmail email;
     
+    public Boolean verifyIfExist(String email){
+        Optional<Auth> conta = rep.findById(email);
+        return conta.isPresent();
+    }
     
     public AuthDTO getAuth(String email, String senha) throws ContaNotExistException, ContaWrongPassword, EncryptionException, ContaNotAprovedException{
         Optional<Auth> conta = rep.findById(email);
@@ -49,11 +53,10 @@ public class AuthService {
         throw new ContaNotExistException("Essa Conta Não Existe!");
     }
     
-    public AuthDTO insertAuth(AuthDTO dto) throws ContaAlredyExists, InvalidUserTypeException, EncryptionException{
+    public AuthDTO insertAuthCliente(AuthDTO dto) throws ContaAlredyExists, InvalidUserTypeException, EncryptionException{
         Optional<Auth> conta = rep.findById(dto.getEmail());
         if(conta.isPresent()) throw new ContaAlredyExists("Uma Conta Com Esse Email Já Existe!");
         
-        //Admin, Cliente e Gerente - Se não for nenhum desses tipos manda exception
         if("C".equals(dto.getTipoUser())){
             
             String salt = Encrypt.gerarSalt(4);
@@ -103,18 +106,11 @@ public class AuthService {
         if("A".equals(dto.getTipoUser()) || 
            "G".equals(dto.getTipoUser())){
             
-            String senha2 = Encrypt.gerarSalt(4); //Gera 8 char aleatórios
-            
             String salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
-            String senha = Encrypt.encriptarInsertBd(senha2, salt);
+            String senha = Encrypt.encriptarInsertBd(dto.getSenha(), salt);
 
             Auth reg = new Auth(dto.getEmail(), senha, salt, dto.getTipoUser());
             reg = rep.save(reg);
-            
-            TemplateEmailSenha emailTemplate = 
-                    new TemplateEmailSenha(dto.getEmail(), dto.getTipoUser(), senha2);
-            
-            email.sendEmail(emailTemplate);
             
             dto = mapper.map(reg, AuthDTO.class);
             return dto;
@@ -126,18 +122,19 @@ public class AuthService {
     public AuthTotalDTO updateAuth(String oldEmail, String newEmail) throws ContaAlredyExists, ContaNotExistException{
         Optional<Auth> oldConta = rep.findById(oldEmail);
         Optional<Auth> newConta = rep.findById(newEmail);
-        
+
         if(oldEmail.equals(newEmail)) return null;
         if(!oldConta.isPresent()) throw new ContaNotExistException("Essa Conta Que Está Tentando Mudar o Email Não Existe!");
         if(newConta.isPresent()) throw new ContaAlredyExists("Uma Conta Com Esse Email '" + newEmail + "' Já Existe!");       
-        
+
         Auth conta = oldConta.get();
+        AuthTotalDTO dto = mapper.map(conta, AuthTotalDTO.class);
+        
         conta.setEmail(newEmail);
         
         rep.deleteById(oldEmail);
-        conta = rep.save(conta);
+        rep.save(conta);
         
-        AuthTotalDTO dto = mapper.map(conta, AuthTotalDTO.class);
         return dto;
     }
     
