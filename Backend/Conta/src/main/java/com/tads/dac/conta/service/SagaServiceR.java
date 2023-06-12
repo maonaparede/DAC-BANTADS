@@ -5,6 +5,7 @@ import com.tads.dac.conta.DTOs.RemoveGerenteDTO;
 import com.tads.dac.conta.mensageria.ProducerContaSync;
 import com.tads.dac.conta.modelCUD.ContaCUD;
 import com.tads.dac.conta.modelR.ContaR;
+import com.tads.dac.conta.repositoryR.ClienteRepositoryR;
 import com.tads.dac.conta.repositoryR.ContaRepositoryR;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ public class SagaServiceR {
     @Autowired
     private ContaRepositoryR rep;
     
-    public void rollbackUpdate(RemoveGerenteDTO dto) {
+    @Autowired
+    private ClienteRepositoryR repCli;
+    
+    public void rollbackUpdateGerente(RemoveGerenteDTO dto) {
         for(Long id : dto.getContas()){
             Optional<ContaR> con = rep.findById(id);
             con.get().setIdGerente(dto.getGerenteIdOld());
@@ -25,7 +29,11 @@ public class SagaServiceR {
     }
     
     public void rollbackAutocadastro(Long id){
-        rep.deleteById(id);
+        Optional<ContaR> conta = rep.findById(id);
+        if(conta.isPresent()){
+            repCli.deleteById(conta.get().getIdCliente());
+            rep.deleteById(id);
+        }
     }
     
     

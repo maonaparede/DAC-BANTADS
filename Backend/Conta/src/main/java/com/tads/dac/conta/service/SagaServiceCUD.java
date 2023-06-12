@@ -6,10 +6,13 @@ import com.tads.dac.conta.DTOs.ContaDTO;
 import com.tads.dac.conta.DTOs.GerenciadoGerenteDTO;
 import com.tads.dac.conta.DTOs.GerenciadoGerenteSagaInsertDTO;
 import com.tads.dac.conta.DTOs.GerenteNewOldDTO;
+import com.tads.dac.conta.DTOs.MensagemDTO;
+import com.tads.dac.conta.DTOs.PerfilUpdateDTO;
 import com.tads.dac.conta.DTOs.RejeitaClienteDTO;
 import com.tads.dac.conta.DTOs.RemoveGerenteDTO;
 import com.tads.dac.conta.exception.ClienteNotFoundException;
 import com.tads.dac.conta.exception.ContaConstraintViolation;
+import com.tads.dac.conta.exception.NegativeSalarioException;
 import com.tads.dac.conta.exception.SituacaoInvalidaException;
 import com.tads.dac.conta.mensageria.ConsumerContaSync;
 import com.tads.dac.conta.mensageria.ProducerContaSync;
@@ -171,15 +174,19 @@ public class SagaServiceCUD {
         }
     }
 
-    public ContaDTO rejeitaCliente(RejeitaClienteDTO dto) throws ClienteNotFoundException {
-        Optional<ContaCUD> ct = rep.findByIdCliente(dto.getIdCLiente());
+    public ContaDTO rejeitaCliente(RejeitaClienteDTO dto) throws ClienteNotFoundException, SituacaoInvalidaException {
+        Optional<ContaCUD> ct = rep.findByIdCliente(dto.getIdCliente());
         if(ct.isPresent()){
             ContaCUD conta = ct.get();
-            dto.setIdConta(conta.getIdConta());
-            rollbackAutocadastro(conta.getIdConta());
-            
-            ContaDTO ctDto = mapper.map(conta, ContaDTO.class);
-            return ctDto;
+            if(!"A".equals(conta.getSituacao())){
+                rep.deleteById(conta.getIdConta());
+                contaSync.rollbackAutocadastro(conta.getIdConta());
+
+                ContaDTO ctDto = mapper.map(conta, ContaDTO.class);
+
+                return ctDto;
+            }
+            throw new SituacaoInvalidaException("A Conta Já Foi Aprovada!");
         }else{
             throw new ClienteNotFoundException("Essa Conta não Existe!");
         }
@@ -189,5 +196,50 @@ public class SagaServiceCUD {
         ContaCUD conta = mapper.map(dto, ContaCUD.class);
         rep.save(conta);
         contaSync.syncConta(dto);
+    }
+    
+    public void rollbackAlteraPerfil(MensagemDTO msg){ 
+        ContaCUD conta = mapper.map(msg.getSendObj(), ContaCUD.class);
+        conta = rep.save(conta);
+        ContaDTO dto = mapper.map(conta, ContaDTO.class);
+        contaSync.syncConta(dto);
+    }
+    
+    
+    public MensagemDTO updateLimite(MensagemDTO msg) throws ClienteNotFoundException, NegativeSalarioException{
+        PerfilUpdateDTO dto = mapper.map(msg.getReturnObj(), PerfilUpdateDTO.class);
+        if(dto.getSalario().compareTo(BigDecimal.ONE) < 1){
+            throw new NegativeSalarioException("O Salário do Cliente deve ser Maior que R$1");
+        }
+        Optional<ContaCUD> conta = rep.findByIdCliente(dto.getIdCliente());
+        if(conta.isPresent()){
+            
+            ContaCUD ct = conta.get();
+            
+            ContaDTO dto2 = mapper.map(ct, ContaDTO.class);
+            msg.setSendObj(dto2); //Salva estado anterior pra Event Sourcing
+            
+            BigDecimal saldo = ct.getSaldo();
+            BigDecimal limite = dto.getSalario().divide(BigDecimal.valueOf(2)); //Calcula limite
+            
+            if(saldo.compareTo(BigDecimal.ZERO) < 0){ // Se o saldo for negativo, ou seja menor q 0
+                //multiplica por -1, pra ficar positivo, pra poder comparar com o limite
+                saldo = saldo.multiply(new BigDecimal("-1")); 
+                if(saldo.compareTo(limite) > 0){ // Verifica se o saldo (negativo) é maior que o limite
+                    limite = saldo; // Coloca o saldo (negativo) como novo limite
+                }
+            }
+            
+            ct.setLimite(limite);
+            
+            ct = rep.save(ct);
+            dto2 = mapper.map(ct, ContaDTO.class);
+            
+            contaSync.syncConta(dto2); //Synca com bd de Read
+                
+            return msg;
+        }else{
+            throw new ClienteNotFoundException("O Cliente com essa conta não existe");
+        }
     }
 }

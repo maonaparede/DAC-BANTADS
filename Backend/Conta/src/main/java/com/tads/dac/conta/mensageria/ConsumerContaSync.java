@@ -34,13 +34,13 @@ public class ConsumerContaSync {
     private SagaServiceR serv;
     
     @RabbitListener(queues = "conta")
-    public void enviaSyncConta(@Payload ContaDTO dto){
+    public void escutaSyncConta(@Payload ContaDTO dto){
         ContaR conta = mapper.map(dto, ContaR.class);
         rep.save(conta);
     }
     
     @RabbitListener(queues = "operacao")
-    public void enviaSyncDeposito(@Payload OperacaoBdDTO dto){
+    public void escutaSyncDeposito(@Payload OperacaoBdDTO dto){
         OperacaoR conta = mapper.map(dto, OperacaoR.class);
         if(conta.getDeUser() != null){
             rep.save(conta.getDeUser());
@@ -58,7 +58,7 @@ public class ConsumerContaSync {
 
     @RabbitListener(queues = "conta-gerente-rollback")
     public void rollbackRemoveGerente(@Payload RemoveGerenteDTO dto){
-        serv.rollbackUpdate(dto);
+        serv.rollbackUpdateGerente(dto);
     }    
     
     @RabbitListener(queues = "conta-autocadastro-rollback")

@@ -5,6 +5,7 @@ import com.tads.dac.conta.DTOs.ContaDTO;
 import com.tads.dac.conta.DTOs.MensagemDTO;
 import com.tads.dac.conta.DTOs.RejeitaClienteDTO;
 import com.tads.dac.conta.exception.ClienteNotFoundException;
+import com.tads.dac.conta.exception.SituacaoInvalidaException;
 import com.tads.dac.conta.service.SagaServiceCUD;
 import org.modelmapper.ModelMapper;
 
@@ -33,7 +34,10 @@ public class ConsumerSagaRejeitaClienteConta {
             RejeitaClienteDTO dto = mapper.map(msg.getReturnObj(), RejeitaClienteDTO.class);
             ContaDTO dtoRet = serv.rejeitaCliente(dto);
             msg.setSendObj(dtoRet);
-        } catch (ClienteNotFoundException ex) {
+            
+            dto.setIdConta(dtoRet.getIdConta());
+            msg.setReturnObj(dto);
+        } catch (ClienteNotFoundException | SituacaoInvalidaException ex) {
             msg.setMensagem(ex.getMessage());
         }
         template.convertAndSend("rejeita-conta-saga-receive", msg);

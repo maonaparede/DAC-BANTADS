@@ -5,6 +5,8 @@ import com.tads.dac.conta.DTOs.AprovaR9DTO;
 import com.tads.dac.conta.DTOs.ClienteContaDTO;
 import com.tads.dac.conta.DTOs.ClienteContaInfoDTO;
 import com.tads.dac.conta.DTOs.ContaDTO;
+import com.tads.dac.conta.DTOs.GerenteIdNomeDTO;
+import com.tads.dac.conta.DTOs.GerenteNewOldDTO;
 import com.tads.dac.conta.DTOs.MensagemDTO;
 import com.tads.dac.conta.DTOs.PerfilUpdateDTO;
 import com.tads.dac.conta.exception.ClienteNotFoundException;
@@ -75,64 +77,6 @@ public class ContaService{
     }
     
     
-    public ContaDTO AprovarCliente(Long id) throws ClienteNotFoundException, SituacaoInvalidaException{
-        Optional<ContaCUD> conta = repCUD.findById(id);
-        if(conta.isPresent()){
-            ContaCUD ct = conta.get();
-            Date dt = Date.from(Instant.now());
-            ct.setSituacao("A");
-            ct.setDataAproRep(dt);
-            ct = repCUD.save(ct);
-            
-            ///Sync bd R
-            ContaDTO dto2 = mapper.map(ct, ContaDTO.class);
-            mensagemProducer.syncConta(dto2);
-            
-            return dto2;
-        }else{
-            throw new ClienteNotFoundException("O Cliente Com Essa Conta Não Existe");
-        }
-    }
-
-    
-    public MensagemDTO updateLimite(MensagemDTO msg) throws ClienteNotFoundException, NegativeSalarioException{
-        PerfilUpdateDTO dto = mapper.map(msg.getReturnObj(), PerfilUpdateDTO.class);
-        if(dto.getSalario().compareTo(BigDecimal.ONE) < 1){
-            throw new NegativeSalarioException("O Salário do Cliente deve ser Maior que R$1");
-        }
-        Optional<ContaCUD> conta = repCUD.findByIdCliente(dto.getIdCliente());
-        if(conta.isPresent()){
-            
-            ContaCUD ct = conta.get();
-            
-            ContaDTO dto2 = mapper.map(ct, ContaDTO.class);
-            msg.setSendObj(dto2); //Salva estado anterior pra Event Sourcing
-            
-            BigDecimal saldo = ct.getSaldo();
-            BigDecimal limite = dto.getSalario().divide(BigDecimal.valueOf(2)); //Calcula limite
-            
-            if(saldo.compareTo(BigDecimal.ZERO) < 0){ // Se o saldo for negativo, ou seja menor q 0
-                //multiplica por -1, pra ficar positivo, pra poder comparar com o limite
-                saldo = saldo.multiply(new BigDecimal("-1")); 
-                if(saldo.compareTo(limite) > 0){ // Verifica se o saldo (negativo) é maior que o limite
-                    limite = saldo; // Coloca o saldo (negativo) como novo limite
-                }
-            }
-            
-            ct.setLimite(limite);
-            
-            ct = repCUD.save(ct);
-            dto2 = mapper.map(ct, ContaDTO.class);
-            
-            mensagemProducer.syncConta(dto2); //Synca com bd de Read
-                
-            return msg;
-        }else{
-            throw new ClienteNotFoundException("O Cliente com essa conta não existe");
-        }
-    }
-    
-    
     public ClienteContaInfoDTO getById(Long id) throws ClienteNotFoundException {
         Optional<ContaR> conta = repR.findById(id);
         if(conta.isPresent()){
@@ -158,12 +102,16 @@ public class ContaService{
         
         throw new ClienteNotFoundException("O Cliente com essa conta não existe");
     }
-    
-    public void rollbackOp(MensagemDTO msg){ 
-        ContaCUD conta = mapper.map(msg.getSendObj(), ContaCUD.class);
-        conta = repCUD.save(conta);
-        ContaDTO dto = mapper.map(conta, ContaDTO.class);
-        mensagemProducer.syncConta(dto);
+
+    public void atualizaNomeGerente(GerenteIdNomeDTO dto) {
+        repCUD.updateGerenteIdNome(dto.getId(), dto.getNome(), dto.getId());
+        GerenteNewOldDTO retDto = new GerenteNewOldDTO();
+        retDto.setIdNew(dto.getId());
+        retDto.setIdOld(dto.getId());
+        retDto.setNomeNew(dto.getNome());
+        
+        mensagemProducer.syncRemoveGerenteCommit(retDto);
+
     }
     
 }
