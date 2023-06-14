@@ -1,51 +1,31 @@
 version: "3"
 
 services:
-  front:
-    container_name: front
-    image: front:latest
-    build:
-      context: ./Bantads
-      dockerfile: .Dockerfile
-    ports:
-      - "4200:4200"
+  #front:
+  #  container_name: front
+  #  image: front:latest
+  #  build:
+  #    context: ./Bantads
+  #    dockerfile: .Dockerfile
+  #  ports:
+  #    - "4200:4200"
   ##
-  gerente-db:
+
+  bantads-db:
     networks:
       - bantads
-    container_name: gerente-db
+    container_name: bantads-db
     image: postgres:15.1-alpine
     restart: always
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=gerente
-      - POSTGRES_PASSWORD=gerente
-  ##
-  saga-db:
-    networks:
-      - bantads
-    container_name: saga-db
-    image: postgres:15.1-alpine
-    restart: always
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_USER=saga
-      - POSTGRES_PASSWORD=saga
-  ##
-  cliente-db:
-    networks:
-      - bantads
-    container_name: cliente-db
-    image: postgres:15.1-alpine
-    ports:
-      - "5434:5432"
-    restart: always
-    environment:
-      - POSTGRES_USER=cliente
-      - POSTGRES_PASSWORD=cliente
-  ##
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
   auth-db:
     networks:
       - bantads
@@ -56,18 +36,7 @@ services:
       - "27017:27017"
     environment:
       - MONGO_INITDB_DATABASE=auth-db
-  ##
-  conta-db:
-    networks:
-      - bantads
-    container_name: conta-db
-    ports:
-      - "5435:5432"
-    image: postgres:15.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      
   ##
   pgadmin:
     networks:
@@ -100,6 +69,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+      
   ##
   auth:
     container_name: auth
@@ -113,6 +83,7 @@ services:
     depends_on:
       - auth-db
       - saga
+      - rabbitmq
     ports:
       - "5001:8080"
     environment:
@@ -137,15 +108,16 @@ services:
       dockerfile: .Dockerfile
     container_name: saga
     depends_on:
-      - saga-db
+      - bantads-db
+      - rabbitmq
     ports:
       - "5005:8080"
     volumes:
       - ./Backend/Saga:/saga
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://saga-db:5432/saga
-      - SPRING_DATASOURCE_USERNAME=saga
-      - SPRING_DATASOURCE_PASSWORD=saga
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
@@ -170,10 +142,12 @@ services:
       - ./Backend/Gerente:/gerente
     depends_on:
       - gerente-db
+      - saga
+      - rabbitmq
     ports:
       - "5004:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://gerente-db:5432/gerente
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -195,12 +169,14 @@ services:
       - ./Backend/Cliente:/cliente
     depends_on:
       - cliente-db
+      - saga
+      - rabbitmq
     ports:
       - "5002:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://cliente-db:5432/cliente
-      - SPRING_DATASOURCE_USERNAME=cliente
-      - SPRING_DATASOURCE_PASSWORD=cliente
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
@@ -219,6 +195,8 @@ services:
       - ./Backend/Conta:/conta
     depends_on:
       - conta-db
+      - saga
+      - rabbitmq
     ports:
       - "5003:8080"
     environment:

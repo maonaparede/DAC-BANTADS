@@ -65,7 +65,7 @@ public class BdConfigR {
           = new DriverManagerDataSource();
         
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/bantads");
+        dataSource.setUrl("postgresql://bantads-db:5432/bantads");
         dataSource.setSchema("contaR");
         dataSource.setUsername("postgres");
         dataSource.setPassword("postgres");
