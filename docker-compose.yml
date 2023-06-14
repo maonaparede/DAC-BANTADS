@@ -141,7 +141,7 @@ services:
     volumes:
       - ./Backend/Gerente:/gerente
     depends_on:
-      - gerente-db
+      - bantads-db
       - saga
       - rabbitmq
     ports:
@@ -168,7 +168,7 @@ services:
     volumes:
       - ./Backend/Cliente:/cliente
     depends_on:
-      - cliente-db
+      - bantads-db
       - saga
       - rabbitmq
     ports:
@@ -194,7 +194,7 @@ services:
     volumes:
       - ./Backend/Conta:/conta
     depends_on:
-      - conta-db
+      - bantads-db
       - saga
       - rabbitmq
     ports:
