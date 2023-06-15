@@ -58,12 +58,8 @@ public class AuthService {
         if(conta.isPresent()) throw new ContaAlredyExists("Uma Conta Com Esse Email Já Existe!");
         
         if("C".equals(dto.getTipoUser())){
-            
-            String salt = Encrypt.gerarSalt(4);
-            String senha = Encrypt.encriptarInsertBd(salt, salt);
-            
-            ///colocando o salt assim hardcoded é impossível fazer login antes de aprovar a conta pro user
-            Auth reg = new Auth(dto.getEmail(), senha, "1", "C");
+            ///colocando o salt e senha assim hardcoded é impossível fazer login antes de aprovar a conta pro user
+            Auth reg = new Auth(dto.getEmail(), "1234", "1", "C");
             reg = rep.save(reg);
             dto = mapper.map(reg, AuthDTO.class);
             return dto;
@@ -76,10 +72,10 @@ public class AuthService {
         if(ct.isPresent()){
             Auth conta = ct.get();
             
-            String senha2 = Encrypt.gerarSalt(4); //Gera 8 char aleatórios
+            String senha2 = Encrypt.gerarSalt(Encrypt.SENHA_SIZE); //Gera 8 char aleatórios
             
             String salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
-            String senha = Encrypt.encriptarInsertBd(senha2, salt); 
+            String senha = Encrypt.encriptarSenhaLogin(senha2, salt); 
             
             conta.setSalt(salt);
             conta.setSenha(senha);
@@ -107,7 +103,7 @@ public class AuthService {
            "G".equals(dto.getTipoUser())){
             
             String salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
-            String senha = Encrypt.encriptarInsertBd(dto.getSenha(), salt);
+            String senha = Encrypt.encriptarSenhaLogin(dto.getSenha(), salt);
 
             Auth reg = new Auth(dto.getEmail(), senha, salt, dto.getTipoUser());
             reg = rep.save(reg);
@@ -159,7 +155,6 @@ public class AuthService {
         if(ct.isPresent()){
             Auth reg = ct.get();
             reg.setSalt("1"); //Pra não deixar o user entrar
-            reg.setTipoUser("C");
             rep.save(reg);
         }else{
            throw new ContaNotExistException("Essa Conta Não Existe");

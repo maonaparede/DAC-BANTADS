@@ -1,18 +1,14 @@
 
 package com.tads.dac.conta.modelR;
 
-import com.tads.dac.conta.modelCUD.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
-import java.util.UUID;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +22,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_operacao")
-public class OperacaoR {
+@Table(name = "tb_operacao", schema = "contar")
+public class OperacaoR implements Serializable {
     
     @Id
     private Long id;

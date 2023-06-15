@@ -41,6 +41,7 @@ public class ConsumerSagaAutocadastroConta {
             msg.setReturnObj(dto);
         } catch (ContaConstraintViolation ex) {
             msg.setMensagem(ex.getMessage());
+            //System.out.println(ex);
         }
         
         template.convertAndSend("auto-conta-saga-receive", msg);

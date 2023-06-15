@@ -4,8 +4,6 @@ package com.tads.dac.conta.repositoryCUD;
 import java.util.HashMap;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -45,9 +43,9 @@ public class BdConfigCUD {
         
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
         
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         
-        properties.put("spring.jpa.hibernate.ddl-auto", "update");  
+        properties.put("spring.jpa.hibernate.ddl-auto", "create");  
         
         properties.put("spring.jpa.show-sql", "true");
                 

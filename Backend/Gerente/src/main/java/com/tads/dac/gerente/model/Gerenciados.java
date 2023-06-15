@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "tb_gerenciados")
+@Table(name = "tb_gerenciados", schema = "gerente")
 public class Gerenciados implements Serializable{
     
     @Id
