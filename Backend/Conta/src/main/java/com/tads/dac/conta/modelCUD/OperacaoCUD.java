@@ -19,6 +19,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,42 +39,13 @@ public class OperacaoCUD implements Serializable {
     @Column(columnDefinition="CHAR(1)")
     private String operacao;
     
-    @Column(name = "de_user")
+    @ManyToOne
+    @JoinColumn(name = "de_user")
     private ContaCUD deUser;
     
-    @Column(name = "para_user")
+    @ManyToOne
+    @JoinColumn(name = "para_user")
     private ContaCUD paraUser;
-
-    @ManyToOne
-    @JoinColumn(name = "id_conta")    
-    public ContaCUD getDeUser() {
-        return deUser;
-    }
-    
-    @ManyToOne
-    @JoinColumn(name = "id_conta")
-    public ContaCUD getParaUser() {
-        return paraUser;
-    }
-
-    
-    
-    public Long getId() {
-        return id;
-    }
-
-    public Date getDataTempo() {
-        return dataTempo;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public String getOperacao() {
-        return operacao;
-    }
   
-    
     
 }
