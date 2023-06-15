@@ -115,10 +115,10 @@ services:
     volumes:
       - ./Backend/Saga:/saga
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
@@ -147,10 +147,10 @@ services:
     ports:
       - "5004:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
@@ -174,10 +174,10 @@ services:
     ports:
       - "5002:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/bantads
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bantads-db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
@@ -201,18 +201,17 @@ services:
       - "5003:8080"
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/contacud",
+        "spring.datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/postgres",
         "spring.datasource.username" : "postgres",
         "spring.datasource.password" : "postgres",
-        "spring.jpa.hibernate.ddl-auto" : "update",
-        "spring.read-datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/contar",
+        "spring.jpa.hibernate.ddl-auto" : "create",
+        "spring.read-datasource.jdbc-url" : "jdbc:postgresql://conta-db:5432/postgres",
         "spring.read-datasource.username" : "postgres",
         "spring.read-datasource.password" : "postgres",
         "spring.rabbitmq.host" : "rabbitmq",
         "spring.rabbitmq.port" : "5672",
         "spring.rabbitmq.username" : "guest",
-	      "spring.rabbitmq.password" : "guest"
-      }'
+	"spring.rabbitmq.password" : "guest"}'
   ##
   gateway:
     container_name: gateway
