@@ -43,9 +43,9 @@ public class BdConfigCUD {
         
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
         
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         
-        properties.put("spring.jpa.hibernate.ddl-auto", "update");  
+        properties.put("spring.jpa.hibernate.ddl-auto", "create");  
         
         properties.put("spring.jpa.show-sql", "true");
                 
