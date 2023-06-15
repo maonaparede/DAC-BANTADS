@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-
-@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,13 +34,41 @@ public class OperacaoR implements Serializable {
     @Column(columnDefinition="CHAR(1)")
     private String operacao;
     
-    @ManyToOne
-    @JoinColumn(name = "de_user")
+    @Column(name = "de_user")
     private ContaR deUser;
     
-    @ManyToOne
-    @JoinColumn(name = "para_user")
+    @Column(name = "para_user")
     private ContaR paraUser;
-  
     
+    @ManyToOne
+    @JoinColumn(name = "id_conta")
+    public ContaR getDeUser() {
+        return deUser;
+    }
+    
+    @ManyToOne
+    @JoinColumn(name = "id_conta")
+    public ContaR getParaUser() {
+        return paraUser;
+    }
+
+    
+    
+    public Long getId() {
+        return id;
+    }
+
+    public Date getDataTempo() {
+        return dataTempo;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public String getOperacao() {
+        return operacao;
+    }
+  
+  
 }
