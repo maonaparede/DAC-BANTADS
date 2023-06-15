@@ -23,7 +23,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_conta")
+@Table(name = "tb_conta", schema = "conta")
 public class ContaCUD implements Serializable{
     
     @Id

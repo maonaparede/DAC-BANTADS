@@ -10,7 +10,8 @@ import java.security.SecureRandom;
 
 public class Encrypt {
     
-    public static int SALT_SIZE = 32;
+    public static int SALT_SIZE = 64;
+    public static int SENHA_SIZE = 8;
     
     public static String criptoSha256(String senha) throws EncryptionException{
         try {
@@ -35,7 +36,7 @@ public class Encrypt {
     public static String gerarSalt(int size){
         StringBuilder salt = new StringBuilder();
         SecureRandom random = new SecureRandom();
-        byte[] saltByte = new byte[size];
+        byte[] saltByte = new byte[size/2]; //Tive que dividir por 2 pq gera sempre 2x mais por algum motivo
         random.nextBytes(saltByte);
         
         for (byte b : saltByte) {
@@ -50,10 +51,8 @@ public class Encrypt {
         return resultado;
     }
     
-    public static String encriptarInsertBd(String senha, String salt) throws EncryptionException{
-        senha = criptoSha256(senha);
-        senha = criptoSha256(senha + salt);
-        return senha;
+    public static void main(String[] args) {
+        System.out.println(gerarSalt(8));
     }
     
 }

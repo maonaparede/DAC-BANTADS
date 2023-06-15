@@ -3,8 +3,6 @@ package com.tads.dac.gerente.model;
 
 import com.tads.dac.gerente.DTOs.GerenteDashboardDTO;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
@@ -12,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedNativeQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -36,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_gerente")
+@Table(name = "tb_gerente", schema = "gerente")
 public class Gerente implements Serializable{
     
     @Id

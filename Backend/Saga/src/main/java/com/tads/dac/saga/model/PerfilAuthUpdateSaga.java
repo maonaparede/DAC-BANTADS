@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
+@Table(schema = "saga")
 public class PerfilAuthUpdateSaga implements Serializable{
     
     @Id
