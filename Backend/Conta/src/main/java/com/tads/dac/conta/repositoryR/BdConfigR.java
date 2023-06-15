@@ -39,8 +39,7 @@ public class BdConfigR {
         em.setJpaVendorAdapter(vendorAdapter);
         final HashMap<String, Object> properties = new HashMap<String, Object>();
         
-        properties.put("hibernate.dialect",
-                env.getProperty("org.hibernate.dialect.PostgreSQL81Dialect"));
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
         
         properties.put("hibernate.hbm2ddl.auto", "update");
         
@@ -60,7 +59,7 @@ public class BdConfigR {
           = new DriverManagerDataSource();
         
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+        dataSource.setUrl("jdbc:postgresql://bantads-db:5432/postgres");
         dataSource.setSchema("contar");
         dataSource.setUsername("postgres");
         dataSource.setPassword("postgres");
