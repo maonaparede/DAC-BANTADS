@@ -121,21 +121,24 @@ public class SagaServiceCUD {
     public GerenciadoGerenteSagaInsertDTO changeGerente(GerentePrimeiraContaDTO dto) throws changeGerenteException {
         GerenciadoGerenteSagaInsertDTO ret = new GerenciadoGerenteSagaInsertDTO();
         try{
-            Optional<ContaCUD> contaOp = rep.findById(dto.getPrimeiraConta());
-            if(contaOp.isPresent()){
-                ContaCUD conta = contaOp.get();
+            //O único caso da getPrimeiraConta ser null é quando o 1° gerente é add
+            if(dto.getPrimeiraConta() != null){
+                Optional<ContaCUD> contaOp = rep.findById(dto.getPrimeiraConta());
+                if(contaOp.isPresent()){
+                    ContaCUD conta = contaOp.get();
 
-                ret.setGerenteIdOld(conta.getIdGerente());
-                ret.setGerenteNomeOld(conta.getNomeGerente());
-                ret.setGerenteIdNew(dto.getId());
-                ret.setGerenteNomeNew(dto.getNome());
+                    ret.setGerenteIdOld(conta.getIdGerente());
+                    ret.setGerenteNomeOld(conta.getNomeGerente());
+                    ret.setGerenteIdNew(dto.getId());
+                    ret.setGerenteNomeNew(dto.getNome());
 
-                conta.setIdGerente(dto.getId());
-                conta.setNomeGerente(dto.getNome());
+                    conta.setIdGerente(dto.getId());
+                    conta.setNomeGerente(dto.getNome());
 
-                conta = rep.save(conta);
-                ContaDTO dto2 = mapper.map(conta, ContaDTO.class);
-                contaSync.syncConta(dto2);
+                    conta = rep.save(conta);
+                    ContaDTO dto2 = mapper.map(conta, ContaDTO.class);
+                    contaSync.syncConta(dto2);
+                }
             }
             return ret;
         }catch(Exception e){

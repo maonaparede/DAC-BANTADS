@@ -110,32 +110,25 @@ public class SagaService {
         
         //seleciona o gerente com maior numero de Gerenciados
         Long idGerente = repGerenciados.selectIdGerenteMaiorNumGerenciados();
-        gDto.setIdOld(idGerente);
         
-        //Seleciona um gerenciado do gerente com maior número
-        Optional<Gerenciados> gerenciado = repGerenciados.selectOneGerenciadoByGerenteId(idGerente);
-            
-        if (gerenciado.isPresent()) {
-            //Muda o gerente pro novo gerente
-            Gerenciados g1 = gerenciado.get();
-            g1.setGerenteId(gerente);
-            g1 = repGerenciados.save(g1);
-            
-            gDto.setPrimeiraConta(g1.getIdConta());
-            
-            
-            //Salva o gerenciado num DTO pra mandar pro saga que vai mandar pro mod. Conta
-            GerenciadoGerenteSagaInsertDTO gerDto = new GerenciadoGerenteSagaInsertDTO();
-            gerDto.setGerenteIdNew(gerente.getId());
-            gerDto.setGerenteNomeNew(gerente.getNome());
-            gerDto.setIdConta(g1.getIdConta());
+        //Quando for null é pq é a inserção do 1° Gerente
+        if (idGerente != null) {
+            gDto.setIdOld(idGerente);
 
-            //msg.setSendObj(gerDto); // Dados pra mandar pro prox saga
-            
-            //return
-            msg.setSendObj(gDto); //Dados pra salvar no Event Sourcing
+            //Seleciona um gerenciado do gerente com maior número
+            Optional<Gerenciados> gerenciado = repGerenciados.selectOneGerenciadoByGerenteId(idGerente);
+
+            if (gerenciado.isPresent()) {
+                //Muda o gerente pro novo gerente
+                Gerenciados g1 = gerenciado.get();
+                g1.setGerenteId(gerente);
+                g1 = repGerenciados.save(g1);
+
+                gDto.setPrimeiraConta(g1.getIdConta());
+                //return
+                msg.setSendObj(gDto); //Dados pra salvar no Event Sourcing
+            }
         }
-            
         return msg;
     }
 
