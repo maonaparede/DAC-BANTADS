@@ -27,7 +27,7 @@ public class ConsumerSagaInsertGerente {
         try{
             msg = serv.novoGerente(msg);
         }catch(Exception e){
-            msg.setMensagem("Aconteceu Algum Erro no Saga Insert Gerente No Módulo Gerente");
+            msg.setMensagem("Aconteceu Algum Erro no Saga Insert Gerente No Módulo Gerente: " + e.getMessage());
         }
         template.convertAndSend("ger-save-gerente-saga-receive", msg);
     }
