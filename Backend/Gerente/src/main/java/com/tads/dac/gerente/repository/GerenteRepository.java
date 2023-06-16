@@ -14,7 +14,7 @@ public interface GerenteRepository extends JpaRepository<Gerente, Long> {
     
     @Query(nativeQuery = true, value = """
            select gr.gerente_id id, ge.nome, ge.email, count(gr.gerente_id) clientes , count(CASE WHEN gr.saldo_positivo THEN 1 END) pos, count(CASE WHEN NOT gr.saldo_positivo THEN 1 END) neg 
-           from tb_gerenciados gr inner join tb_gerente ge on gr.gerente_id = ge.id
+           from gerente.tb_gerenciados gr inner join gerente.tb_gerente ge on gr.gerente_id = ge.id
            group by gr.gerente_id, ge.nome, ge.email
            """)
     List<Tuple> findDashboard();

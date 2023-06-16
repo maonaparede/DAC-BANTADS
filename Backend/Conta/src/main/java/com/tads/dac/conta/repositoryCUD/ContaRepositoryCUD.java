@@ -21,7 +21,7 @@ public interface ContaRepositoryCUD extends JpaRepository<ContaCUD, Long> {
     @Transactional //  A transação é uma unidade de trabalho isolada que leva o banco de dados de um estado consistente a outro estado consistente
     @Modifying // Retorna numero de linhas alteradas no bd    
     @Query(nativeQuery = true, 
-            value = "update tb_conta set idgerente = ?1 , nomegerente = ?2 where idgerente = ?3 ")
+            value = "update conta.tb_conta set idgerente = ?1 , nomegerente = ?2 where idgerente = ?3 ")
     public int updateGerenteIdNome(Long oldId, String newNome, Long newId);
 }
 

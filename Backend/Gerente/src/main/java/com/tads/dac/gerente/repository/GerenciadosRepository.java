@@ -18,29 +18,29 @@ public interface GerenciadosRepository extends JpaRepository<Gerenciados, Long> 
     
     
     @Query(nativeQuery = true, value = """
-                                       select id_ger from (select g.id as id_ger, COUNT(m.id_conta) as total from tb_gerente g 
-                                       left join tb_gerenciados m on g.id = m.gerente_id 
+                                       select id_ger from (select g.id as id_ger, COUNT(m.id_conta) as total from gerente.tb_gerente g 
+                                       left join gerente.tb_gerenciados m on g.id = m.gerente_id 
                                        group by g.id order by total desc limit 1) tb""")
     Long selectIdGerenteMaiorNumGerenciados();
     
     
     @Query(nativeQuery = true, value = """
-                                       select id_ger from (select g.id as id_ger, COUNT(m.id_conta) as total from tb_gerente g 
-                                       left join tb_gerenciados m on g.id = m.gerente_id 
+                                       select id_ger from (select g.id as id_ger, COUNT(m.id_conta) as total from gerente.tb_gerente g 
+                                       left join gerente.tb_gerenciados m on g.id = m.gerente_id 
                                        group by g.id order by total asc limit 2) tb""")
     List<Long> selectIdGerenteMenorNumGerenciados();
 
     @Transactional //  A transação é uma unidade de trabalho isolada que leva o banco de dados de um estado consistente a outro estado consistente
     @Modifying // Retorna numero de linhas alteradas no bd
-    @Query(nativeQuery = true, value = "update tb_gerenciados set gerente_id = :id_destino where gerente_id = :id_origem ")
+    @Query(nativeQuery = true, value = "update gerente.tb_gerenciados set gerente_id = :id_destino where gerente_id = :id_origem ")
     int transferirTodasAsContas(@Param("id_origem") Long id_origem, @Param("id_destino") Long id_destino);
     
     @Transactional
     @Modifying
-    @Query(nativeQuery = true, value = "update tb_gerenciados set gerente_id = :gerente where id_conta = :conta")
+    @Query(nativeQuery = true, value = "update gerente.tb_gerenciados set gerente_id = :gerente where id_conta = :conta")
     int mudaGerenteConta(@Param("conta") Long conta, @Param("gerente") Long gerente);
     
-    @Query(nativeQuery = true, value = "select id_conta, gerente_id, saldo_positivo from tb_gerenciados where gerente_id = :id limit 1")
+    @Query(nativeQuery = true, value = "select id_conta, gerente_id, saldo_positivo from gerente.tb_gerenciados where gerente_id = :id limit 1")
     Optional<Gerenciados> selectOneGerenciadoByGerenteId(@Param("id") Long id);
 
 }

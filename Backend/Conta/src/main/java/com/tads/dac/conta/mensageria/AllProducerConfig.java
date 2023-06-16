@@ -15,10 +15,6 @@ public class AllProducerConfig {
     @Value("operacao")
     private String queueOperacao;
     
-    @Value("gerente")
-    private String queueGerente;
-    
-    
     @Value("conta-gerente")
     private String queueContaGerente; 
     
@@ -36,11 +32,6 @@ public class AllProducerConfig {
     @Bean
     public Queue queueOperacao(){
         return new Queue(queueOperacao);
-    }
-    
-    @Bean
-    public Queue queueCliente(){
-        return new Queue(queueGerente);
     }
 
     @Bean
