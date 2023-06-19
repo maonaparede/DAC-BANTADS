@@ -25,3 +25,7 @@ cd ..
 cd Saga
 
 sudo docker build -t saga -f .Dockerfile .
+
+cd Gateway
+
+sudo docker build -t gateway -f .Dockerfile .
