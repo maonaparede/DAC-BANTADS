@@ -1,31 +1,26 @@
 {
-  "name": "apigateway",
+  "name": "gateway",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
-  "scripts": {
-    "start": "ts-node-dev --respawn --transpileOnly --ignore node_modules ./src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "main": "index.js",
   "dependencies": {
+    "axios": "^1.2.5",
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.18.2",
     "express-http-proxy": "^1.6.3",
-    "helmet": "^7.0.0",
-    "morgan": "^1.10.0"
+    "helmet": "^6.0.1",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
   },
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/helmet": "^4.0.0",
-    "@types/morgan": "^1.9.4",
-    "@types/node": "^20.1.4",
-    "@typescript-eslint/eslint-plugin": "^5.59.6",
-    "@typescript-eslint/parser": "^5.59.6",
-    "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.4"
-  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
