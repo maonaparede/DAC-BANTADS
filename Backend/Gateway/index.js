@@ -36,8 +36,6 @@ function verifyJWT(req, res, next) {
     });
 }
 
-app.use(verifyJWT());
-
 // AUTH
 
 app.post('/newUser', (req, res, next) => {
