@@ -5,105 +5,103 @@
       <p class="list-title underline">Adicionar Gerente</p>
     </div>
 
-    <div class="user-container">
+    <form (ngSubmit)="adicionarGerente()"  [formGroup]='addManagerForm' class="user-container">
+      <div class="basic-info">
+        <img src="../../../assets/icons/profile-user.png" alt="">
+        <input [(ngModel)]="nome" type="text">
+        <div class="gray-line"></div>
+        <p>Gerente</p>
+      </div>
 
-    <div class="basic-info">
-      <img src="../../../assets/icons/profile-user.png" alt="">
-      <input disabled type="text">
-      <div class="gray-line"></div>
-      <p>Gerente</p>
-    </div>
-
-    <div class="other-info">
-      <input disabled type="text" placeholder="E-mail">
+      <div class="other-info">
+        <input [(ngModel)]="email" type="text" placeholder="E-mail">
         <section class="row-direction">
-      <input disabled type="text" placeholder="Senha">
-      <input disabled type="text" placeholder="Confirme a senha">
-        </section>
-        <section class="row-direction">
-      <input disabled type="text" placeholder="CPF">
-      <input disabled type="text" placeholder="Telefone">
+          <input [(ngModel)]="senha" type="text" placeholder="Senha">
+          <input [(ngModel)]="confirmarSenha" type="text" placeholder="Confirme a senha">
         </section>
         <section class="row-direction">
-      <input disabled type="text" placeholder="Salário">
-      <input disabled type="text" placeholder="CEP">
+          <input [(ngModel)]="cpf" type="text" placeholder="CPF">
+          <input [(ngModel)]="telefone" type="text" placeholder="Telefone">
         </section>
-      <input disabled type="text" placeholder="Endereço">
-      <section class="row-direction small-input">
-      <input disabled type="text" placeholder="Nº">
-      <input disabled type="text" placeholder="Complemento">
+        <section class="row-direction">
+          <input [(ngModel)]="salario" type="text" placeholder="Salário">
+          <input [(ngModel)]="cep" type="text" placeholder="CEP">
         </section>
-      <section class="row-direction">
-      <input disabled type="text" placeholder="Estado">
-      <input disabled type="text" placeholder="Cidade">
+        <input [(ngModel)]="endereco" type="text" placeholder="Endereço">
+        <section class="row-direction small-input">
+          <input [(ngModel)]="numero" type="text" placeholder="Nº">
+          <input [(ngModel)]="complemento" type="text" placeholder="Complemento">
         </section>
-    </div>
+        <section class="row-direction">
+          <input [(ngModel)]="estado" type="text" placeholder="Estado">
+          <input [(ngModel)]="cidade" type="text" placeholder="Cidade">
+        </section>
+      </div>
 
-    </div>
-
-    <div class="btn-container">
-      <button class="save-btn">Adicionar</button>
-    </div>
+      <div class="btn-container">
+        <button type="submit" class="save-btn">Adicionar</button>
+      </div>
+    </form>
   </div>
 
   <div *ngIf="profile" class="profile-container">
     <div class="header-container">
-      <span class="header-lside">
+    <span class="header-lside">
       <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
-      </span>
+    </span>
       <span class="header-center">
       <p class="profile-title underline">Informações</p>
-      </span>
+    </span>
       <span class="header-rside">
-        <button><i class="fa fa-trash"></i></button>
-      </span>
+      <button><i class="fa fa-trash"></i></button>
+    </span>
     </div>
 
-    <div class="user-container">
-
-    <div class="basic-info">
-      <img src="../../../assets/icons/profile-user.png" alt="">
-      <input disabled type="text">
-      <div class="gray-line"></div>
-      <p>Gerente</p>
-      <span class="manager-desc">
+    <form (ngSubmit)=" ()" class="user-container">
+      <div class="basic-info">
+        <img src="../../../assets/icons/profile-user.png" alt="">
+        <input [(ngModel)]="nome" type="text">
+        <div class="gray-line"></div>
+        <p>Gerente</p>
+        <span class="manager-desc">
         <p>Clientes:</p>
         <p style="color:red">Saldo negativo:</p>
         <p style="color:green">Saldo positivo:</p>
       </span>
-    </div>
+      </div>
 
-    <div class="other-info">
-      <input disabled type="text" placeholder="E-mail">
+      <div class="other-info">
+        <input [(ngModel)]="email" type="text" placeholder="E-mail">
         <section class="row-direction">
-      <input disabled type="text" placeholder="Senha">
-      <input disabled type="text" placeholder="Confirme a senha">
-        </section>
-        <section class="row-direction">
-      <input disabled type="text" placeholder="CPF">
-      <input disabled type="text" placeholder="Telefone">
+          <input [(ngModel)]="senha" type="text" placeholder="Senha">
+          <input [(ngModel)]="confirmarSenha" type="text" placeholder="Confirme a senha">
         </section>
         <section class="row-direction">
-      <input disabled type="text" placeholder="Salário">
-      <input disabled type="text" placeholder="CEP">
+          <input [(ngModel)]="cpf" type="text" placeholder="CPF">
+          <input [(ngModel)]="telefone" type="text" placeholder="Telefone">
         </section>
-      <input disabled type="text" placeholder="Endereço">
-      <section class="row-direction small-input">
-      <input disabled type="text" placeholder="Nº">
-      <input disabled type="text" placeholder="Complemento">
+        <section class="row-direction">
+          <input [(ngModel)]="salario" type="text" placeholder="Salário">
+          <input [(ngModel)]="cep" type="text" placeholder="CEP">
         </section>
-      <section class="row-direction">
-      <input disabled type="text" placeholder="Estado">
-      <input disabled type="text" placeholder="Cidade">
+        <input [(ngModel)]="endereco" type="text" placeholder="Endereço">
+        <section class="row-direction small-input">
+          <input [(ngModel)]="numero" type="text" placeholder="Nº">
+          <input [(ngModel)]="complemento" type="text" placeholder="Complemento">
         </section>
-    </div>
+        <section class="row-direction">
+          <input [(ngModel)]="estado" type="text" placeholder="Estado">
+          <input [(ngModel)]="cidade" type="text" placeholder="Cidade">
+        </section>
+      </div>
 
-    </div>
-
-    <div class="btn-container">
-      <button class="save-btn">Salvar</button>
-    </div>
+      <div class="btn-container">
+        <button type="submit" class="save-btn">Salvar</button>
+      </div>
+    </form>
   </div>
+
+
 </app-center-modal>
 
 <app-navbar></app-navbar>

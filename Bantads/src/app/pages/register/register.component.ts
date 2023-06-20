@@ -81,19 +81,18 @@ export class RegisterComponent {
     if (this.registerForm.valid)
       try {
         const user: IUser = {
-          name: this.registerForm.value.name || '',
+          nome: this.registerForm.value.name || '',
           email: this.registerForm.value.email || '',
-          password: this.registerForm.value.password || '',
-          role: this.registerForm.value.role || 'user',
+          senha: this.registerForm.value.password || '',
+          tipo: this.registerForm.value.role || 'user',
           cpf: this.registerForm.value.cpf || '',
-          phone: this.registerForm.value.phone || '',
-          salary: this.registerForm.value.salary || '',
+          telefone: this.registerForm.value.phone || '',
+          salario: this.registerForm.value.salary || '',
           cep: this.registerForm.value.cep || '',
-          number: this.registerForm.value.number || '',
-          state: this.state || '',
-          city: this.city || '',
-          neighborhood: this.neighborhood || '',
-          address: this.address || '',
+          numero: this.registerForm.value.number || '',
+          estado: this.state || '',
+          cidade: this.city || '',
+          logradouro: this.address || '',
         };
         await this.accountService.createAccount(user).subscribe({
           next: response => this.router.navigate(['/login']),
