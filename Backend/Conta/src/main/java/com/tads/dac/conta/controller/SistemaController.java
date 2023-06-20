@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping("/api/sys/cli")
 public class SistemaController {
     
