@@ -35,32 +35,15 @@ public class AdmServiceImp{
     @Autowired
     private ModelMapper mapper;
     
-    public GerenteDTO save(Gerente gerente) throws GerenteConstraintViolation{
-        try{
-            Gerente ger = new Gerente();
-            ger.setCpf(gerente.getCpf());
-            ger.setEmail(gerente.getEmail());
-            ger.setNome(gerente.getNome());
-            ger.setTelefone(gerente.getTelefone());
-            
-            ger = rep.save(ger);
-
-            Long gerenteMaiorNumCliente = gerRep.selectIdGerenteMaiorNumGerenciados();
-            
-            List<Gerenciados> list = gerRep.findByGerenteId(gerenteMaiorNumCliente);
-            if(list.size() > 1){
-                gerRep.mudaGerenteConta(list.get(0).getIdConta(), ger.getId());
-            }
-            
-            GerenteDTO dto = mapper.map(ger, GerenteDTO.class);
+    public GerenteDTO findByEmail(String email) throws GerenteDoesntExistException{
+        Optional<Gerente> ger = rep.findByEmail(email);
+        if(ger.isPresent()){
+            GerenteDTO dto = mapper.map(ger.get(), GerenteDTO.class);
             return dto;
-        }catch(DataIntegrityViolationException e){
-            SQLException ex = ((ConstraintViolationException) e.getCause()).getSQLException();
-            String campo = ex.getMessage();
-            campo = campo.substring(campo.indexOf("(") + 1, campo.indexOf(")"));
-            throw new GerenteConstraintViolation("Esse " + campo + " já existe!");
+        }else{
+            throw new GerenteDoesntExistException("Um Gerente Com Esse Id Não Existe!");
         }
-    }
+    }   
 
     
     public List<GerenteDTO> listarGerente() {

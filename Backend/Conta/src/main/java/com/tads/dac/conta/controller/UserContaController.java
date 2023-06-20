@@ -45,6 +45,15 @@ public class UserContaController {
         }
     }
     
+    @GetMapping("/idCliente/{id}")
+    public ResponseEntity<?> getContaInfoByIdCliente(@PathVariable("id") Long id){
+        try{
+            ClienteContaInfoDTO dto = contaService.getContaByIdCliente(id);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        }catch(ClienteNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);   
+        }
+    }
     
     //R8
     @GetMapping("/{id}/{dataInicio}/{dataFim}")

@@ -54,6 +54,17 @@ public class AdmController {
         }
     }
     
+    //R2 para consulta api Composite de login
+    @GetMapping("/ger/email/{email}")
+    public ResponseEntity<GerenteDTO> getByEmail(@PathVariable(value = "email") String email){       
+        try{
+            GerenteDTO gerdto = service.findByEmail(email);
+            return new ResponseEntity<>(gerdto, HttpStatus.OK);
+        }catch(GerenteDoesntExistException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);   
+        }
+    }
+    
     //R19
     @GetMapping("/ger/all")
     public ResponseEntity<?> getListagemGerente(){

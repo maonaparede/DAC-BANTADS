@@ -56,6 +56,25 @@ app.get('/teste', (req, res, next) => {
 
 // AUTH
 //R2
+/* Vai precisar fazer o api composition pra concatenar tds as informacoes pra poder utilizar o banco
+
+/api/adm/ger/email/{email} - pega info do modulo gerente
+
+/api/cli/cli/email/{email} - pega info do modulo cliente
+
+/api/user/idCliente/{id} - pega info do modulo conta
+
+pra criar um obj:
+
+No caso do cliente
+{"email": "foo@bar.com", "idCliente": 1, "idConta": 1, "idGerente": null, "tipoUser": "C"}
+
+No caso do Gerente
+{"email": "foo@bar.com", "idCliente": null, "idConta": null, "idGerente": 1, "tipoUser": "G"}
+
+No caso do ADM (só precisa fazer login msm)
+{"email": "foo@bar.com", "idCliente": null, "idConta": null, "idGerente": 1, "tipoUser": "A"}
+*/
 app.get('/login', (req, res, next) => {
     req.method = 'GET';
     email = req.email;

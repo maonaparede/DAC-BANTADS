@@ -40,5 +40,15 @@ public class ClienteController {
         }
     }
     
+    @GetMapping("/cli/email/{email}")
+    public ResponseEntity<?> getClienteByEmail(@PathVariable(value = "email") String email){
+        try{
+            ClienteEndDTO dto = serv.getClienteByEmail(email);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+         } catch (ClienteNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
     
 }

@@ -4,6 +4,7 @@ package com.tads.dac.gerente.repository;
 import com.tads.dac.gerente.DTOs.GerenteDashboardDTO;
 import com.tads.dac.gerente.model.Gerente;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.Tuple;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,6 @@ public interface GerenteRepository extends JpaRepository<Gerente, Long> {
     
     @Query("select g from Gerente g order by g.nome asc")
     public List<Gerente> findAllOrderByNome();
+    
+    public Optional<Gerente> findByEmail(String email);
 }
