@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 
+
 const app = express();
 const authServiceProxy = createProxyMiddleware({ target: 'http://localhost:5001', changeOrigin: true });
 const clientServiceProxy = createProxyMiddleware({ target: 'http://localhost:5002', changeOrigin: true });
@@ -20,6 +21,8 @@ const contaSysUrl = '/api/sys/cli';
 const contaUrl = '/api/user';
 const gerenteUrl = '/api/adm';
 const sagaUrl = '/api/saga';
+
+app.use(authServiceProxy);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,6 +45,14 @@ function verifyJWT(req, res, next) {
         next();
     });
 }
+
+//Só pra ver se o back conecta - ignorar
+app.get('/teste', (req, res, next) => {
+    req.method = 'GET';
+    req.url = `${authUrl}/root@root/root`;
+    next();
+ 
+}, authServiceProxy);
 
 // AUTH
 //R2
