@@ -25,10 +25,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-
-@RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RestController
+@RequestMapping("/api/adm")
 public class AdmController {
        
     @Autowired
@@ -38,14 +37,14 @@ public class AdmController {
     private ModelMapper mapper;
     
     //R15
-    @GetMapping("/adm") // Ex - http://localhost:8080/api/gerente -- sem
+    @GetMapping("/adm") 
     public ResponseEntity<List<GerenteDashboardDTO>> telaInicial(){
         List<GerenteDashboardDTO> gerdto = service.findDashboard();
         return ResponseEntity.status(HttpStatus.OK).body(gerdto);
     }
     
     //R20 para consulta
-    @GetMapping("/adm/{id}")
+    @GetMapping("/ger/{id}")
     public ResponseEntity<GerenteDTO> getById(@PathVariable(value = "id") Long id){       
         try{
             GerenteDTO gerdto = service.findById(id);
@@ -56,54 +55,11 @@ public class AdmController {
     }
     
     //R19
-    @GetMapping("/adm/all")
+    @GetMapping("/ger/all")
     public ResponseEntity<?> getListagemGerente(){
             List<GerenteDTO> gerentes = service.listarGerente();
             return new ResponseEntity<>(gerentes, HttpStatus.OK);
-    }   
-    
-    /*
-    @PostMapping("/adm") //Ex - http://localhost:8080/api/gerente -- cm body;
-    public ResponseEntity<?> save(@RequestBody Gerente gerente){
-       
-        try {
-            Gerente ger = service.save(gerente);
-            GerenteDTO gerdto = mapper.map(ger, GerenteDTO.class);
-            return new ResponseEntity<>(gerdto, HttpStatus.CREATED);        
-        }catch(GerenteConstraintViolation e){
-            String msg = e.getMessage();
-            return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
-        }
     }
     
-    
-    @PutMapping("/adm/{id}") // Ex - http://localhost:8080/api/gerente/9 -- cm body
-    public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody Gerente gerente){
-        
-        try{
-            Gerente gerupdate = service.update(gerente, id);
-            GerenteDTO gerdto = mapper.map(gerupdate, GerenteDTO.class);
-            return new ResponseEntity<>(gerdto, HttpStatus.OK);
-        }catch(GerenteDoesntExistException e){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }catch(GerenteConstraintViolation e){
-            String msg = e.getMessage();
-            return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
-        }
-        
-    }
-    
-    
-    //Tem qe ver as especificações com o professor R18
-    @DeleteMapping("/adm/{id}") //Ex - http://localhost:8080/api/gerente/9 -- sem body
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable(value = "id") Long id){
-            try {
-                service.deleteById(id);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } catch (DeleteLastGerenteException e) {
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);   
-            } 
-    }
-    */
  
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserContaController {
     
     @Autowired
@@ -33,7 +35,7 @@ public class UserContaController {
     private ContaService contaService;
     
     //R13 ou R3
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getContaInfo(@PathVariable("id") Long id){
         try{
             ClienteContaInfoDTO dto = contaService.getById(id);          
@@ -45,7 +47,7 @@ public class UserContaController {
     
     
     //R8
-    @GetMapping("/user/{id}/{dataInicio}/{dataFim}")
+    @GetMapping("/{id}/{dataInicio}/{dataFim}")
     public ResponseEntity<?> getExtrato(
             @PathVariable Long id,
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataInicio,
@@ -61,7 +63,7 @@ public class UserContaController {
     }
     
     //R5, R6, R7
-    @PostMapping("/user")
+    @PostMapping("/op")
     public ResponseEntity<?> fazOperacao(@RequestBody OperacaoDTO op){
         try{
             OperacaoBdDTO opRet = new OperacaoBdDTO();

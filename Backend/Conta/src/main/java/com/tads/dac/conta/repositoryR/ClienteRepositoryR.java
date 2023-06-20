@@ -14,18 +14,18 @@ public interface ClienteRepositoryR extends JpaRepository<ClienteR, Long>{
     
     @Query(nativeQuery = true, value = """
         select c.id_conta idconta, c.id_cliente idcliente, c.saldo, cl.nome, cl.cpf, cl.cidade,
-        cl.estado from contar.clienter cl, contar.tb_conta c where cl.id = c.id_cliente and c.situacao = 'A'
-        order by cl.nome                               
+        cl.estado from contar.clienter cl, contar.tb_conta c where cl.id = c.id_cliente and c.situacao = 'A' 
+        and c.idgerente = ?1 order by cl.nome                               
                                        """)
-    List<Tuple> getAllClientes();
+    List<Tuple> getAllClientes(Long id);
     
     
     @Query(nativeQuery = true, value = """
         select c.id_conta idconta, c.id_cliente idcliente, c.saldo, cl.nome, cl.cpf, cl.cidade,
-        cl.estado from contar.clienter cl, contar.tb_conta c where cl.id = c.id_cliente and c.situacao = 'A'
-        order by c.saldo desc limit 3;
+        cl.estado from contar.clienter cl, contar.tb_conta c where cl.id = c.id_cliente and c.situacao = 'A' 
+        and c.idgerente = ?1 order by c.saldo desc limit 3;
                                        """)
-    List<Tuple> get3BestClientes();
+    List<Tuple> get3BestClientes(Long id);
     
     @Query(nativeQuery = true, value = """
     select c.id_conta idconta, cl.nome, cl.cpf, c.nomegerente,

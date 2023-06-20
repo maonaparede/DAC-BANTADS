@@ -18,14 +18,18 @@ import com.tads.dac.saga.sagas.removegerente.RemoveGerenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/saga")
 public class SagaController {
     
     @Autowired
@@ -50,7 +54,7 @@ public class SagaController {
     private RejeitarClienteSagaInitService rejeitaClienteServ;
     
     //R4 - CUD
-    @PostMapping("/saga")
+    @PostMapping("/cli/update")
     public ResponseEntity<?> sagaUpdatePerfilCliente(@RequestBody ClienteEndDTO dto){
         
         updatePerfilserv.initSaga(dto);
@@ -58,42 +62,42 @@ public class SagaController {
     }
 
     //R11
-    @PostMapping("/saga/cli/rej")
+    @PutMapping("/cli/rej")
     public ResponseEntity<?> sagaRejeitaCliente(@RequestBody RejeitaClienteIdContentDTO dto){      
         rejeitaClienteServ.initSagaInsertGerente(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
     //R1
-    @PostMapping("/saga/cli/auto")
+    @PostMapping("/cli/auto")
     public ResponseEntity<?> sagaAutocadastro(@RequestBody ClienteAutocadastroDTO dto){      
         autocadastroServ.initSagaAutocadastro(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
     //R18
-    @PostMapping("/saga/cli/apro/{id}")
+    @PutMapping("/cli/apro/{id}")
     public ResponseEntity<?> sagaAprovaCliente(@PathVariable("id") Long id){      
         aprovaClienteServ.initSagaAutocadastro(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //R20 - Insert
-    @PostMapping("/saga/ger/alt")
+    @PutMapping("/ger/alt")
     public ResponseEntity<?> sagaAlteraGerente(@RequestBody GerenteDTO dto){      
         alteraGerenteServ.initSaga(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
     //R18 - CUD
-    @PostMapping("/saga/ger/{id}")
+    @DeleteMapping("/ger/rem/{id}")
     public ResponseEntity<?> sagaRemoveGerente(@PathVariable("id") Long id){      
         gerRemoveServ.initSaga(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
     //R17
-    @PostMapping("/saga/ger/insert")
+    @PostMapping("/ger/insert")
     public ResponseEntity<?> sagaInsertGerente(@RequestBody GerenteSenhaDTO dto){      
         gerInsertServ.initSagaInsertGerente(dto);
         return new ResponseEntity<>(HttpStatus.OK);

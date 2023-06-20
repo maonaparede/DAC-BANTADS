@@ -22,15 +22,15 @@ public class SysAdmService {
     private ClienteRepositoryR repCliente;
     
     ///R12
-    public List<ClienteContaInfoDTO> getAllClientes(){
-        List<Tuple> lst = repCliente.getAllClientes();
+    public List<ClienteContaInfoDTO> getAllClientes(Long id){
+        List<Tuple> lst = repCliente.getAllClientes(id);
         List<ClienteContaInfoDTO> lista = mapTupleClienteContaInfo(lst);
         return lista;
     }
     
     //R14
-    public List<ClienteContaInfoDTO> get3MaioresSaldoClientes(){
-        List<Tuple> lst = repCliente.get3BestClientes();
+    public List<ClienteContaInfoDTO> get3MaioresSaldoClientes(Long id){
+        List<Tuple> lst = repCliente.get3BestClientes(id);
         List<ClienteContaInfoDTO> lista = mapTupleClienteContaInfo(lst);
         return lista;
     }

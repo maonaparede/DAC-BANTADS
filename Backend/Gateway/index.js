@@ -14,6 +14,13 @@ const accountServiceProxy = createProxyMiddleware({ target: 'http://localhost:50
 const managerServiceProxy = createProxyMiddleware({ target: 'http://localhost:5004', changeOrigin: true });
 const sagaServiceProxy = createProxyMiddleware({ target: 'http://localhost:5005', changeOrigin: true });
 
+const authUrl = '/api/auth';
+const clientUrl = '/api/cli';
+const contaSysUrl = '/api/sys/cli';
+const contaUrl = '/api/user';
+const gerenteUrl = '/api/adm';
+const sagaUrl = '/api/saga';
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
@@ -37,217 +44,200 @@ function verifyJWT(req, res, next) {
 }
 
 // AUTH
-
-app.post('/newUser', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/auth`;
-    next();
-}, authServiceProxy);
-
-app.put('/updateEmail', (req, res, next) => {
-    req.method = 'PUT';
-    oldEmail = req.oldEmail;
-    email = req.email;
-    req.url = `/api/auth/${oldEmail}/${email}`;
-    next();
-}, authServiceProxy);
-
-app.delete('/delete', (req, res, next) => {
-    req.method = 'DELETE';
-    name = req.name;
-    req.url = `/api/auth/${name}`;
-    next();
-}, authServiceProxy);
-
+//R2
 app.get('/login', (req, res, next) => {
     req.method = 'GET';
     email = req.email;
     pass = req.pass;
-    req.url = `/api/auth/${email}/${pass}`;
+    req.url = `${authUrl}/${email}/${pass}`;
+    next();
+}, authServiceProxy);
+
+app.get('/EmailExists', (req, res, next) => {
+    req.method = 'GET';
+    email = req.email;
+    req.url = `${authUrl}/${email}`;
     next();
 }, authServiceProxy);
 
 // CLIENT
-
-app.post('/new', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/cli/`;
-    next();
-}, clientServiceProxy);
-
-app.put('/update', (req, res, next) => {
-    req.method = 'PUT';
-    userId = req.userId;
-    req.url = `/api/cli/${userId}`;
-    next();
-}, clientServiceProxy);
-
-app.post('/seila', (req, res, next) => {
-    req.method = 'POST';
-    userId = req.userId;
-    name = req.name;
-    id = req.id;
-    req.url = `/api/cli/${userId}/${name}/${id}`;
+    //Usar com apiCompose - caso precise
+    //R4 - use pra pegar os dados do cliente
+app.get('/getClientById', (req, res, next) => {
+    req.method = 'GET';
+    idCliente = req.id;
+    req.url = `${clientUrl}/cli/${idCliente}`;
     next();
 }, clientServiceProxy);
 
 // ACCOUNT
 
-app.post('/new', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/sys`;
-    next();
-}, accountServiceProxy);
-
-app.put('/situacao', (req, res, next) => {
-    req.method = 'PUT';
-    req.url = `/api/sys`;
-    next();
-}, accountServiceProxy);
-
-
-app.put('/limit', (req, res, next) => {
-    req.method = 'PUT';
-    userId = req.userId;
-    limit = req.limit;
-    req.url = `/api/sys/${userId}/${limit}`;
-    next();
-}, accountServiceProxy);
-
+//R13 - Com Api compose
 app.get('/search', (req, res, next) => {
     req.method = 'GET';
-    userId = req.userId;
-    req.url = `/api/sys/${userId}`;
+    userIdConta = req.userId;
+    req.url = `${contaSysUrl}/ger/${userIdConta}`;
     next();
 }, accountServiceProxy);
 
-
+//R9 - Clientes que precisam ser apr ou rep pelo gerente
 app.get('/waiting', (req, res, next) => {
     req.method = 'GET';
-    req.url = `/api/sys`;
+    gerenteId = req.gerenteId;
+    req.url = `${contaSysUrl}/ger/esp/${gerenteId}`;
     next();
 }, accountServiceProxy);
 
+//R12
+app.get('/clientsManager', (req, res, next) => {
+    req.method = 'GET';
+    gerenteId = req.gerenteId;
+    req.url = `${contaSysUrl}/ger/myCli/${gerenteId}`;
+    next();
+}, accountServiceProxy);
 
+//R14
+app.get('/BestClientsManager', (req, res, next) => {
+    req.method = 'GET';
+    gerenteId = req.gerenteId;
+    req.url = `${contaSysUrl}/ger/bestCli/${gerenteId}`;
+    next();
+}, accountServiceProxy);
 
-app.post('/extrato', (req, res, next) => {
-    req.method = 'POST';
+//R16
+app.get('/RelatorioClientAdm', (req, res, next) => {
+    req.method = 'GET';
+    req.url = `${contaSysUrl}/adm/RelCli`;
+    next();
+}, accountServiceProxy);
+
+//R12
+app.get('/AllClientManager', (req, res, next) => {
+    req.method = 'GET';
+    gerenteId = req.gerenteId;
+    req.url = `${contaSysUrl}/ger/allCli/${gerenteId}`;
+    next();
+}, accountServiceProxy);
+
+//Operações do cliente
+
+//R13 ou R3
+app.get('/userInfo', (req, res, next) => {
+    req.method = 'GET';
     userId = req.userId;
+    req.url = `${contaUrl}/${userId}`;
+    next();
+}, accountServiceProxy);
+
+//R8
+app.get('/extrato', (req, res, next) => {
+    req.method = 'GET';
+    userIdConta = req.userId;
     start = req.start;
     end = req.end;
-    req.url = `/api/user/${userId}/${start}/${end}`;
+    req.url = `${contaUrl}/${userIdConta}/${start}/${end}`;
     next();
 }, accountServiceProxy);
 
+//R5
 app.post('/deposito', (req, res, next) => {
     req.method = 'POST';
-    req.url = `/api/user`;
+    req.url = `${contaUrl}/op`;
     next();
 }, accountServiceProxy);
-
+//R6
 app.post('/saque', (req, res, next) => {
     req.method = 'POST';
-    req.url = `/api/user`;
+    req.url = `${contaUrl}/op`;
     next();
 }, accountServiceProxy);
-
+//R7
 app.post('/transferencia', (req, res, next) => {
     req.method = 'POST';
-    req.url = `/api/user`;
+    req.url = `${contaUrl}/op`;
     next();
 }, accountServiceProxy);
 
-// MANAGER
 
-app.get('/findAll', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/adm`;
+// MANAGER - modulo gerente
+//R15
+app.get('/findAllMainScreenGerente', (req, res, next) => {
+    req.method = 'GET';
+    req.url = `${gerenteUrl}/adm`;
     next();
 }, managerServiceProxy);
-
-app.get('/findById', (req, res, next) => {
-    req.method = 'POST';
+//R20 para consulta
+app.get('/findManagerById', (req, res, next) => {
+    req.method = 'GET';
     userId = req.userId;
-    req.url = `/api/adm/${userId}`;
+    req.url = `${gerenteUrl}/ger/${userId}`;
     next();
 }, managerServiceProxy);
 
-app.post('/insert', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/adm`;
-    next();
-}, managerServiceProxy);
-
-app.put('/insert', (req, res, next) => {
-    req.method = 'PUT';
-    userId = req.userId;
-    req.url = `/api/adm/${userId}`;
-    next();
-}, managerServiceProxy);
-
-
-app.delete('/insert', (req, res, next) => {
-    req.method = 'DELETE';
-    userId = req.userId;
-    req.url = `/api/adm/${userId}`;
+//R19
+app.get('/findAllGerente', (req, res, next) => {
+    req.method = 'GET';
+    req.url = `${gerenteUrl}/ger/all`;
     next();
 }, managerServiceProxy);
 
 
 // SAGA
 
-app.post('/alteraGerente', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/saga/ger/alt`;
+//Cliente
+//R11
+app.put('/rejeitaCliente', (req, res, next) => {
+    req.method = 'PUT';
+    req.url = `${sagaUrl}/cli/rej`;
     next();
 }, sagaServiceProxy);
 
-app.post('/rejeitaCliente', (req, res, next) => {
-    req.method = 'POST';
-    req.url = `/api/saga/ger/rej`;
+//R18 - Precisa ser o idCliente do Modulo cliente
+app.put('/aprovarCliente', (req, res, next) => {
+    req.method = 'PUT';
+    userIdCliente = req.userId;
+    req.url = `${sagaUrl}/cli/apro/${userIdCliente}`;
     next();
 }, sagaServiceProxy);
 
-app.post('/aprovarCliente', (req, res, next) => {
-    req.method = 'POST';
-    userId = req.userId;
-    req.url = `/api/saga/cli/apro/${userId}`;
+//R4
+app.put('/updateProfile', (req, res, next) => {
+    req.method = 'PUT';
+    req.url = `${sagaUrl}/cli/update`;
     next();
 }, sagaServiceProxy);
 
-app.post('/insertManager', (req, res, next) => {
-    req.method = 'POST';
-    req.url = '/api/saga/ger/insert';
-    next();
-}, sagaServiceProxy);
-
-app.post('/removeManager', (req, res, next) => {
-    req.method = 'POST';
-    req.url = '/api/saga/:id';
-    next();
-}, sagaServiceProxy);
-
-app.post('/updateProfile', (req, res, next) => {
-    req.method = 'POST';
-    req.url = '/api/saga';
-    next();
-}, sagaServiceProxy);
-
+//R1
 app.post('/signup', (req, res, next) => {
     req.method = 'POST';
-    req.url = '/api/saga/cli/auto';
+    req.url = `${sagaUrl}/cli/auto`;
     next();
 }, sagaServiceProxy);
 
-app.get('/login', (req, res, next) => {
-    req.method = 'GET';
-    name = req.name;
-    pass = req.pass;
-    req.url = `/api/auth/${name}/${pass}`;
+//Gerente
+//R20
+app.put('/alteraGerente', (req, res, next) => {
+    req.method = 'POST';
+    req.url = `${sagaUrl}/ger/alt`;
+    next();
+}, sagaServiceProxy);
+//R17
+app.post('/insertManager', (req, res, next) => {
+    req.method = 'POST';
+    req.url = `${sagaUrl}/ger/insert`;
+    next();
+}, sagaServiceProxy);
+//R18
+app.post('/removeManager', (req, res, next) => {
+    req.method = 'POST';
+    idGerente = req.idGerente;
+    req.url = `${sagaUrl}/ger/rem/${idGerente}`;
     next();
 }, sagaServiceProxy);
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+
+
+app.listen(5000, () => {
+    console.log('Server running on port 5000');
 });
 
