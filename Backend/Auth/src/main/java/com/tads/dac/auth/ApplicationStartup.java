@@ -29,27 +29,32 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
             senha = Encrypt.encriptarSenhaLogin("gerente", salt);
             reg = new Auth("gerente1@gerente.com", senha, salt, "G");
+            rep.save(reg);
+            
             //Salva o gerente 2
             salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
             senha = Encrypt.encriptarSenhaLogin("gerente", salt);
             reg = new Auth("gerente2@gerente.com", senha, salt, "G");
+            rep.save(reg);
             
             //Salva cliente 1
             salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
             senha = Encrypt.encriptarSenhaLogin("1234", salt);
             reg = new Auth("user1@user.com", senha, salt, "G");      
+            rep.save(reg);
             
             //Salva cliente 2
             salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
             senha = Encrypt.encriptarSenhaLogin("1234", salt);
             reg = new Auth("user2@user.com", senha, salt, "G");
+            rep.save(reg);
             
             //Salva cliente 2
             salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
             senha = Encrypt.encriptarSenhaLogin("1234", salt);
             reg = new Auth("user3@user.com", senha, salt, "G");
-            
             rep.save(reg);
+            
         } catch (EncryptionException ex) {
             System.out.println("Excessão ao erro: " + ex.getMessage());
         }
