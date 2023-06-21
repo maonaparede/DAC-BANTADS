@@ -51,29 +51,30 @@ public class ContaService{
     @Autowired
     private ProducerContaSync mensagemProducer;
     
-    public ContaDTO save(Long idCliente) throws ContaConstraintViolation{
-        try{
-            ContaCUD savConta = new ContaCUD();
-            savConta.setSaldo(BigDecimal.ZERO);
-            savConta.setSituacao("E");
-            savConta.setLimite(BigDecimal.ZERO);
-            savConta.setIdCliente(idCliente);
-            savConta.setIdConta(null);
-            savConta.setDataAproRep(null);
-            savConta.setDataCriacao(null);
+    public ClienteContaInfoDTO getContaByIdCliente(Long idCliente) throws ClienteNotFoundException{
+        Optional<ContaR> conta = repR.findByIdCliente(idCliente);
+        if(conta.isPresent()){
+            ContaDTO dto = mapper.map(conta.get(), ContaDTO.class);
             
-            savConta = repCUD.save(savConta);
+            ClienteContaInfoDTO dtoInfo = new ClienteContaInfoDTO();
             
-            ContaDTO dto = mapper.map(savConta, ContaDTO.class);
-            mensagemProducer.syncConta(dto);
+            dtoInfo.setIdCliente(dto.getIdCliente());
+            dtoInfo.setIdConta(dto.getIdConta());
+            dtoInfo.setSaldo(dto.getSaldo());
             
-            return dto;
-        }catch(DataIntegrityViolationException e){
-            SQLException ex = ((ConstraintViolationException) e.getCause()).getSQLException();
-            String campo = ex.getMessage();
-            campo = campo.substring(campo.indexOf("(") + 1, campo.indexOf(")"));
-            throw new ContaConstraintViolation("Esse " + campo + " já existe!");
+            
+            Optional<ClienteR> cliente = repClienteR.findById(dto.getIdCliente());
+            if(cliente.isPresent()){
+                ClienteContaDTO dtoCliente = mapper.map(cliente, ClienteContaDTO.class);
+                dtoInfo.setCpf(dtoCliente.getCpf());
+                dtoInfo.setNome(dtoCliente.getNome());
+                dtoInfo.setCidade(dtoCliente.getCidade());
+                dtoInfo.setEstado(dtoCliente.getEstado());
+            }
+            return dtoInfo;
         }
+        
+        throw new ClienteNotFoundException("O Cliente com essa conta não existe");
     }
     
     

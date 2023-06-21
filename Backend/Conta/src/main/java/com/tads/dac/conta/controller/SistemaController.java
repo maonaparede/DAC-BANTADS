@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping("/api/sys/cli")
 public class SistemaController {
     
@@ -53,7 +54,7 @@ public class SistemaController {
         return new ResponseEntity<>(contaList, HttpStatus.OK);
     }
     
-    //R12
+    //R12 - R13
     @GetMapping("/ger/myCli/{id}")
     public ResponseEntity<?> getAllClientesGerente(@PathVariable(value = "id") Long id){     
         List<ClienteContaInfoDTO> dto = servSys.clientesDoGerente(id);
@@ -71,14 +72,6 @@ public class SistemaController {
     @GetMapping("/adm/RelCli")
     public ResponseEntity<?> getRelatorioClientes(){     
         List<RelatorioClienteDTO> dto = servSys.relatorioClientes();
-        return new ResponseEntity<>(dto, HttpStatus.OK);
-    }
-    
-    
-    //R12
-    @GetMapping("/ger/allCli/{id}")
-    public ResponseEntity<?> getAllClientes(@PathVariable(value = "id") Long id){     
-        List<ClienteContaInfoDTO> dto = servSys.getAllClientes(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
     

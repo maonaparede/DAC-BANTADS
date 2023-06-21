@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping("/api/saga")
 public class SagaController {
     
@@ -75,7 +75,7 @@ public class SagaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    //R18
+    //R10
     @PutMapping("/cli/apro/{id}")
     public ResponseEntity<?> sagaAprovaCliente(@PathVariable("id") Long id){      
         aprovaClienteServ.initSagaAutocadastro(id);

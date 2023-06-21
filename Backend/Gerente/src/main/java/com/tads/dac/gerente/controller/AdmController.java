@@ -25,16 +25,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-@CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping("/api/adm")
 public class AdmController {
        
     @Autowired
     private AdmServiceImp service;
-    
-    @Autowired
-    private ModelMapper mapper;
     
     //R15
     @GetMapping("/adm") 
@@ -48,6 +45,17 @@ public class AdmController {
     public ResponseEntity<GerenteDTO> getById(@PathVariable(value = "id") Long id){       
         try{
             GerenteDTO gerdto = service.findById(id);
+            return new ResponseEntity<>(gerdto, HttpStatus.OK);
+        }catch(GerenteDoesntExistException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);   
+        }
+    }
+    
+    //R2 para consulta api Composite de login
+    @GetMapping("/ger/email/{email}")
+    public ResponseEntity<GerenteDTO> getByEmail(@PathVariable(value = "email") String email){       
+        try{
+            GerenteDTO gerdto = service.findByEmail(email);
             return new ResponseEntity<>(gerdto, HttpStatus.OK);
         }catch(GerenteDoesntExistException e){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);   

@@ -120,6 +120,15 @@ public class ClienteService {
         throw new ClienteNotFoundException("Esse Cliente Não Existe");
     }
     
+    public ClienteEndDTO getClienteByEmail(String email) throws ClienteNotFoundException{
+        Optional<Cliente> cl = rep.findByEmail(email);
+        if(cl.isPresent()){
+            ClienteEndDTO dto = mapper.map(cl.get(), ClienteEndDTO.class);
+            return dto;
+        }
+        throw new ClienteNotFoundException("Esse Cliente Não Existe");
+    }
+    
     public void rollbackClienteUpdate(MensagemDTO msg){
         try {
             update(msg);

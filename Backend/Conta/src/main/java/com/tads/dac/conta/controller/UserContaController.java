@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping("/api/user")
 public class UserContaController {
     
@@ -45,6 +45,16 @@ public class UserContaController {
         }
     }
     
+    //R2 apiCompose
+    @GetMapping("/idCliente/{id}")
+    public ResponseEntity<?> getContaInfoByIdCliente(@PathVariable("id") Long id){
+        try{
+            ClienteContaInfoDTO dto = contaService.getContaByIdCliente(id);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        }catch(ClienteNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);   
+        }
+    }
     
     //R8
     @GetMapping("/{id}/{dataInicio}/{dataFim}")
