@@ -35,6 +35,8 @@
 </div>
 
 <div *ngIf="deny" class="deny-container">
+  <form (ngSubmit)="doDeny()" [formGroup]="denyForm" class="user-container">
+
   <div class="d-header-container">
     <button class="back-btn" (click)="returnModal()"><i class="fa-solid fa-arrow-left"></i></button>
     <h1 class="d-header-title">Rejeitar</h1>
@@ -42,18 +44,16 @@
   <div class="d-user-container">
     <h1>Dê um motivo <br>
       para a reprovação</h1>
-    <p>Seja o mais claro possível, <br>
-      para que o julgamento seja justo!</p>
-
-      <textarea cols="50" rows="10"></textarea>
-
+    <p>Seja o mais claro possível, <br> para que o julgamento seja justo!</p>
+    <textarea cols="50" rows="10" formControlName="motivo"></textarea>
   </div>
 
   <div class="d-btn-container">
     <button type="submit" class="save-btn">Enviar</button>
   </div>
-
+  </form>
 </div>
+
 <div *ngIf="profile" class="profile-container">
   <div class="p-header-container">
     <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>

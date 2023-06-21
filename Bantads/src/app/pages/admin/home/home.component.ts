@@ -1,18 +1,60 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'manager-home',
+  selector: 'app-admin-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss', '../../../../_utils.scss']
 })
-export class ManagerHomeComponent {
-  inputValue = '';
+export class AdminHomeComponent {
+
+  addManagerForm = new FormGroup({
+    nome: new FormControl(''),
+    email: new FormControl(''),
+    senha: new FormControl(''),
+    confirmarSenha: new FormControl(''),
+    cpf: new FormControl(''),
+    telefone: new FormControl(''),
+    salario: new FormControl(''),
+    cep: new FormControl(''),
+    endereco: new FormControl(''),
+    numero: new FormControl(''),
+    complemento: new FormControl(''),
+    cidade: new FormControl(''),
+    estado: new FormControl(''),
+  });
+
+  updateProfileForm = new FormGroup({
+    nome: new FormControl(''),
+    email: new FormControl(''),
+    senha: new FormControl(''),
+    confirmarSenha: new FormControl(''),
+    cpf: new FormControl(''),
+    telefone: new FormControl(''),
+    salario: new FormControl(''),
+    cep: new FormControl(''),
+    endereco: new FormControl(''),
+    numero: new FormControl(''),
+    complemento: new FormControl(''),
+    cidade: new FormControl(''),
+    estado: new FormControl(''),
+  });
 
   constructor(private http: HttpClient) {}
-
   addManager() {
-    this.http.get('http://localhost:3000/api/waiting').subscribe(
+    this.http.post('http://localhost:3000/api/waiting', {}).subscribe(
+        (response) => {
+          // Manipule a resposta aqui
+        },
+        (error) => {
+          // Manipule o erro aqui
+        }
+    );
+  }
+
+  updateProfileManager() {
+    this.http.post('http://localhost:3000/api/waiting', {}).subscribe(
         (response) => {
           // Manipule a resposta aqui
         },
@@ -23,7 +65,7 @@ export class ManagerHomeComponent {
   }
 
   getManager() {
-    this.http.post('http://localhost:3000/api/deny', { value: this.inputValue }).subscribe(
+    this.http.get('http://localhost:3000/api/deny').subscribe(
         (response) => {
           // Manipule a resposta aqui
         },
@@ -34,7 +76,7 @@ export class ManagerHomeComponent {
   }
 
   getManagers() {
-    this.http.post('http://localhost:3000/api/approve', { value: this.inputValue }).subscribe(
+    this.http.post('http://localhost:3000/api/approve', {}).subscribe(
         (response) => {
           // Manipule a resposta aqui
         },
@@ -67,7 +109,8 @@ export class ManagerHomeComponent {
   }
 
 
-  showModal = true;
+  showModal = false;
+  add = false;
   list = false;
   deny = false;
   profile = true;

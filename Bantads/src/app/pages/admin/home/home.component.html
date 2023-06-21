@@ -5,36 +5,36 @@
       <p class="list-title underline">Adicionar Gerente</p>
     </div>
 
-    <form (ngSubmit)="adicionarGerente()"  [formGroup]='addManagerForm' class="user-container">
+    <form (ngSubmit)="addManager()" [formGroup]="addManagerForm" class="user-container">
       <div class="basic-info">
         <img src="../../../assets/icons/profile-user.png" alt="">
-        <input [(ngModel)]="nome" type="text">
+        <input formControlName="nome" type="text">
         <div class="gray-line"></div>
         <p>Gerente</p>
       </div>
 
       <div class="other-info">
-        <input [(ngModel)]="email" type="text" placeholder="E-mail">
+        <input formControlName="email" type="text" placeholder="E-mail">
         <section class="row-direction">
-          <input [(ngModel)]="senha" type="text" placeholder="Senha">
-          <input [(ngModel)]="confirmarSenha" type="text" placeholder="Confirme a senha">
+          <input formControlName="senha" type="text" placeholder="Senha">
+          <input formControlName="confirmarSenha" type="text" placeholder="Confirme a senha">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="cpf" type="text" placeholder="CPF">
-          <input [(ngModel)]="telefone" type="text" placeholder="Telefone">
+          <input formControlName="cpf" type="text" placeholder="CPF">
+          <input formControlName="telefone" type="text" placeholder="Telefone">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="salario" type="text" placeholder="Salário">
-          <input [(ngModel)]="cep" type="text" placeholder="CEP">
+          <input formControlName="salario" type="text" placeholder="Salário">
+          <input formControlName="cep" type="text" placeholder="CEP">
         </section>
-        <input [(ngModel)]="endereco" type="text" placeholder="Endereço">
+        <input formControlName="endereco" type="text" placeholder="Endereço">
         <section class="row-direction small-input">
-          <input [(ngModel)]="numero" type="text" placeholder="Nº">
-          <input [(ngModel)]="complemento" type="text" placeholder="Complemento">
+          <input formControlName="numero" type="text" placeholder="Nº">
+          <input formControlName="complemento" type="text" placeholder="Complemento">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="estado" type="text" placeholder="Estado">
-          <input [(ngModel)]="cidade" type="text" placeholder="Cidade">
+          <input formControlName="estado" type="text" placeholder="Estado">
+          <input formControlName="cidade" type="text" placeholder="Cidade">
         </section>
       </div>
 
@@ -57,10 +57,10 @@
     </span>
     </div>
 
-    <form (ngSubmit)=" ()" class="user-container">
+    <form (ngSubmit)="updateProfileManager()" [formGroup]="updateProfileForm" class="user-container">
       <div class="basic-info">
         <img src="../../../assets/icons/profile-user.png" alt="">
-        <input [(ngModel)]="nome" type="text">
+        <input formControlName="nome" type="text">
         <div class="gray-line"></div>
         <p>Gerente</p>
         <span class="manager-desc">
@@ -71,27 +71,27 @@
       </div>
 
       <div class="other-info">
-        <input [(ngModel)]="email" type="text" placeholder="E-mail">
+        <input formControlName="email" type="text" placeholder="E-mail">
         <section class="row-direction">
-          <input [(ngModel)]="senha" type="text" placeholder="Senha">
-          <input [(ngModel)]="confirmarSenha" type="text" placeholder="Confirme a senha">
+          <input formControlName="senha" type="text" placeholder="Senha">
+          <input formControlName="confirmarSenha" type="text" placeholder="Confirme a senha">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="cpf" type="text" placeholder="CPF">
-          <input [(ngModel)]="telefone" type="text" placeholder="Telefone">
+          <input formControlName="cpf" type="text" placeholder="CPF">
+          <input formControlName="telefone" type="text" placeholder="Telefone">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="salario" type="text" placeholder="Salário">
-          <input [(ngModel)]="cep" type="text" placeholder="CEP">
+          <input formControlName="salario" type="text" placeholder="Salário">
+          <input formControlName="cep" type="text" placeholder="CEP">
         </section>
-        <input [(ngModel)]="endereco" type="text" placeholder="Endereço">
+        <input formControlName="endereco" type="text" placeholder="Endereço">
         <section class="row-direction small-input">
-          <input [(ngModel)]="numero" type="text" placeholder="Nº">
-          <input [(ngModel)]="complemento" type="text" placeholder="Complemento">
+          <input formControlName="numero" type="text" placeholder="Nº">
+          <input formControlName="complemento" type="text" placeholder="Complemento">
         </section>
         <section class="row-direction">
-          <input [(ngModel)]="estado" type="text" placeholder="Estado">
-          <input [(ngModel)]="cidade" type="text" placeholder="Cidade">
+          <input formControlName="estado" type="text" placeholder="Estado">
+          <input formControlName="cidade" type="text" placeholder="Cidade">
         </section>
       </div>
 

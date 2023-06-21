@@ -11,7 +11,8 @@ import { IUser, IUserLogin } from '../DTOs/IUser';
 })
 export class AuthService {
   currentUser: IUser;
-  private apiUrl = `${environment.url}`;
+  private apiUrlR = 'http://localhost:5005';
+  private apiUrlL = 'http://localhost:5001';
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class AuthService {
     const userData: IUserLogin = { email, senha };
 
     return this.http
-      .post<any>(`${this.apiUrl}/login`, userData, {
+      .post<any>(`${this.apiUrlL}/api/auth/login`, userData, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
         observe: 'response',
       })
@@ -34,8 +35,7 @@ export class AuthService {
   }
 
   createAccount(user: Partial<IUser>): Observable<any> {
-    console.log('ANTES DO RETURN ', user);
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post(`${this.apiUrlR}/api/saga/cli/auto`, user);
   }
 
   logout() {

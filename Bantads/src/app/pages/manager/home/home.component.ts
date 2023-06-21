@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'manager-home',
+  selector: 'app-manager-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss', '../../../../_utils.scss']
 })
 export class ManagerHomeComponent {
-  inputValue = '';
-
+  denyForm = new FormGroup({
+    motivo: new FormControl(''),
+  });
   constructor(private http: HttpClient) {}
 
   getWaiting() {
@@ -23,7 +25,7 @@ export class ManagerHomeComponent {
   }
 
   doDeny() {
-    this.http.post('http://localhost:3000/api/deny', { value: this.inputValue }).subscribe(
+    this.http.post('http://localhost:3000/api/deny', {}).subscribe(
         (response) => {
           // Manipule a resposta aqui
         },
@@ -34,7 +36,7 @@ export class ManagerHomeComponent {
   }
 
   doApprove() {
-    this.http.post('http://localhost:3000/api/approve', { value: this.inputValue }).subscribe(
+    this.http.post('http://localhost:3000/api/approve', {}).subscribe(
         (response) => {
           // Manipule a resposta aqui
         },

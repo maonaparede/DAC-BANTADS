@@ -3,10 +3,10 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../../DTOs/IUser';
-import {FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'client-home',
+  selector: 'app-client-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss', './../../../../_utils.scss'],
 })
@@ -17,9 +17,18 @@ export class ClientHomeComponent {
   contaDestino: string;
   valorTransferencia: number;
 
-  saqueForm: FormGroup;
-  depositoForm: FormGroup;
-  transferenciaForm: FormGroup;
+  depositoForm = new FormGroup({
+    depositValue: new FormControl(''),
+  });
+
+  saqueForm = new FormGroup({
+    valorSaque: new FormControl(''),
+  });
+
+  transferenciaForm = new FormGroup({
+    contaDestino: new FormControl(''),
+    valorTransferencia: new FormControl(''),
+  });
 
   constructor(private authService: AuthService, private http: HttpClient) {
     this.currentUser = this.authService.getCurrentUser();
@@ -42,9 +51,15 @@ export class ClientHomeComponent {
   }
 
   doDeposito() {
-    const data = {}; // Insira os dados do formulário que deseja enviar para o backend
-
-    this.http.post('http://localhost:3000/deposito', data).subscribe(
+    const data = {
+      "id": null,
+      "dataTempo": null,
+      "valor": this.depositoForm.value.depositValue,
+      "operacao": "D",
+      "paraUser": 1,
+      "deUser": null
+    }
+    this.http.post('http://localhost:5003/api/user/op', data).subscribe(
         (response) => {
           // Manipule a resposta aqui
         },

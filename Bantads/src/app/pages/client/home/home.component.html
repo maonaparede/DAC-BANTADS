@@ -6,10 +6,10 @@
     </div>
 
     <div class="content-container">
-      <form (ngSubmit)="doDeposito() [formGroup]='depositoForm'">
+      <form (ngSubmit)="doDeposito()" [formGroup]="depositoForm">
         <div class="op-container">
           <p class="desc">Insira um valor a ser depositado</p>
-          <input type="text" [(ngModel)]="depositValue" name="depositValue">
+          <input type="text" formControlName="depositValue" name="depositValue">
           <div class="line-grey"></div>
           <h1>R$</h1>
         </div>
@@ -38,10 +38,10 @@
     </div>
 
     <div class="content-container">
-      <form (ngSubmit)="doSaque()"  [formGroup]='saqueForm'>
+      <form (ngSubmit)="doSaque()" [formGroup]="saqueForm">
         <div class="op-container">
           <p class="desc">Insira um valor a ser sacado</p>
-          <input [(ngModel)]="valorSaque" type="text" name="valorSaque">
+          <input formControlName="valorSaque" type="text" name="valorSaque">
           <div class="line-grey"></div>
           <h1>R$</h1>
         </div>
@@ -69,16 +69,16 @@
       <p class="transfer-title">Transferência</p>
     </div>
     <div class="content-container">
-      <form (ngSubmit)="doTransferencia()"  [formGroup]='transferenciaForm'>
+      <form (ngSubmit)="doTransferencia()" [formGroup]="transferenciaForm">
         <div class="transfer-container">
         <span class="transfer-info">
           <p>Insira a conta que receberá a transferência</p>
-          <input type="text" [(ngModel)]="contaDestino" name="contaDestino">
+          <input type="text" formControlName="contaDestino" name="contaDestino">
         </span>
           <span class="op-divider"></span>
           <span class="transfer-op">
           <p>Insira o valor da transferência</p>
-          <input type="text" [(ngModel)]="valorTransferencia" name="valorTransferencia">
+          <input type="text" formControlName="valorTransferencia" name="valorTransferencia">
           <h1>R$</h1>
         </span>
         </div>
