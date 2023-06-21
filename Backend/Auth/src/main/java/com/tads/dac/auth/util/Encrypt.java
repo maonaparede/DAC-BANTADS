@@ -53,7 +53,7 @@ public class Encrypt {
     
     public static void main(String[] args) throws EncryptionException {
         System.out.println(gerarSalt(2));
-        String salt = "ffe1e994cb5c48791a194d4436d70290e1a310a789e6691a45bf2d406137ff8c";
+        String salt = Encrypt.gerarSalt(Encrypt.SALT_SIZE);
         String senha = Encrypt.encriptarSenhaLogin("1234", salt);
         //ffe1e994cb5c48791a194d4436d70290e1a310a789e6691a45bf2d406137ff8c
         //3938A75E06A96619F2D3BA83ED083E813DBF8B2995F335BDCC59F432095A1FD9
