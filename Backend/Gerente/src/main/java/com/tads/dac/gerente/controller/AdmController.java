@@ -33,9 +33,6 @@ public class AdmController {
     @Autowired
     private AdmServiceImp service;
     
-    @Autowired
-    private ModelMapper mapper;
-    
     //R15
     @GetMapping("/adm") 
     public ResponseEntity<List<GerenteDashboardDTO>> telaInicial(){

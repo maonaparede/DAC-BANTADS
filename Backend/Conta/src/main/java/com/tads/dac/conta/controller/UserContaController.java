@@ -45,6 +45,7 @@ public class UserContaController {
         }
     }
     
+    //R2 apiCompose
     @GetMapping("/idCliente/{id}")
     public ResponseEntity<?> getContaInfoByIdCliente(@PathVariable("id") Long id){
         try{

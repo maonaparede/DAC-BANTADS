@@ -75,7 +75,7 @@ public class SagaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    //R18
+    //R10
     @PutMapping("/cli/apro/{id}")
     public ResponseEntity<?> sagaAprovaCliente(@PathVariable("id") Long id){      
         aprovaClienteServ.initSagaAutocadastro(id);

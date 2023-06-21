@@ -141,13 +141,6 @@ app.get('/RelatorioClientAdm', (req, res, next) => {
     next();
 }, accountServiceProxy);
 
-//R12
-app.get('/AllClientManager', (req, res, next) => {
-    req.method = 'GET';
-    gerenteId = req.gerenteId;
-    req.url = `${contaSysUrl}/ger/allCli/${gerenteId}`;
-    next();
-}, accountServiceProxy);
 
 //Operações do cliente
 

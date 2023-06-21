@@ -21,12 +21,6 @@ public class SysAdmService {
     @Autowired
     private ClienteRepositoryR repCliente;
     
-    ///R12
-    public List<ClienteContaInfoDTO> getAllClientes(Long id){
-        List<Tuple> lst = repCliente.getAllClientes(id);
-        List<ClienteContaInfoDTO> lista = mapTupleClienteContaInfo(lst);
-        return lista;
-    }
     
     //R14
     public List<ClienteContaInfoDTO> get3MaioresSaldoClientes(Long id){
