@@ -1,0 +1,240 @@
+<app-modal *ngIf="showModal">
+  <div *ngIf="deposito">
+    <div class="header-container">
+      <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+      <p class="deposit-title">Depósito</p>
+    </div>
+
+    <div class="content-container">
+      <form (ngSubmit)="doDeposito()" [formGroup]="depositoForm">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser depositado</p>
+          <input type="text" formControlName="depositValue" name="depositValue">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
+        <span class="actual-balance">
+          <h1>Saldo atual</h1>
+          <p>1.000</p>
+        </span>
+          <span class="post-balance">
+          <h1>Saldo pós-operação</h1>
+          <p>1.000</p>
+        </span>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Depositar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="saque">
+    <div class="header-container">
+      <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+      <p class="withdraw-title">Saque</p>
+    </div>
+
+    <div class="content-container">
+      <form (ngSubmit)="doSaque()" [formGroup]="saqueForm">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser sacado</p>
+          <input formControlName="valorSaque" type="text" name="valorSaque">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
+        <span class="actual-balance">
+          <h1>Saldo atual</h1>
+          <p>1.000</p>
+        </span>
+          <span class="post-balance">
+          <h1>Saldo pós-operação</h1>
+          <p>1.000</p>
+        </span>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Sacar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="transferencia">
+    <div class="header-container">
+      <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+      <p class="transfer-title">Transferência</p>
+    </div>
+    <div class="content-container">
+      <form (ngSubmit)="doTransferencia()" [formGroup]="transferenciaForm">
+        <div class="transfer-container">
+        <span class="transfer-info">
+          <p>Insira a conta que receberá a transferência</p>
+          <input type="text" formControlName="contaDestino" name="contaDestino">
+        </span>
+          <span class="op-divider"></span>
+          <span class="transfer-op">
+          <p>Insira o valor da transferência</p>
+          <input type="text" formControlName="valorTransferencia" name="valorTransferencia">
+          <h1>R$</h1>
+        </span>
+        </div>
+
+        <div class="balance-status-container">
+        <span class="actual-balance">
+          <h1>Saldo atual:</h1>
+          <p>1.000</p>
+        </span>
+          <span class="post-balance">
+          <h1>Saldo pós-operação:</h1>
+          <p>1.000</p>
+        </span>
+        </div>
+
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Transferir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="extrato">
+    <div class="header-container">
+      <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
+      <p class="bstatement-title">Extrato</p>
+    </div>
+    <div class="bstatement-container">
+      <div class="bstatement-header">
+        <th class="th-date">Data<br>Hora</th>
+        <th class="th-op">Operação</th>
+        <th class="th-client">Cliente origem<br>Cliente destino</th>
+        <th class="th-value">Valor</th>
+      </div>
+      <div class="bstatement-list">
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+      <tr class="bstatement-tr">
+        <td class="th-date">23/04/2023<br>13:43</td>
+        <td class="th-op">Transferência</td>
+        <td class="th-client">Arthur<br>Alexandre</td>
+        <td class="th-value">1.256</td>
+      </tr>
+
+    </div>
+      <div class="bstatement-status">
+        <p>Saldo consolidado no dia (*)</p>
+        <h1>1.000</h1>
+      </div>
+  </div>
+  </div>
+</app-modal>
+
+<app-navbar></app-navbar>
+
+<body>
+  <main>
+    <div class="balance-container column-direction">
+      <div class="content column-direction">
+        <h1>Saldo</h1>
+        <div class="line-yellow"></div>
+        <div class="numbers-border column-direction">
+          <p class="balance">1,000.00</p>
+          <div class="line-grey"></div>
+          <p>R$</p>
+        </div>
+
+        <h1>Crédito</h1>
+        <div class="line-yellow"></div>
+        <div class="numbers-border column-direction">
+          <p class="credit">1,000.00</p>
+          <div class="line-grey"></div>
+          <p>R$</p>
+        </div>
+      </div>
+    </div>
+    <div class="divider">
+      <div class="yellow-divider"></div>
+    </div>
+    <div class="actions-container row-direction">
+      <div class="deposit column-direction">
+        <img src="../../../../assets/icons/deposit.png" alt="">
+        <button class="fill-bottom" type="button" (click)="openModal(1)">Depósito</button>
+
+      </div>
+      <div class="withdraw column-direction">
+        <img src="../../../../assets/icons/withdraw.png" alt="">
+        <button class="fill-top" type="button" (click)="openModal(2)">Saque</button>
+      </div>
+      <div class="transfer column-direction">
+        <img src="../../../../assets/icons/transferir.png" alt="">
+        <button class="fill-left" type="button" (click)="openModal(3)">Transferência</button>
+      </div>
+      <div class="bank-statement column-direction">
+        <img src="../../../../assets/icons/extrato-bancario.png" alt="">
+        <button class="fill-right" type="button" (click)="openModal(4)">Extrato</button>
+      </div>
+    </div>
+  </main>
+</body>

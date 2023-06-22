@@ -1,0 +1,152 @@
+<app-center-modal *ngIf="showModal">
+  <div *ngIf="add" class="add-container">
+    <div class="header-container">
+      <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+      <p class="list-title underline">Adicionar Gerente</p>
+    </div>
+
+    <form (ngSubmit)="addManager()" [formGroup]="addManagerForm" class="user-container">
+      <div class="basic-info">
+        <img src="../../../assets/icons/profile-user.png" alt="">
+        <input formControlName="nome" type="text">
+        <div class="gray-line"></div>
+        <p>Gerente</p>
+      </div>
+
+      <div class="other-info">
+        <input formControlName="email" type="text" placeholder="E-mail">
+        <section class="row-direction">
+          <input formControlName="senha" type="text" placeholder="Senha">
+          <input formControlName="confirmarSenha" type="text" placeholder="Confirme a senha">
+        </section>
+        <section class="row-direction">
+          <input formControlName="cpf" type="text" placeholder="CPF">
+          <input formControlName="telefone" type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+          <input formControlName="salario" type="text" placeholder="Salário">
+          <input formControlName="cep" type="text" placeholder="CEP">
+        </section>
+        <input formControlName="endereco" type="text" placeholder="Endereço">
+        <section class="row-direction small-input">
+          <input formControlName="numero" type="text" placeholder="Nº">
+          <input formControlName="complemento" type="text" placeholder="Complemento">
+        </section>
+        <section class="row-direction">
+          <input formControlName="estado" type="text" placeholder="Estado">
+          <input formControlName="cidade" type="text" placeholder="Cidade">
+        </section>
+      </div>
+
+      <div class="btn-container">
+        <button type="submit" class="save-btn">Adicionar</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="profile" class="profile-container">
+    <div class="header-container">
+    <span class="header-lside">
+      <button class="back-btn" (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></button>
+    </span>
+      <span class="header-center">
+      <p class="profile-title underline">Informações</p>
+    </span>
+      <span class="header-rside">
+      <button><i class="fa fa-trash"></i></button>
+    </span>
+    </div>
+
+    <form (ngSubmit)="updateProfileManager()" [formGroup]="updateProfileForm" class="user-container">
+      <div class="basic-info">
+        <img src="../../../assets/icons/profile-user.png" alt="">
+        <input formControlName="nome" type="text">
+        <div class="gray-line"></div>
+        <p>Gerente</p>
+        <span class="manager-desc">
+        <p>Clientes:</p>
+        <p style="color:red">Saldo negativo:</p>
+        <p style="color:green">Saldo positivo:</p>
+      </span>
+      </div>
+
+      <div class="other-info">
+        <input formControlName="email" type="text" placeholder="E-mail">
+        <section class="row-direction">
+          <input formControlName="senha" type="text" placeholder="Senha">
+          <input formControlName="confirmarSenha" type="text" placeholder="Confirme a senha">
+        </section>
+        <section class="row-direction">
+          <input formControlName="cpf" type="text" placeholder="CPF">
+          <input formControlName="telefone" type="text" placeholder="Telefone">
+        </section>
+        <section class="row-direction">
+          <input formControlName="salario" type="text" placeholder="Salário">
+          <input formControlName="cep" type="text" placeholder="CEP">
+        </section>
+        <input formControlName="endereco" type="text" placeholder="Endereço">
+        <section class="row-direction small-input">
+          <input formControlName="numero" type="text" placeholder="Nº">
+          <input formControlName="complemento" type="text" placeholder="Complemento">
+        </section>
+        <section class="row-direction">
+          <input formControlName="estado" type="text" placeholder="Estado">
+          <input formControlName="cidade" type="text" placeholder="Cidade">
+        </section>
+      </div>
+
+      <div class="btn-container">
+        <button type="submit" class="save-btn">Salvar</button>
+      </div>
+    </form>
+  </div>
+
+
+</app-center-modal>
+
+<app-navbar></app-navbar>
+
+<body>
+  <main>
+    <div id="lside-container" >
+      <div class="title">
+        <p class="p-title underline">Gerentes</p>
+        <button (click)="openModal(1)">Adicionar Gerente</button>
+      </div>
+      <div class="cards-container">
+        <div class="card" (click)="openModal(2)">
+          <img class="card-img" src="../../../../assets/icons/manager.png" alt="Gerente">
+          <h1 class="underline"><strong>Gerente</strong></h1>
+          <div class="p-container">
+            <p class="underline"><strong>CPF</strong></p>
+            <p>000.000.000-00</p>
+          </div>
+          <div class="p-container">
+            <p class="underline"><strong>E-mail</strong></p>
+            <p>email@email.com</p>
+          </div>
+          <div class="p-container">
+            <p class="underline"><strong>Telefone</strong></p>
+            <p>(41) 9 0000-0000</p>
+          </div>
+        </div>
+        <div class="card"></div>
+
+        <div class="card"></div>
+
+        <div class="card"></div>
+
+        <div class="card"></div>
+
+        <div class="card"></div>
+
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div id="rside-container">
+      <img src="../../../../assets/icons/users.png" alt="Clientes">
+      <a href="list">Relatório de clientes</a>
+    </div>
+
+  </main>
+</body>

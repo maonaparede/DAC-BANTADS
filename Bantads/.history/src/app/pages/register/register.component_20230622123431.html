@@ -1,0 +1,109 @@
+<body>
+<main>
+  <div id='form-container'>
+    <div class='title'>
+      <h1>Informações Básicas</h1>
+      <div class='line'></div>
+    </div>
+
+    <form (ngSubmit)="register()" [formGroup]='registerForm'>
+      <div class='basic-form'>
+        <div class='basic-form-left-container'>
+          <section class='basic-form-left'>
+            <div class='form-group'>
+              <input formControlName='name' id='nome' name='name' placeholder='* Nome' required type='text'>
+              <input formControlName='email' id='email' name='email' placeholder='* E-mail' required
+                     type='email'>
+              <input
+                id='senha'
+                name='password'
+                placeholder='* Insira a senha'
+                required
+                type='password'
+              >       
+            </div>
+          </section>
+        </div>
+
+        <div class='basic-form-right-container'>
+          <section class='basic-form-right form-group-column'>
+              <input CpfValidator
+                     formControlName='cpf'
+                     id='cpf'
+                     mask='000.000.000-00'
+                     name='cpf'
+                     placeholder='* CPF'
+                     required
+                     type='text'>
+              <input formControlName='phone' id='telefone' mask='(00) 00000-0000' name='phone'
+                     placeholder='* Telefone'
+                     type='text'>
+              <input [decimalMarker]="','" [thousandSeparator]="'.'" formControlName='salary'
+                     id='salario'
+                     mask='separator.2'
+                     name='salary'
+                     placeholder='* Salário'
+                     prefix='R$ '
+                     type='text'>
+          </section>
+        </div>
+      </div>
+      <div class='local-title'>
+        <h1>Informações de Localização</h1>
+        <div class='line'></div>
+      </div>
+      <div class='local-form'>
+        <div class='local-form-left-container'>
+          <section class='local-form-left form-group-column'>
+              <input #cep
+                     (change)='getAddress(cep.value)'
+                     formControlName='cep'
+                     id='cep'
+                     mask='00000-000'
+                     name='cep'
+                     placeholder='* CEP'
+                     type='text'
+              >
+              <input formControlName='complement' id='complemento' name='complement' placeholder='Complemento'
+                     type='text'>
+          </section>
+        </div>
+        <div class='local-form-right-container'>
+          <section class='local-form-right form-group-column'>
+
+              <div class='form-group-row space-between'>
+                <input [value]='this.address' formControlName='address'
+                       id='endereco'
+                       name='address'
+                       placeholder='Endereço'
+                       readonly type='text'>
+                <input formControlName='number' id='numero' name='number' placeholder='* N°'
+                       type='number'>
+              </div>
+              <div class='form-group-row space-between'>
+                <input [value]='this.state' formControlName='state' id='estado' name='state' placeholder='Estado'
+                       readonly
+                       type='text'>
+                <input [value]='this.city' formControlName='city' id='cidade' name='city' placeholder='Cidade' readonly
+                       type='text'>
+              </div>
+          </section>
+        </div>
+      </div>
+      <div class="btn-position">
+      <button class='fill' type='submit'>REGISTRAR-SE</button>
+    </div>
+
+    </form>
+
+  </div>
+  <div id='logo-container'>
+    <a class='back-btn' href='login'> <i class="fa-solid fa-arrow-left"></i></a>
+    <div class='text'>
+      <h1>Bem-vindo ao<br> Bantads!</h1>
+      <p>Preencha o formulário ao lado para fazer parte do nosso time!</p>
+    </div>
+    <img alt='Bantads Logo' src='../../../assets/icons/logo.png'>
+  </div>
+</main>
+</body>

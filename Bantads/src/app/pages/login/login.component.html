@@ -1,0 +1,48 @@
+<body>
+<div class='limiter'>
+  <div class='container-login100'>
+    <div class='wrap-login100'>
+      <form (ngSubmit)='login()' [formGroup]="loginForm" class='login100-form validate-form'>
+					<span class='login100-form-title p-b-26'>
+					</span>
+
+        <span class='login100-form-title p-b-48'>
+						<i><img alt='' src='../../../assets/icons/logo.png'></i>
+					</span>
+
+        <div class='wrap-input100 validate-input' data-validate='E-mail válido: a@b.c'>
+          <input class='input100' formControlName='email' name='email' type='text'>
+          <span class='focus-input100' data-placeholder='E-mail'></span>
+        </div>
+
+        <div class='wrap-input100 validate-input' data-validate='Senha deve conter de 8-16 caracteres.'>
+						<span class='btn-show-pass'>
+							<i class='zmdi zmdi-eye'></i>
+						</span>
+          <input class='input100' formControlName='password' name='password' type='password'>
+          <span class='focus-input100' data-placeholder='Senha'></span>
+        </div>
+
+        <div class='container-login100-form-btn'>
+          <div class='wrap-login100-form-btn'>
+            <div class='login100-form-bgbtn'></div>
+            <button class='login100-form-btn' type='submit'>
+              ENTRAR
+            </button>
+          </div>
+        </div>
+
+        <div class='text-center p-t-115'>
+						<span class='txt1'>
+                Não tem uma conta?
+						</span>
+
+          <a class='txt2' href='register'>
+            Registrar-se
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
