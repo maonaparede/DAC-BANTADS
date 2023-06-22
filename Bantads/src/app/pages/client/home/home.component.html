@@ -6,28 +6,31 @@
     </div>
 
     <div class="content-container">
-      <div class="op-container">
-        <p class="desc">Insira um valor a ser depositado</p>
-        <input type="text">
-        <div class="line-grey"></div>
-        <h1>R$</h1>
-      </div>
-      <div class="balance-status-container">
+      <form (ngSubmit)="doDeposito()" [formGroup]="depositoForm">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser depositado</p>
+          <input type="text" formControlName="depositValue" name="depositValue">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
         <span class="actual-balance">
           <h1>Saldo atual</h1>
           <p>1.000</p>
         </span>
-        <span class="post-balance">
+          <span class="post-balance">
           <h1>Saldo pós-operação</h1>
           <p>1.000</p>
         </span>
-      </div>
-      <div class="btn-container">
-        <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
-        <button class="confirm-btn">Depositar</button>
-      </div>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Depositar</button>
+        </div>
+      </form>
     </div>
   </div>
+
   <div *ngIf="saque">
     <div class="header-container">
       <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
@@ -35,65 +38,70 @@
     </div>
 
     <div class="content-container">
-      <div class="op-container">
-        <p class="desc">Insira um valor a ser sacado</p>
-        <input type="text">
-        <div class="line-grey"></div>
-        <h1>R$</h1>
-      </div>
-      <div class="balance-status-container">
+      <form (ngSubmit)="doSaque()" [formGroup]="saqueForm">
+        <div class="op-container">
+          <p class="desc">Insira um valor a ser sacado</p>
+          <input formControlName="valorSaque" type="text" name="valorSaque">
+          <div class="line-grey"></div>
+          <h1>R$</h1>
+        </div>
+        <div class="balance-status-container">
         <span class="actual-balance">
           <h1>Saldo atual</h1>
           <p>1.000</p>
         </span>
-        <span class="post-balance">
+          <span class="post-balance">
           <h1>Saldo pós-operação</h1>
           <p>1.000</p>
         </span>
-      </div>
-      <div class="btn-container">
-        <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
-        <button class="confirm-btn">Sacar</button>
-      </div>
+        </div>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Sacar</button>
+        </div>
+      </form>
     </div>
-
   </div>
+
   <div *ngIf="transferencia">
     <div class="header-container">
       <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
       <p class="transfer-title">Transferência</p>
     </div>
     <div class="content-container">
-    <div class="transfer-container ">
-      <span class="transfer-info ">
-        <p>Insira a conta que receberá a transferência</p>
-        <input type="text">
-      </span>
-      <span class="op-divider"></span>
-      <span class="transfer-op ">
-        <p>Insira o valor da transferência</p>
-        <input type="text" name="" id="">
-        <h1>R$</h1>
-      </span>
-    </div>
+      <form (ngSubmit)="doTransferencia()" [formGroup]="transferenciaForm">
+        <div class="transfer-container">
+        <span class="transfer-info">
+          <p>Insira a conta que receberá a transferência</p>
+          <input type="text" formControlName="contaDestino" name="contaDestino">
+        </span>
+          <span class="op-divider"></span>
+          <span class="transfer-op">
+          <p>Insira o valor da transferência</p>
+          <input type="text" formControlName="valorTransferencia" name="valorTransferencia">
+          <h1>R$</h1>
+        </span>
+        </div>
 
-    <div class="balance-status-container">
-      <span class="actual-balance">
-        <h1>Saldo atual:</h1>
-        <p>1.000</p>
-      </span>
-      <span class="post-balance">
-        <h1>Saldo pós-operação:</h1>
-        <p>1.000</p>
-      </span>
-    </div>
+        <div class="balance-status-container">
+        <span class="actual-balance">
+          <h1>Saldo atual:</h1>
+          <p>1.000</p>
+        </span>
+          <span class="post-balance">
+          <h1>Saldo pós-operação:</h1>
+          <p>1.000</p>
+        </span>
+        </div>
 
-    <div class="btn-container">
-      <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
-      <button class="confirm-btn">Transferir</button>
+        <div class="btn-container">
+          <button class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="confirm-btn">Transferir</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
+
   <div *ngIf="extrato">
     <div class="header-container">
       <Button (click)="closeModal()"><i class="fa-solid fa-arrow-left"></i></Button>
