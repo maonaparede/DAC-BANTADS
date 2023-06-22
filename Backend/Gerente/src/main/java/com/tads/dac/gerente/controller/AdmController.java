@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/adm")
 public class AdmController {
        

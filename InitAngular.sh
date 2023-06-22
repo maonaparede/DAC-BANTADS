@@ -1,4 +1,0 @@
-
-cd Bantads
-
-ng serve

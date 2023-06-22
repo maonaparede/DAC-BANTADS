@@ -12,5 +12,4 @@ cd ..
 
 cd Bantads
 
-npm install
 

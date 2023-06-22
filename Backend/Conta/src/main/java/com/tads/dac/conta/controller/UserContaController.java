@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/user")
 public class UserContaController {
     

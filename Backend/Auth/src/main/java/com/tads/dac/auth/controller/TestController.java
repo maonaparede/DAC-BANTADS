@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TestController {
     //Só pra testar o api gateway
     @GetMapping("/")
