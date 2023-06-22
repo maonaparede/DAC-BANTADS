@@ -112,10 +112,8 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login2(login).subscribe(
       (response: any) => {
-        if (response.success) {
           localStorage.setItem('token', response.data);
           this.router.navigate(['/client']);
-        }
       },
       ({ error }) => {
         alert('Erro no login')
