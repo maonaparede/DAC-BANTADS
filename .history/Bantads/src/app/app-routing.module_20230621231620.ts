@@ -13,9 +13,9 @@ const routes: Routes = [
     path: '',
     component: ClientHomeComponent,
     children: [
-      //{ path: '', component: AdminHomeComponent },
-      //{ path: 'client', component: ClientHomeComponent },
-      //{ path: 'manager', component: ManagerHomeComponent }
+      { path: '', component: AdminHomeComponent },
+      { path: 'client', component: ClientHomeComponent },
+      { path: 'manager', component: ManagerHomeComponent }
     ],
     canActivate: [AuthGuard],
     data: {
@@ -29,10 +29,6 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'login' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'client', component: ClientHomeComponent },
-      { path: 'manager', component: ManagerHomeComponent },
-      { path: '', component: AdminHomeComponent }
-
     ],
   },
 ];
