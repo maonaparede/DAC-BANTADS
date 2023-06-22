@@ -1,0 +1,4 @@
+
+cd Bantads
+
+ng serve
