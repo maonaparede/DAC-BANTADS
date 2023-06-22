@@ -5,7 +5,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { IUserLogin } from 'src/app/DTOs/IUser';
-import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -110,16 +109,8 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.value.email,
       senha: this.loginForm.value.password,
     }
-    this.authService.login2(login).subscribe(
-      (response: any) => {
-        if (response.success) {
-          localStorage.setItem('token', response.data);
-          this.router.navigate(['/login']);
-        }
-      },
-      ({ error }) => {
-        alert('Erro no login')
-      }
-    );
+    this.authService.login2(login).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }

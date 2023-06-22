@@ -44,7 +44,19 @@ export class AuthService {
   login2(user: IUserLogin): Observable<any> {
     const userData: IUserLogin = user
 
-    return this.http.post(`${this.urlGateway}/api/auth/login`, userData);
+    return this.http
+      .post<any>(`${this.urlGateway}/api/auth/login`, userData, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        observe: 'response',
+      })
+      .pipe(
+        tap(response => {
+          console.log('aaaa:' +response);
+          const token = response.body.token;
+          this.currentUser = response.body.user;
+          localStorage.setItem('token', token ? token : '');
+        }),
+      );
   }
 
   createAccount2(user: IUserAutocadastro): Observable<any> {

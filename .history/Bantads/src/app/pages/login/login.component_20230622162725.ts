@@ -110,16 +110,15 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.value.email,
       senha: this.loginForm.value.password,
     }
-    this.authService.login2(login).subscribe(
-      (response: any) => {
-        if (response.success) {
-          localStorage.setItem('token', response.data);
-          this.router.navigate(['/login']);
-        }
+    this.authService.login2(login).subscribe(() => {
+      () => {
+        // Caso de sucesso (resposta OK)
+        this.router.navigate(['/']);
       },
-      ({ error }) => {
-        alert('Erro no login')
+      error => {
+        // Caso de erro
+        alert('Erro ao fazer login');
       }
-    );
+    });
   }
 }

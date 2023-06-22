@@ -44,7 +44,7 @@ export class AuthService {
   login2(user: IUserLogin): Observable<any> {
     const userData: IUserLogin = user
 
-    return this.http.post(`${this.urlGateway}/api/auth/login`, userData);
+    return  this.http.post(`${this.urlGateway}/api/auth/login`, userData);
   }
 
   createAccount2(user: IUserAutocadastro): Observable<any> {
